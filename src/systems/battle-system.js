@@ -2,21 +2,22 @@ import { BALANCE, deriveResources } from "../config/balance.js";
 import { clamp } from "../core/validators.js";
 
 export function makePlayerCombatant(character, skillCatalog) {
-  const resources = deriveResources(character.stats);
+  const effectiveStats=character.effectiveStats??character.stats;const resources = deriveResources(effectiveStats);
   return {
-    id: character.id, name: character.name, side: "party", stats: {...structuredClone(character.stats),agility:Math.round(character.stats.agility*(1+(character.speedPct??0)))}, damageMultiplier:1+(character.damagePct??0), postureDamageMultiplier:1+(character.postureDamagePct??0),
+    id: character.id, name: character.name, side: "party", stats: {...structuredClone(effectiveStats),agility:Math.round(effectiveStats.agility*(1+(character.speedPct??0))+(character.speedFlat??0))}, damageMultiplier:1+(character.damagePct??0), situationalDamagePct:character.situationalDamagePct??0, lateTurnDamagePct:character.lateTurnDamagePct??0, postureDamageMultiplier:1+(character.postureDamagePct??0), weaponDamageFlat:character.weaponDamageFlat??0, weaponPostureFlat:character.weaponPostureFlat??0, damageReduction:character.damageReduction??0, normalAttackReductionPct:character.normalAttackReductionPct??0, postureDamageTakenPct:character.postureDamageTakenPct??0, controlResist:character.controlResist??0, innerRegenRate:character.innerRegenRate??.03, healingPct:character.healingPct??0, observationPct:character.observationPct??0, guardReductionPct:character.guardReductionPct??0, survivalHealPct:character.survivalHealPct??0, survivalTriggered:false,
     maxHp: character.maxHp ?? resources.maxHp, hp: character.maxHp ?? resources.maxHp,
     maxPosture: character.maxPosture ?? resources.maxPosture, posture: character.maxPosture ?? resources.maxPosture,
     maxInner: character.maxInner ?? resources.maxInner, inner: character.maxInner ?? resources.maxInner,
-    skills: character.equippedSkills.map(id => skillCatalog.find(skill => skill.id === id)).filter(Boolean),
+    skills: character.equippedSkills.map(id => {const skill=skillCatalog.find(entry=>entry.id===id);const mastery=character.skills?.[id]??{realm:0,completeness:1};if(!skill)return null;const scale=Math.max(.01,mastery.completeness)*(1+mastery.realm*.05);return {...skill,power:{hp:Math.round(skill.power.hp*scale),posture:Math.round(skill.power.posture*scale)},innerCost:Math.max(0,Math.round(skill.innerCost*(1-mastery.realm*.03)))};}).filter(Boolean),
     statuses: [], intent: null, defended: false, guard: null, dodge: 0, vulnerableTurns: 0, observed: 0, consumablesUsed: 0, stableKey: 10
   };
 }
 
-export function makeNpcCompanion(name = "陸小川", skillCatalog = []) {
-  const stats = { strength:22, constitution:24, agility:30, comprehension:26, willpower:20 };
+export function makeNpcCompanion(definition = "陸小川", skillCatalog = [], chapter=1) {
+  const npc=typeof definition==="string"?{id:"npc_001",name:definition,role:"攻擊／身法"}:definition;const index=Number(npc.id?.split("_").at(-1)??1);const growth=Math.min(14,Math.max(0,chapter-1)*2);const role=npc.role??"攻擊";const stats={strength:22,constitution:24,agility:24,comprehension:22,willpower:20};if(role.includes("攻擊"))stats.strength+=6;if(role.includes("身法"))stats.agility+=6;if(role.includes("防禦")||role.includes("護衛"))stats.constitution+=7;if(role.includes("控制"))stats.comprehension+=6;if(role.includes("治療"))stats.willpower+=6;stats.strength+=growth;stats.constitution+=growth;stats.agility+=growth;
   const resources = deriveResources(stats);
-  return { id:"npc_001", name, side:"party", stats, ...resources, hp:resources.maxHp, posture:resources.maxPosture, inner:resources.maxInner, skills: ["流雲劍","踏草步"].map(skillName=>skillCatalog.find(s=>s.name===skillName)).filter(Boolean), statuses:[], intent:null, defended:false, guard:null, dodge:0, vulnerableTurns:0, observed:0, consumablesUsed:0, stableKey:11 };
+  const wantedTypes=[role.includes("治療")?"defense":null,role.includes("控制")?"control":null,role.includes("防禦")?"defense":null,role.includes("護衛")?"guard":null,role.includes("身法")?"mobility":null,"attack"].filter(Boolean);const candidates=skillCatalog.filter(skill=>wantedTypes.includes(skill.type));const selected=npc.id==="npc_001"?["流雲劍","踏草步"].map(skillName=>skillCatalog.find(skill=>skill.name===skillName)).filter(Boolean):[candidates[index%candidates.length],candidates[(index+7)%candidates.length]].filter(Boolean);
+  return { id:npc.id, name:npc.name, side:"party", stats, ...resources, hp:resources.maxHp, posture:resources.maxPosture, inner:resources.maxInner, skills:selected, statuses:[], intent:null, defended:false, guard:null, dodge:0, vulnerableTurns:0, observed:0, consumablesUsed:0, stableKey:10+index };
 }
 
 export function makeEnemy(definition, skillCatalog, partySize = 2) {
@@ -49,42 +50,46 @@ export class BattleSystem {
     if (hero) actions.push({actor:hero, action:playerAction});
     for (const ally of this.living("party").slice(1)) actions.push({actor:ally,action:this.chooseAllyAction(ally)});
     for (const enemy of this.living("enemy")) actions.push({actor:enemy,action:this.chooseEnemyAction(enemy,true)});
-    actions.sort((a,b)=>(b.actor.stats.agility-a.actor.stats.agility)||(a.actor.stableKey-b.actor.stableKey));
-    for (const entry of actions) if (entry.actor.hp>0 && !this.finished) this.resolve(entry.actor,entry.action);
+    actions.sort((a,b)=>(effectiveAgility(b.actor)-effectiveAgility(a.actor))||(a.actor.stableKey-b.actor.stableKey));
+    for (const [index,entry] of actions.entries()) if (entry.actor.hp>0 && !this.finished){entry.actor.actedAfterEnemy=actions.slice(0,index).some(previous=>previous.actor.side!==entry.actor.side);this.resolve(entry.actor,entry.action);}
     this.endRound();
     return this.snapshot();
   }
   chooseAllyAction(actor) { const target=this.living("enemy").toSorted((a,b)=>a.hp-b.hp)[0]; const skill=actor.skills.find(s=>s.innerCost<=actor.inner && s.type==="attack"); return skill?{type:"skill",skillId:skill.id,targetId:target?.id}:{type:"attack",targetId:target?.id}; }
   resolve(actor, action) {
-    actor.defended=false; actor.guard=null; actor.dodge=0;
-    if (action.type === "defend") { actor.defended=true; this.log.push(`${actor.name}沉身守勢。`); return; }
-    if (action.type === "observe") { const target=this.find(action.targetId)??this.living("enemy")[0]; if(target){target.observed=Math.min(3,target.observed+1); this.log.push(`${actor.name}觀察${target.name}：${target.observeInfo?.[0]??"呼吸與步法露出些許端倪"}。`);} return; }
+    actor.defended=false; actor.defenseHpReduction=0;actor.defensePostureReduction=0; actor.guard=null; actor.dodge=0;
+    if (action.type === "defend") { actor.defended=true;actor.defenseHpReduction=BALANCE.defendHpReduction;actor.defensePostureReduction=BALANCE.defendPostureReduction; this.log.push(`${actor.name}沉身守勢。`); return; }
+    if (action.type === "observe") { const target=this.find(action.targetId)??this.living("enemy")[0]; if(target){target.observationProgress=(target.observationProgress??target.observed)+1+(actor.observationPct??0);target.observed=Math.min(3,Math.floor(target.observationProgress)); this.log.push(`${actor.name}觀察${target.name}：${target.observeInfo?.[Math.max(0,target.observed-1)]??target.observeInfo?.[0]??"呼吸與步法露出些許端倪"}。`);} return; }
     if (action.type === "guard") { if(actor.vulnerableTurns>0){this.log.push(`${actor.name}正露破綻，無法護衛。`);return;}actor.guard={targetId:action.targetId,hits:1,reduction:0}; this.log.push(`${actor.name}擋在同伴身前。`); return; }
-    if (action.type === "item") { if(actor.consumablesUsed>=BALANCE.consumablesPerBattle){this.log.push(`${actor.name}本戰已無法再用消耗品。`);return;} actor.consumablesUsed++; const amount=Math.round(actor.maxHp*.28); actor.hp=clamp(actor.hp+amount,0,actor.maxHp); this.log.push(`${actor.name}服下金創散，恢復 ${amount} 氣血。`); return; }
+    if (action.type === "item") { if(actor.consumablesUsed>=BALANCE.consumablesPerBattle){this.log.push(`${actor.name}本戰已無法再用消耗品。`);return;} actor.consumablesUsed++; const amount=Math.round(actor.maxHp*.28*(1+(actor.healingPct??0))); actor.hp=clamp(actor.hp+amount,0,actor.maxHp); this.log.push(`${actor.name}服下金創散，恢復 ${amount} 氣血。`); return; }
     const target=this.find(action.targetId)??this.living(actor.side==="party"?"enemy":"party")[0]; if(!target)return;
-    if(action.type==="skill") { const skill=actor.skills.find(s=>s.id===action.skillId); if(!skill||skill.innerCost>actor.inner){this.log.push(`${actor.name}內力不足，改以普通攻擊。`);this.attack(actor,target,null);return;} actor.inner-=skill.innerCost; const dodge=skill.effects.find(e=>e.effectId==="dodge"); const defend=skill.effects.find(e=>e.effectId==="defend"); const guard=skill.effects.find(e=>e.effectId==="guard"); if(dodge){actor.dodge=dodge.params.chance;this.log.push(`${actor.name}施展${skill.name}，身影倏忽。`);return;} if(defend){actor.defended=true;this.log.push(`${actor.name}施展${skill.name}，穩住門戶。`);return;} if(guard){if(actor.vulnerableTurns>0){this.log.push(`${actor.name}正露破綻，無法護衛。`);return;}actor.guard={targetId:action.targetId,hits:guard.params.hits??1,reduction:guard.params.reduction??.1};this.log.push(`${actor.name}施展${skill.name}護住同伴。`);return;} this.attack(actor,target,skill); }
+    if(action.type==="skill") { const skill=actor.skills.find(s=>s.id===action.skillId);const actualCost=skill?Math.max(0,Math.round(skill.innerCost*(1+statusValue(actor,"innerCost")))):0;if(!skill||actualCost>actor.inner){this.log.push(`${actor.name}內力不足，改以普通攻擊。`);this.attack(actor,target,null);return;} actor.inner-=actualCost; const dodge=skill.effects.find(e=>e.effectId==="dodge"); const defend=skill.effects.find(e=>e.effectId==="defend"); const guard=skill.effects.find(e=>e.effectId==="guard"); if(dodge){actor.dodge=dodge.params.chance;const follow=skill.effects.find(effect=>effect.effectId==="next_attack_bonus");if(follow)actor.nextAttackBonus=follow.params.bonus??0;this.log.push(`${actor.name}施展${skill.name}，身影倏忽。`);return;} if(defend){actor.defended=true;actor.defenseHpReduction=defend.params.hpReduction??BALANCE.defendHpReduction;actor.defensePostureReduction=defend.params.postureReduction??BALANCE.defendPostureReduction;this.log.push(`${actor.name}施展${skill.name}，穩住門戶。`);return;} if(guard){if(actor.vulnerableTurns>0){this.log.push(`${actor.name}正露破綻，無法護衛。`);return;}actor.guard={targetId:action.targetId,hits:guard.params.hits??1,reduction:guard.params.reduction??.1};this.log.push(`${actor.name}施展${skill.name}護住同伴。`);return;} this.attack(actor,target,skill); }
     else this.attack(actor,target,null);
   }
   attack(actor, originalTarget, skill) {
     let target=this.redirectGuard(originalTarget);
     if(target.dodge>0&&this.rng.next()<target.dodge){this.log.push(`${target.name}避開了${actor.name}的攻勢。`);target.dodge=0;return;}
-    const hpPower=skill?.power.hp??20, posturePower=skill?.power.posture??11;
-    const defense=target.defended?BALANCE.defendHpReduction:BALANCE.playerDefense;
+    let hpPower=skill?.power.hp??20, posturePower=skill?.power.posture??11;const postureBonus=skill?.effects?.find(effect=>effect.effectId==="posture_bonus_below_ratio");if(postureBonus&&target.posture/target.maxPosture<=(postureBonus.params.ratio??0)){posturePower*=1+(postureBonus.params.bonus??0);}const brokenBonus=skill?.effects?.find(effect=>effect.effectId==="damage_bonus_below_hp");if(brokenBonus&&target.vulnerableTurns>0)hpPower*=1+(brokenBonus.params.bonus??0);
+    const defenseEffect=target.defended?(target.defenseHpReduction??BALANCE.defendHpReduction)*(1+statusValue(target,"defense")):BALANCE.playerDefense;const defense=Math.min(.75,defenseEffect+(target.damageReduction??0)+(!skill?(target.normalAttackReductionPct??0):0)+(target.guardReductionOnce??0));
     const vulnerable=target.vulnerableTurns>0?BALANCE.postureBreakDamageMultiplier:1;
-    const outgoing=actor.damageMultiplier??1;
-    const hpDamage=Math.max(1,Math.round((hpPower+actor.stats.strength*.5)*(1-defense)*vulnerable*outgoing*(.94+this.rng.next()*.12)));
-    const postureReduction=target.defended?BALANCE.defendPostureReduction:0;
-    const postureDamage=Math.max(1,Math.round((posturePower+actor.stats.strength*.5)*(1-postureReduction)*outgoing*(actor.postureDamageMultiplier??1)));
-    target.hp=clamp(target.hp-hpDamage,0,target.maxHp); target.posture=clamp(target.posture-postureDamage,0,target.maxPosture);
+    const outgoing=(actor.damageMultiplier??1)*(1+statusValue(actor,"attackDamage"))*(actor.hp/actor.maxHp<.5?1+(actor.situationalDamagePct??0):1)*(actor.actedAfterEnemy?1+(actor.lateTurnDamagePct??0):1)*(1+(actor.nextAttackBonus??0));actor.nextAttackBonus=0;
+    const hpDamage=Math.max(1,Math.round((hpPower+actor.stats.strength*.5+(actor.weaponDamageFlat??0))*(1-defense)*vulnerable*outgoing*(.94+this.rng.next()*.12)));
+    const postureReduction=target.defended?(target.defensePostureReduction??BALANCE.defendPostureReduction)*(1+statusValue(target,"defense")):0;
+    const postureDamage=Math.max(1,Math.round((posturePower+actor.stats.strength*.5+(actor.weaponPostureFlat??0))*(1-postureReduction)*outgoing*(actor.postureDamageMultiplier??1)*(1+(target.postureDamageTakenPct??0))));
+    target.hp=clamp(target.hp-hpDamage,0,target.maxHp); target.posture=clamp(target.posture-postureDamage,0,target.maxPosture);target.guardReductionOnce=0;if(target.hp>0&&target.hp/target.maxHp<.2&&target.survivalHealPct&&!target.survivalTriggered){const restored=Math.round(target.maxHp*target.survivalHealPct);target.hp=clamp(target.hp+restored,0,target.maxHp);target.survivalTriggered=true;this.log.push(`${target.name}在絕境中回復 ${restored} 氣血。`);}
     this.log.push(`${actor.name}${skill?`施展${skill.name}`:"出手"}，對${target.name}造成 ${hpDamage} 氣血、${postureDamage} 架勢傷害。`);
-    if(skill?.type==="control"){const drained=Math.min(target.inner,Math.max(5,skill.innerCost));target.inner-=drained;this.log.push(`${target.name}的內息受制，額外流失 ${drained} 內力。`);}
+    if(skill?.type==="control"){const resistance=Math.max(0,Math.min(.9,(target.controlResist??0)+statusValue(target,"controlResist")));const drained=Math.min(target.inner,Math.max(1,Math.round(Math.max(5,skill.innerCost)*(1-resistance))));target.inner-=drained;this.log.push(`${target.name}的內息受制，額外流失 ${drained} 內力。`);}
+    for(const effect of skill?.effects??[])if(effect.effectId==="status")target.statuses.push({description:effect.params.description,remaining:(effect.params.turns??1)+1});
     if(target.posture===0&&target.vulnerableTurns===0){target.vulnerableTurns=2;this.log.push(`${target.name}架勢崩解，下一回合將持續露出破綻！`);}
     this.triggerPhases(target); this.checkFinished();
   }
-  redirectGuard(target) { const guardian=this.living(target.side).find(c=>c.guard?.targetId===target.id&&c.guard.hits>0); if(!guardian)return target; guardian.guard.hits--; this.log.push(`${guardian.name}替${target.name}擋下攻擊。`); return guardian; }
+  redirectGuard(target) { const guardian=this.living(target.side).find(c=>c.guard?.targetId===target.id&&c.guard.hits>0); if(!guardian)return target; guardian.guard.hits--;guardian.guardReductionOnce=(guardian.guard.reduction??0)+(guardian.guardReductionPct??0); this.log.push(`${guardian.name}替${target.name}擋下攻擊。`); return guardian; }
   triggerPhases(target) { for(const phase of target.phases??[]){if(target.triggeredPhases.includes(phase.effect))continue;if(phase.trigger.type==="hp_below"&&target.hp/target.maxHp<=phase.trigger.value){target.triggeredPhases.push(phase.effect);target.stats.strength+=phase.effect==="desperate"?8:4;target.stats.agility+=3;this.log.push(`${target.name}氣機驟變，進入新的戰鬥階段。`);}} }
-  endRound() { if(this.finished)return; for(const actor of this.living("party").concat(this.living("enemy"))){actor.inner=clamp(actor.inner+Math.max(1,Math.round(actor.maxInner*.03)),0,actor.maxInner); if(actor.vulnerableTurns>0){actor.vulnerableTurns--; if(actor.vulnerableTurns===0)actor.posture=Math.round(actor.maxPosture*BALANCE.postureRecoveryAfterBreak);} else actor.posture=clamp(actor.posture+Math.round(actor.maxPosture*.08),0,actor.maxPosture); actor.dodge=0;} this.round++; this.prepareIntents(); this.checkFinished(); }
+  endRound() { if(this.finished)return; for(const actor of this.living("party").concat(this.living("enemy"))){actor.inner=clamp(actor.inner+Math.max(1,Math.round(actor.maxInner*(actor.innerRegenRate??.03))),0,actor.maxInner); if(actor.vulnerableTurns>0){actor.vulnerableTurns--; if(actor.vulnerableTurns===0)actor.posture=Math.round(actor.maxPosture*BALANCE.postureRecoveryAfterBreak);} else actor.posture=clamp(actor.posture+Math.round(actor.maxPosture*.08*(1+statusValue(actor,"postureRecovery"))),0,actor.maxPosture); actor.dodge=0;for(const status of actor.statuses)status.remaining--;actor.statuses=actor.statuses.filter(status=>status.remaining>0);} this.round++; this.prepareIntents(); this.checkFinished(); }
   find(id){return this.all.find(c=>c.id===id&&c.hp>0);}
   checkFinished(){if(!this.living("enemy").length)this.finished="victory";else if(!this.living("party").length)this.finished="defeat";if(this.finished)this.log.push(this.finished==="victory"?"敵手盡退，此戰告捷。":"眾人不支，先行退回城中。");}
   snapshot(){return {round:this.round,party:structuredClone(this.party),enemies:structuredClone(this.enemies),log:[...this.log],finished:this.finished};}
 }
+
+function effectiveAgility(actor){return actor.stats.agility*(1+statusValue(actor,"speed"));}
+function statusValue(actor,type){let value=0;for(const status of actor.statuses??[]){const text=status.description??"";if(type==="innerCost"&&text.includes("內力消耗 +15%"))value+=.15;else if(type==="attackDamage"&&text.includes("攻擊傷害 -10%"))value-=.1;else if(type==="speed"&&text.includes("速度 -10%"))value-=.1;else if(type==="defense"&&text.includes("防禦效果 -15%"))value-=.15;else if(type==="controlResist"&&text.includes("控制抗性 -5%"))value-=.05;else if(type==="postureRecovery"&&text.includes("架勢恢復 -20%"))value-=.2;}return value;}

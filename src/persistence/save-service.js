@@ -1,5 +1,5 @@
 import { BALANCE } from "../config/balance.js";
-import { put, get, getAll } from "./indexeddb.js";
+import { put, get, getAll, clearStore } from "./indexeddb.js";
 
 export async function saveGame({ world, character, type="auto", index=0 }) {
   const max=type==="auto"?BALANCE.autosaveSlots:BALANCE.manualSaveSlots;
@@ -17,4 +17,16 @@ export async function saveGame({ world, character, type="auto", index=0 }) {
 export async function loadSlot(slotId) { const slot=await get("saveSlots",slotId);if(!slot)throw new Error("存檔槽是空的");const snapshot=await get("snapshots",slot.snapshotId);if(snapshot?.status!=="complete")throw new Error("存檔快照不完整");return structuredClone(snapshot); }
 export async function listSlots(){return (await getAll("saveSlots")).toSorted((a,b)=>b.savedAt.localeCompare(a.savedAt));}
 export async function getAllSaves(){return {worlds:await getAll("worldSaves"),characters:await getAll("characterSaves")};}
-export async function importSaves(bundle){for(const world of bundle.worlds)await put("worldSaves",world);for(const character of bundle.characters)await put("characterSaves",character);}
+export async function importSaves(bundle){
+  const charactersById=new Map(bundle.characters.map(character=>[character.id,character]));
+  for(const character of bundle.characters)await put("characterSaves",character);
+  let slotIndex=0;
+  for(const world of bundle.worlds){
+    const owner=charactersById.get(world.ownerCharacterId);
+    if(!owner)throw new Error(`世界 ${world.name??world.id} 找不到房主角色`);
+    if(slotIndex<5)await saveGame({world,character:owner,type:"manual",index:slotIndex++});
+    else await put("worldSaves",world);
+  }
+  return {restoredSlots:slotIndex};
+}
+export async function clearAllSaves(){for(const store of ["saveSlots","snapshots","worldSaves","characterSaves","roomHistory"])await clearStore(store);globalThis.localStorage?.removeItem("jianghu:lastSlot");}

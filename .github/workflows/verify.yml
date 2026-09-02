@@ -18,3 +18,4 @@ jobs:
       - run: npm run validate
       - run: npm test
       - run: npm run balance
+      - run: npm run balance:campaign

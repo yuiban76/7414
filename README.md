@@ -18,11 +18,13 @@ npm run serve
 npm run validate
 npm test
 npm run balance
+npm run balance:campaign
 ```
 
 - `validate`：檢查資料數量、分布、ID、效果白名單、來源與跨檔引用。
 - `test`：檢查戰鬥、破綻生命週期、創角、背包裝備、修煉經脈、旅行、隊伍上限、重大投票、匯入匯出與原型污染防護。
 - `balance`：每個起始武功執行 80 次教學戰與第一章 Boss 模擬；最佳化配置最低勝率需達 55%，選項差距不得超過 40 個百分點。
+- `balance:campaign`：以六身份全部 18 種起始武功橫跨八章、每組 80 次，共 11,520 場模擬；合理成長配置最低勝率 45%，同章差距不得超過 45 個百分點。
 
 ## GitHub Pages
 

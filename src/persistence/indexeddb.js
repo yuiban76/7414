@@ -38,4 +38,8 @@ export async function remove(storeName,key) {
   const db=await openDatabase(); if(!db){memoryDb[storeName].delete(key);return;}
   return transactionRequest(db,storeName,"readwrite",store=>store.delete(key));
 }
+export async function clearStore(storeName) {
+  const db=await openDatabase();if(!db){memoryDb[storeName].clear();return;}
+  return transactionRequest(db,storeName,"readwrite",store=>store.clear());
+}
 function transactionRequest(db,storeName,mode,operation){return new Promise((resolve,reject)=>{const tx=db.transaction(storeName,mode);const request=operation(tx.objectStore(storeName));request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);tx.oncomplete=()=>db.close();tx.onerror=()=>reject(tx.error);});}

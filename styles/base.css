@@ -1,5 +1,6 @@
 * { box-sizing: border-box; }
 html { color-scheme: dark; background: var(--ink-950); scroll-behavior: smooth; }
+html[data-text-size="large"] { font-size: 118%; }
 body { margin: 0; min-width: 320px; min-height: 100vh; font-family: var(--font-body); line-height: 1.65; color: var(--paper-200); background: radial-gradient(circle at 15% 0%, #24332c 0, transparent 34rem), var(--ink-950); }
 button, input, select, textarea { font: inherit; touch-action: manipulation; }
 button, [role="button"], select, label[for], a { cursor: pointer; }

@@ -1,4 +1,4 @@
-const CACHE="jianghu-rpg-0.1.0";
+const CACHE="jianghu-rpg-0.2.0";
 const SHELL=["./","./index.html","./404.html","./manifest.webmanifest","./styles/tokens.css","./styles/base.css","./styles/layout.css","./styles/components.css","./src/app.js","./src/data/manifest.js",...['skills','talents','inner-arts','meridians','equipment','items','npcs','enemies','factions','locations','quests','chapters'].map(name=>`./src/data/${name}.json`)];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));

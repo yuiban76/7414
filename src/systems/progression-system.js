@@ -1,6 +1,7 @@
 import { deriveResources } from "../config/balance.js";
 import { IDENTITIES, STAT_LABELS } from "../config/constants.js";
 import { validateCharacter } from "../core/validators.js";
+import { applyTalentModifiers } from "./talent-system.js";
 
 export function createCharacter(input, talents, skills) {
   const identity = IDENTITIES.find(entry => entry.id === input.identityId);
@@ -17,6 +18,7 @@ export function createCharacter(input, talents, skills) {
     equipment: { weapon:null, armor:null, bracer:null, accessory:null }, ownedEquipment:["equipment_001"], inventory: [{ itemId:"item_001", quantity:3 }], storyItems: [], moneyWen: 500, cultivation:0,
     office: null, factionMemberships: [], wanted: { dasheng:0, beishuo:0, nanli:0 }, ...resources, hp: resources.maxHp, posture: resources.maxPosture, inner: resources.maxInner
   };
+  applyTalentModifiers(character);
   const errors = validateCharacter(character);
   if (errors.length) throw new Error(errors.join("、"));
   return character;
