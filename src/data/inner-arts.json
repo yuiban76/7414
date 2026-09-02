@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "inner_001",
+      "name": "養氣訣",
+      "grade": "basic",
+      "maxInner": 20,
+      "description": "內功熟練 +5%",
+      "effects": []
+    },
+    {
+      "id": "inner_002",
+      "name": "長息功",
+      "grade": "basic",
+      "maxInner": 25,
+      "description": "每回合內力恢復 +0.3%",
+      "effects": []
+    },
+    {
+      "id": "inner_003",
+      "name": "固元功",
+      "grade": "basic",
+      "maxInner": 20,
+      "description": "氣血 +5%",
+      "effects": []
+    },
+    {
+      "id": "inner_004",
+      "name": "靜心訣",
+      "grade": "basic",
+      "maxInner": 20,
+      "description": "控制抗性 +5%",
+      "effects": []
+    },
+    {
+      "id": "inner_005",
+      "name": "強身功",
+      "grade": "basic",
+      "maxInner": 15,
+      "description": "架勢 +8%",
+      "effects": []
+    },
+    {
+      "id": "inner_006",
+      "name": "行氣法",
+      "grade": "basic",
+      "maxInner": 25,
+      "description": "戰鬥開始時內力 +10%",
+      "effects": []
+    },
+    {
+      "id": "inner_007",
+      "name": "鐵衣心法",
+      "grade": "normal",
+      "maxInner": 35,
+      "description": "氣血承傷 -4%",
+      "effects": []
+    },
+    {
+      "id": "inner_008",
+      "name": "回元功",
+      "grade": "normal",
+      "maxInner": 35,
+      "description": "每回合內力恢復 +0.5%",
+      "effects": []
+    },
+    {
+      "id": "inner_009",
+      "name": "百川訣",
+      "grade": "normal",
+      "maxInner": 45,
+      "description": "無額外被動，純內力池",
+      "effects": []
+    },
+    {
+      "id": "inner_010",
+      "name": "定神功",
+      "grade": "normal",
+      "maxInner": 30,
+      "description": "控制抗性 +10%",
+      "effects": []
+    },
+    {
+      "id": "inner_011",
+      "name": "磐石心法",
+      "grade": "normal",
+      "maxInner": 30,
+      "description": "架勢上限 +12%",
+      "effects": []
+    },
+    {
+      "id": "inner_012",
+      "name": "行雲訣",
+      "grade": "normal",
+      "maxInner": 35,
+      "description": "行動速度 +5%",
+      "effects": []
+    },
+    {
+      "id": "inner_013",
+      "name": "金剛心經",
+      "grade": "advanced",
+      "maxInner": 55,
+      "description": "氣血 +10%、架勢 +10%；金剛寺",
+      "effects": []
+    },
+    {
+      "id": "inner_014",
+      "name": "太虛心法",
+      "grade": "advanced",
+      "maxInner": 60,
+      "description": "防禦時氣血減傷額外 +10%；青虛觀",
+      "effects": []
+    },
+    {
+      "id": "inner_015",
+      "name": "血河功",
+      "grade": "advanced",
+      "maxInner": 60,
+      "description": "氣血低於 50% 時傷害 +8%；血河門",
+      "effects": []
+    },
+    {
+      "id": "inner_016",
+      "name": "鎮軍功",
+      "grade": "advanced",
+      "maxInner": 55,
+      "description": "護衛時承傷 -10%；鎮北武府",
+      "effects": []
+    },
+    {
+      "id": "inner_017",
+      "name": "長春心法",
+      "grade": "advanced",
+      "maxInner": 50,
+      "description": "戰鬥結束恢復 20% 氣血；百草谷",
+      "effects": []
+    },
+    {
+      "id": "inner_018",
+      "name": "無相心經",
+      "grade": "advanced",
+      "maxInner": 65,
+      "description": "武功熟練取得 +10%；無門會",
+      "effects": []
+    },
+    {
+      "id": "inner_019",
+      "name": "浩然天元功",
+      "grade": "ultimate",
+      "maxInner": 100,
+      "description": "每回合內力回復 +1%、氣血 +10%、控制抗性 +10%",
+      "effects": []
+    },
+    {
+      "id": "inner_020",
+      "name": "歸一真訣",
+      "grade": "ultimate",
+      "maxInner": 80,
+      "description": "其他運行內功的最大內力加成提高 10%",
+      "effects": []
+    }
+  ]
+}

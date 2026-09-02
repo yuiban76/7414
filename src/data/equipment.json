@@ -1,0 +1,6281 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "equipment_001",
+      "name": "青鋼刀",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 8,
+        "postureDamage": 5
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 300
+    },
+    {
+      "id": "equipment_002",
+      "name": "沉水刀·002",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 355
+    },
+    {
+      "id": "equipment_003",
+      "name": "松紋刀·003",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 410
+    },
+    {
+      "id": "equipment_004",
+      "name": "雁翎刀·004",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 465
+    },
+    {
+      "id": "equipment_005",
+      "name": "折柳刀·005",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 520
+    },
+    {
+      "id": "equipment_006",
+      "name": "藏鋒刀·006",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 575
+    },
+    {
+      "id": "equipment_007",
+      "name": "逐浪刀·007",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 630
+    },
+    {
+      "id": "equipment_008",
+      "name": "定山刀·008",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 685
+    },
+    {
+      "id": "equipment_009",
+      "name": "流火刀·009",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 740
+    },
+    {
+      "id": "equipment_010",
+      "name": "寒星刀·010",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 795
+    },
+    {
+      "id": "equipment_011",
+      "name": "墨羽刀·011",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 850
+    },
+    {
+      "id": "equipment_012",
+      "name": "照膽刀·012",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 905
+    },
+    {
+      "id": "equipment_013",
+      "name": "問心刀·013",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 960
+    },
+    {
+      "id": "equipment_014",
+      "name": "孤鴻刀·014",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1015
+    },
+    {
+      "id": "equipment_015",
+      "name": "聽雨刀·015",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1070
+    },
+    {
+      "id": "equipment_016",
+      "name": "斷雲刀·016",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1125
+    },
+    {
+      "id": "equipment_017",
+      "name": "玄鐵刀·017",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1180
+    },
+    {
+      "id": "equipment_018",
+      "name": "赤霞刀·018",
+      "slot": "weapon",
+      "weaponType": "blade",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1235
+    },
+    {
+      "id": "equipment_019",
+      "name": "白虹劍·019",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1290
+    },
+    {
+      "id": "equipment_020",
+      "name": "歸元劍·020",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1345
+    },
+    {
+      "id": "equipment_021",
+      "name": "青鋼劍·021",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1400
+    },
+    {
+      "id": "equipment_022",
+      "name": "沉水劍·022",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1455
+    },
+    {
+      "id": "equipment_023",
+      "name": "松紋劍·023",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1510
+    },
+    {
+      "id": "equipment_024",
+      "name": "雁翎劍·024",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1565
+    },
+    {
+      "id": "equipment_025",
+      "name": "折柳劍·025",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1620
+    },
+    {
+      "id": "equipment_026",
+      "name": "藏鋒劍·026",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1675
+    },
+    {
+      "id": "equipment_027",
+      "name": "逐浪劍·027",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1730
+    },
+    {
+      "id": "equipment_028",
+      "name": "定山劍·028",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1785
+    },
+    {
+      "id": "equipment_029",
+      "name": "流火劍·029",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1840
+    },
+    {
+      "id": "equipment_030",
+      "name": "寒星劍·030",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1895
+    },
+    {
+      "id": "equipment_031",
+      "name": "墨羽劍·031",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 1950
+    },
+    {
+      "id": "equipment_032",
+      "name": "照膽劍·032",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2005
+    },
+    {
+      "id": "equipment_033",
+      "name": "問心劍·033",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2060
+    },
+    {
+      "id": "equipment_034",
+      "name": "孤鴻劍·034",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2115
+    },
+    {
+      "id": "equipment_035",
+      "name": "聽雨劍·035",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2170
+    },
+    {
+      "id": "equipment_036",
+      "name": "斷雲劍·036",
+      "slot": "weapon",
+      "weaponType": "sword",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2225
+    },
+    {
+      "id": "equipment_037",
+      "name": "玄鐵手·037",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2280
+    },
+    {
+      "id": "equipment_038",
+      "name": "赤霞手·038",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2335
+    },
+    {
+      "id": "equipment_039",
+      "name": "白虹手·039",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2390
+    },
+    {
+      "id": "equipment_040",
+      "name": "歸元手·040",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2445
+    },
+    {
+      "id": "equipment_041",
+      "name": "青鋼手·041",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2500
+    },
+    {
+      "id": "equipment_042",
+      "name": "沉水手·042",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2555
+    },
+    {
+      "id": "equipment_043",
+      "name": "松紋手·043",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2610
+    },
+    {
+      "id": "equipment_044",
+      "name": "雁翎手·044",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2665
+    },
+    {
+      "id": "equipment_045",
+      "name": "折柳手·045",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2720
+    },
+    {
+      "id": "equipment_046",
+      "name": "藏鋒手·046",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2775
+    },
+    {
+      "id": "equipment_047",
+      "name": "逐浪手·047",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2830
+    },
+    {
+      "id": "equipment_048",
+      "name": "定山手·048",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2885
+    },
+    {
+      "id": "equipment_049",
+      "name": "流火手·049",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2940
+    },
+    {
+      "id": "equipment_050",
+      "name": "寒星手·050",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 2995
+    },
+    {
+      "id": "equipment_051",
+      "name": "墨羽手·051",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3050
+    },
+    {
+      "id": "equipment_052",
+      "name": "照膽手·052",
+      "slot": "weapon",
+      "weaponType": "fist",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3105
+    },
+    {
+      "id": "equipment_053",
+      "name": "問心棍·053",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3160
+    },
+    {
+      "id": "equipment_054",
+      "name": "孤鴻棍·054",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3215
+    },
+    {
+      "id": "equipment_055",
+      "name": "聽雨棍·055",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3270
+    },
+    {
+      "id": "equipment_056",
+      "name": "斷雲棍·056",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3325
+    },
+    {
+      "id": "equipment_057",
+      "name": "玄鐵棍·057",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3380
+    },
+    {
+      "id": "equipment_058",
+      "name": "赤霞棍·058",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3435
+    },
+    {
+      "id": "equipment_059",
+      "name": "白虹棍·059",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3490
+    },
+    {
+      "id": "equipment_060",
+      "name": "歸元棍·060",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3545
+    },
+    {
+      "id": "equipment_061",
+      "name": "青鋼棍·061",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3600
+    },
+    {
+      "id": "equipment_062",
+      "name": "沉水棍·062",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3655
+    },
+    {
+      "id": "equipment_063",
+      "name": "松紋棍·063",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3710
+    },
+    {
+      "id": "equipment_064",
+      "name": "雁翎棍·064",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3765
+    },
+    {
+      "id": "equipment_065",
+      "name": "折柳棍·065",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3820
+    },
+    {
+      "id": "equipment_066",
+      "name": "藏鋒棍·066",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3875
+    },
+    {
+      "id": "equipment_067",
+      "name": "逐浪棍·067",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3930
+    },
+    {
+      "id": "equipment_068",
+      "name": "定山棍·068",
+      "slot": "weapon",
+      "weaponType": "staff",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 3985
+    },
+    {
+      "id": "equipment_069",
+      "name": "流火槍·069",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 4040
+    },
+    {
+      "id": "equipment_070",
+      "name": "寒星槍·070",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 4095
+    },
+    {
+      "id": "equipment_071",
+      "name": "墨羽槍·071",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 4150
+    },
+    {
+      "id": "equipment_072",
+      "name": "照膽槍·072",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 4205
+    },
+    {
+      "id": "equipment_073",
+      "name": "問心槍·073",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 4260
+    },
+    {
+      "id": "equipment_074",
+      "name": "孤鴻槍·074",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 4315
+    },
+    {
+      "id": "equipment_075",
+      "name": "聽雨槍·075",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "shops"
+      ],
+      "bind": "none",
+      "priceWen": 4370
+    },
+    {
+      "id": "equipment_076",
+      "name": "斷雲槍·076",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4425
+    },
+    {
+      "id": "equipment_077",
+      "name": "玄鐵槍·077",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4480
+    },
+    {
+      "id": "equipment_078",
+      "name": "赤霞槍·078",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4535
+    },
+    {
+      "id": "equipment_079",
+      "name": "白虹槍·079",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4590
+    },
+    {
+      "id": "equipment_080",
+      "name": "歸元槍·080",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4645
+    },
+    {
+      "id": "equipment_081",
+      "name": "青鋼槍·081",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4700
+    },
+    {
+      "id": "equipment_082",
+      "name": "沉水槍·082",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4755
+    },
+    {
+      "id": "equipment_083",
+      "name": "松紋槍·083",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4810
+    },
+    {
+      "id": "equipment_084",
+      "name": "雁翎槍·084",
+      "slot": "weapon",
+      "weaponType": "spear",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4865
+    },
+    {
+      "id": "equipment_085",
+      "name": "折柳針·085",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4920
+    },
+    {
+      "id": "equipment_086",
+      "name": "藏鋒針·086",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 4975
+    },
+    {
+      "id": "equipment_087",
+      "name": "逐浪針·087",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5030
+    },
+    {
+      "id": "equipment_088",
+      "name": "定山針·088",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5085
+    },
+    {
+      "id": "equipment_089",
+      "name": "流火針·089",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5140
+    },
+    {
+      "id": "equipment_090",
+      "name": "寒星針·090",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5195
+    },
+    {
+      "id": "equipment_091",
+      "name": "墨羽針·091",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5250
+    },
+    {
+      "id": "equipment_092",
+      "name": "照膽針·092",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5305
+    },
+    {
+      "id": "equipment_093",
+      "name": "問心針·093",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5360
+    },
+    {
+      "id": "equipment_094",
+      "name": "孤鴻針·094",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5415
+    },
+    {
+      "id": "equipment_095",
+      "name": "聽雨針·095",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5470
+    },
+    {
+      "id": "equipment_096",
+      "name": "斷雲針·096",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5525
+    },
+    {
+      "id": "equipment_097",
+      "name": "玄鐵針·097",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5580
+    },
+    {
+      "id": "equipment_098",
+      "name": "赤霞針·098",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5635
+    },
+    {
+      "id": "equipment_099",
+      "name": "白虹針·099",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5690
+    },
+    {
+      "id": "equipment_100",
+      "name": "歸元針·100",
+      "slot": "weapon",
+      "weaponType": "hidden",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5745
+    },
+    {
+      "id": "equipment_101",
+      "name": "斷江",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "famed",
+      "stats": {
+        "damage": 24,
+        "postureDamage": 16
+      },
+      "effects": [
+        {
+          "effectId": "posture_damage_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5800
+    },
+    {
+      "id": "equipment_102",
+      "name": "沉水奇兵·102",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5855
+    },
+    {
+      "id": "equipment_103",
+      "name": "松紋奇兵·103",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5910
+    },
+    {
+      "id": "equipment_104",
+      "name": "雁翎奇兵·104",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 5965
+    },
+    {
+      "id": "equipment_105",
+      "name": "折柳奇兵·105",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6020
+    },
+    {
+      "id": "equipment_106",
+      "name": "藏鋒奇兵·106",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6075
+    },
+    {
+      "id": "equipment_107",
+      "name": "逐浪奇兵·107",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6130
+    },
+    {
+      "id": "equipment_108",
+      "name": "定山奇兵·108",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6185
+    },
+    {
+      "id": "equipment_109",
+      "name": "流火奇兵·109",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6240
+    },
+    {
+      "id": "equipment_110",
+      "name": "寒星奇兵·110",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6295
+    },
+    {
+      "id": "equipment_111",
+      "name": "墨羽奇兵·111",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6350
+    },
+    {
+      "id": "equipment_112",
+      "name": "照膽奇兵·112",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6405
+    },
+    {
+      "id": "equipment_113",
+      "name": "問心奇兵·113",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 13,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6460
+    },
+    {
+      "id": "equipment_114",
+      "name": "孤鴻奇兵·114",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 8
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6515
+    },
+    {
+      "id": "equipment_115",
+      "name": "聽雨奇兵·115",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 14,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6570
+    },
+    {
+      "id": "equipment_116",
+      "name": "斷雲奇兵·116",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6625
+    },
+    {
+      "id": "equipment_117",
+      "name": "玄鐵奇兵·117",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 15,
+        "postureDamage": 9
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6680
+    },
+    {
+      "id": "equipment_118",
+      "name": "赤霞奇兵·118",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 16,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6735
+    },
+    {
+      "id": "equipment_119",
+      "name": "白虹奇兵·119",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "common",
+      "stats": {
+        "damage": 17,
+        "postureDamage": 10
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6790
+    },
+    {
+      "id": "equipment_120",
+      "name": "寒月",
+      "slot": "weapon",
+      "weaponType": "special",
+      "rarity": "legendary",
+      "stats": {
+        "damage": 36,
+        "postureDamage": 17
+      },
+      "effects": [
+        {
+          "effectId": "damage_bonus_below_hp",
+          "params": {
+            "targetBroken": true,
+            "bonus": 0.1
+          }
+        },
+        {
+          "effectId": "next_attack_bonus",
+          "params": {
+            "afterDodge": true,
+            "bonus": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6845
+    },
+    {
+      "id": "equipment_121",
+      "name": "青鋼衣·121",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "common",
+      "stats": {
+        "hp": 73,
+        "damageReduction": 0.021
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6900
+    },
+    {
+      "id": "equipment_122",
+      "name": "沉水衣·122",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "common",
+      "stats": {
+        "hp": 77,
+        "damageReduction": 0.023
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 6955
+    },
+    {
+      "id": "equipment_123",
+      "name": "松紋衣·123",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "common",
+      "stats": {
+        "hp": 80,
+        "damageReduction": 0.024
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7010
+    },
+    {
+      "id": "equipment_124",
+      "name": "雁翎衣·124",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "common",
+      "stats": {
+        "hp": 83,
+        "damageReduction": 0.025
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7065
+    },
+    {
+      "id": "equipment_125",
+      "name": "折柳衣·125",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "common",
+      "stats": {
+        "hp": 87,
+        "damageReduction": 0.027
+      },
+      "effects": [],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7120
+    },
+    {
+      "id": "equipment_126",
+      "name": "藏鋒衣·126",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7175
+    },
+    {
+      "id": "equipment_127",
+      "name": "逐浪衣·127",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7230
+    },
+    {
+      "id": "equipment_128",
+      "name": "定山衣·128",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7285
+    },
+    {
+      "id": "equipment_129",
+      "name": "流火衣·129",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7340
+    },
+    {
+      "id": "equipment_130",
+      "name": "寒星衣·130",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7395
+    },
+    {
+      "id": "equipment_131",
+      "name": "墨羽衣·131",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7450
+    },
+    {
+      "id": "equipment_132",
+      "name": "照膽衣·132",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7505
+    },
+    {
+      "id": "equipment_133",
+      "name": "問心衣·133",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7560
+    },
+    {
+      "id": "equipment_134",
+      "name": "孤鴻衣·134",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7615
+    },
+    {
+      "id": "equipment_135",
+      "name": "聽雨衣·135",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7670
+    },
+    {
+      "id": "equipment_136",
+      "name": "斷雲衣·136",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7725
+    },
+    {
+      "id": "equipment_137",
+      "name": "玄鐵衣·137",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7780
+    },
+    {
+      "id": "equipment_138",
+      "name": "赤霞衣·138",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7835
+    },
+    {
+      "id": "equipment_139",
+      "name": "白虹衣·139",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7890
+    },
+    {
+      "id": "equipment_140",
+      "name": "歸元衣·140",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 7945
+    },
+    {
+      "id": "equipment_141",
+      "name": "青鋼衣·141",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8000
+    },
+    {
+      "id": "equipment_142",
+      "name": "沉水衣·142",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8055
+    },
+    {
+      "id": "equipment_143",
+      "name": "松紋衣·143",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8110
+    },
+    {
+      "id": "equipment_144",
+      "name": "雁翎衣·144",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8165
+    },
+    {
+      "id": "equipment_145",
+      "name": "折柳衣·145",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8220
+    },
+    {
+      "id": "equipment_146",
+      "name": "藏鋒衣·146",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8275
+    },
+    {
+      "id": "equipment_147",
+      "name": "逐浪衣·147",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8330
+    },
+    {
+      "id": "equipment_148",
+      "name": "定山衣·148",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8385
+    },
+    {
+      "id": "equipment_149",
+      "name": "流火衣·149",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8440
+    },
+    {
+      "id": "equipment_150",
+      "name": "寒星衣·150",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8495
+    },
+    {
+      "id": "equipment_151",
+      "name": "墨羽衣·151",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8550
+    },
+    {
+      "id": "equipment_152",
+      "name": "照膽衣·152",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8605
+    },
+    {
+      "id": "equipment_153",
+      "name": "問心衣·153",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8660
+    },
+    {
+      "id": "equipment_154",
+      "name": "孤鴻衣·154",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8715
+    },
+    {
+      "id": "equipment_155",
+      "name": "聽雨衣·155",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "factions"
+      ],
+      "bind": "none",
+      "priceWen": 8770
+    },
+    {
+      "id": "equipment_156",
+      "name": "斷雲衣·156",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 8825
+    },
+    {
+      "id": "equipment_157",
+      "name": "玄鐵衣·157",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 8880
+    },
+    {
+      "id": "equipment_158",
+      "name": "赤霞衣·158",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 8935
+    },
+    {
+      "id": "equipment_159",
+      "name": "白虹衣·159",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 8990
+    },
+    {
+      "id": "equipment_160",
+      "name": "歸元衣·160",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9045
+    },
+    {
+      "id": "equipment_161",
+      "name": "青鋼衣·161",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9100
+    },
+    {
+      "id": "equipment_162",
+      "name": "沉水衣·162",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9155
+    },
+    {
+      "id": "equipment_163",
+      "name": "松紋衣·163",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9210
+    },
+    {
+      "id": "equipment_164",
+      "name": "雁翎衣·164",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9265
+    },
+    {
+      "id": "equipment_165",
+      "name": "折柳衣·165",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9320
+    },
+    {
+      "id": "equipment_166",
+      "name": "藏鋒衣·166",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9375
+    },
+    {
+      "id": "equipment_167",
+      "name": "逐浪衣·167",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9430
+    },
+    {
+      "id": "equipment_168",
+      "name": "定山衣·168",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9485
+    },
+    {
+      "id": "equipment_169",
+      "name": "流火衣·169",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9540
+    },
+    {
+      "id": "equipment_170",
+      "name": "寒星衣·170",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9595
+    },
+    {
+      "id": "equipment_171",
+      "name": "墨羽衣·171",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9650
+    },
+    {
+      "id": "equipment_172",
+      "name": "照膽衣·172",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9705
+    },
+    {
+      "id": "equipment_173",
+      "name": "問心衣·173",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9760
+    },
+    {
+      "id": "equipment_174",
+      "name": "孤鴻衣·174",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9815
+    },
+    {
+      "id": "equipment_175",
+      "name": "聽雨衣·175",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9870
+    },
+    {
+      "id": "equipment_176",
+      "name": "斷雲衣·176",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9925
+    },
+    {
+      "id": "equipment_177",
+      "name": "玄鐵衣·177",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 9980
+    },
+    {
+      "id": "equipment_178",
+      "name": "赤霞衣·178",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 10035
+    },
+    {
+      "id": "equipment_179",
+      "name": "白虹衣·179",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 10090
+    },
+    {
+      "id": "equipment_180",
+      "name": "歸元衣·180",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 10145
+    },
+    {
+      "id": "equipment_181",
+      "name": "青鋼衣·181",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 10200
+    },
+    {
+      "id": "equipment_182",
+      "name": "沉水衣·182",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 10255
+    },
+    {
+      "id": "equipment_183",
+      "name": "松紋衣·183",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 10310
+    },
+    {
+      "id": "equipment_184",
+      "name": "雁翎衣·184",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 10365
+    },
+    {
+      "id": "equipment_185",
+      "name": "折柳衣·185",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "military"
+      ],
+      "bind": "none",
+      "priceWen": 10420
+    },
+    {
+      "id": "equipment_186",
+      "name": "藏鋒衣·186",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10475
+    },
+    {
+      "id": "equipment_187",
+      "name": "逐浪衣·187",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10530
+    },
+    {
+      "id": "equipment_188",
+      "name": "定山衣·188",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10585
+    },
+    {
+      "id": "equipment_189",
+      "name": "流火衣·189",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 120,
+        "damageReduction": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10640
+    },
+    {
+      "id": "equipment_190",
+      "name": "寒星衣·190",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 110,
+        "damageReduction": 0.036
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10695
+    },
+    {
+      "id": "equipment_191",
+      "name": "墨羽衣·191",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 112,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10750
+    },
+    {
+      "id": "equipment_192",
+      "name": "照膽衣·192",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 113,
+        "damageReduction": 0.037
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10805
+    },
+    {
+      "id": "equipment_193",
+      "name": "問心衣·193",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 115,
+        "damageReduction": 0.038
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10860
+    },
+    {
+      "id": "equipment_194",
+      "name": "孤鴻衣·194",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 117,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10915
+    },
+    {
+      "id": "equipment_195",
+      "name": "聽雨衣·195",
+      "slot": "armor",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "hp": 118,
+        "damageReduction": 0.039
+      },
+      "effects": [
+        {
+          "effectId": "damage_reduction_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 10970
+    },
+    {
+      "id": "equipment_196",
+      "name": "斷雲護腕·196",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 30,
+        "controlResist": 0.075
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11025
+    },
+    {
+      "id": "equipment_197",
+      "name": "玄鐵護腕·197",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 28,
+        "controlResist": 0.068
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11080
+    },
+    {
+      "id": "equipment_198",
+      "name": "赤霞護腕·198",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 28,
+        "controlResist": 0.069
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11135
+    },
+    {
+      "id": "equipment_199",
+      "name": "白虹護腕·199",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 28,
+        "controlResist": 0.07
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11190
+    },
+    {
+      "id": "equipment_200",
+      "name": "歸元護腕·200",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 29,
+        "controlResist": 0.071
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11245
+    },
+    {
+      "id": "equipment_201",
+      "name": "玄鐵戰衣",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "hp": 135,
+        "damageReduction": 0.05
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11300
+    },
+    {
+      "id": "equipment_202",
+      "name": "沉水護腕·202",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 30,
+        "controlResist": 0.074
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11355
+    },
+    {
+      "id": "equipment_203",
+      "name": "松紋護腕·203",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 30,
+        "controlResist": 0.075
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11410
+    },
+    {
+      "id": "equipment_204",
+      "name": "雁翎護腕·204",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 28,
+        "controlResist": 0.068
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11465
+    },
+    {
+      "id": "equipment_205",
+      "name": "折柳護腕·205",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 28,
+        "controlResist": 0.069
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11520
+    },
+    {
+      "id": "equipment_206",
+      "name": "藏鋒護腕·206",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 28,
+        "controlResist": 0.07
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11575
+    },
+    {
+      "id": "equipment_207",
+      "name": "逐浪護腕·207",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 29,
+        "controlResist": 0.071
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11630
+    },
+    {
+      "id": "equipment_208",
+      "name": "定山護腕·208",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 29,
+        "controlResist": 0.072
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11685
+    },
+    {
+      "id": "equipment_209",
+      "name": "流火護腕·209",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 30,
+        "controlResist": 0.074
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11740
+    },
+    {
+      "id": "equipment_210",
+      "name": "寒星護腕·210",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 30,
+        "controlResist": 0.075
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11795
+    },
+    {
+      "id": "equipment_211",
+      "name": "墨羽護腕·211",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 28,
+        "controlResist": 0.068
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11850
+    },
+    {
+      "id": "equipment_212",
+      "name": "照膽護腕·212",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 28,
+        "controlResist": 0.069
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11905
+    },
+    {
+      "id": "equipment_213",
+      "name": "問心護腕·213",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 28,
+        "controlResist": 0.07
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 11960
+    },
+    {
+      "id": "equipment_214",
+      "name": "孤鴻護腕·214",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 29,
+        "controlResist": 0.071
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12015
+    },
+    {
+      "id": "equipment_215",
+      "name": "聽雨護腕·215",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "posture": 29,
+        "controlResist": 0.072
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.025
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12070
+    },
+    {
+      "id": "equipment_216",
+      "name": "斷雲護腕·216",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "common",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.104
+      },
+      "effects": [],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12125
+    },
+    {
+      "id": "equipment_217",
+      "name": "玄鐵護腕·217",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.105
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12180
+    },
+    {
+      "id": "equipment_218",
+      "name": "赤霞護腕·218",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.102
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12235
+    },
+    {
+      "id": "equipment_219",
+      "name": "白虹護腕·219",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.102
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12290
+    },
+    {
+      "id": "equipment_220",
+      "name": "歸元護腕·220",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.103
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12345
+    },
+    {
+      "id": "equipment_221",
+      "name": "青鋼護腕·221",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.103
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12400
+    },
+    {
+      "id": "equipment_222",
+      "name": "沉水護腕·222",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.104
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12455
+    },
+    {
+      "id": "equipment_223",
+      "name": "松紋護腕·223",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.104
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12510
+    },
+    {
+      "id": "equipment_224",
+      "name": "雁翎護腕·224",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.105
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12565
+    },
+    {
+      "id": "equipment_225",
+      "name": "折柳護腕·225",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.102
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12620
+    },
+    {
+      "id": "equipment_226",
+      "name": "藏鋒護腕·226",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.102
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12675
+    },
+    {
+      "id": "equipment_227",
+      "name": "逐浪護腕·227",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.103
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12730
+    },
+    {
+      "id": "equipment_228",
+      "name": "定山護腕·228",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.103
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12785
+    },
+    {
+      "id": "equipment_229",
+      "name": "流火護腕·229",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.104
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12840
+    },
+    {
+      "id": "equipment_230",
+      "name": "寒星護腕·230",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.104
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "boss"
+      ],
+      "bind": "none",
+      "priceWen": 12895
+    },
+    {
+      "id": "equipment_231",
+      "name": "墨羽護腕·231",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.105
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 12950
+    },
+    {
+      "id": "equipment_232",
+      "name": "照膽護腕·232",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.102
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13005
+    },
+    {
+      "id": "equipment_233",
+      "name": "問心護腕·233",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.102
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13060
+    },
+    {
+      "id": "equipment_234",
+      "name": "孤鴻護腕·234",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.103
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13115
+    },
+    {
+      "id": "equipment_235",
+      "name": "聽雨護腕·235",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.103
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13170
+    },
+    {
+      "id": "equipment_236",
+      "name": "斷雲護腕·236",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.104
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13225
+    },
+    {
+      "id": "equipment_237",
+      "name": "玄鐵護腕·237",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.104
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13280
+    },
+    {
+      "id": "equipment_238",
+      "name": "赤霞護腕·238",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 40,
+        "controlResist": 0.105
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13335
+    },
+    {
+      "id": "equipment_239",
+      "name": "白虹護腕·239",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.102
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13390
+    },
+    {
+      "id": "equipment_240",
+      "name": "歸元護腕·240",
+      "slot": "bracer",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 39,
+        "controlResist": 0.102
+      },
+      "effects": [
+        {
+          "effectId": "control_resist_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13445
+    },
+    {
+      "id": "equipment_241",
+      "name": "鎮岳護腕",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "posture": 36,
+        "controlResist": 0.07
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13500
+    },
+    {
+      "id": "equipment_242",
+      "name": "沉水佩·242",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13555
+    },
+    {
+      "id": "equipment_243",
+      "name": "松紋佩·243",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13610
+    },
+    {
+      "id": "equipment_244",
+      "name": "雁翎佩·244",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13665
+    },
+    {
+      "id": "equipment_245",
+      "name": "折柳佩·245",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 44
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13720
+    },
+    {
+      "id": "equipment_246",
+      "name": "藏鋒佩·246",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 42
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13775
+    },
+    {
+      "id": "equipment_247",
+      "name": "逐浪佩·247",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13830
+    },
+    {
+      "id": "equipment_248",
+      "name": "定山佩·248",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13885
+    },
+    {
+      "id": "equipment_249",
+      "name": "流火佩·249",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13940
+    },
+    {
+      "id": "equipment_250",
+      "name": "寒星佩·250",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 13995
+    },
+    {
+      "id": "equipment_251",
+      "name": "墨羽佩·251",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14050
+    },
+    {
+      "id": "equipment_252",
+      "name": "照膽佩·252",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 44
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14105
+    },
+    {
+      "id": "equipment_253",
+      "name": "問心佩·253",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 42
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14160
+    },
+    {
+      "id": "equipment_254",
+      "name": "孤鴻佩·254",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14215
+    },
+    {
+      "id": "equipment_255",
+      "name": "聽雨佩·255",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14270
+    },
+    {
+      "id": "equipment_256",
+      "name": "斷雲佩·256",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14325
+    },
+    {
+      "id": "equipment_257",
+      "name": "玄鐵佩·257",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14380
+    },
+    {
+      "id": "equipment_258",
+      "name": "赤霞佩·258",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14435
+    },
+    {
+      "id": "equipment_259",
+      "name": "白虹佩·259",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 44
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14490
+    },
+    {
+      "id": "equipment_260",
+      "name": "歸元佩·260",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 42
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14545
+    },
+    {
+      "id": "equipment_261",
+      "name": "青鋼佩·261",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14600
+    },
+    {
+      "id": "equipment_262",
+      "name": "沉水佩·262",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14655
+    },
+    {
+      "id": "equipment_263",
+      "name": "松紋佩·263",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14710
+    },
+    {
+      "id": "equipment_264",
+      "name": "雁翎佩·264",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14765
+    },
+    {
+      "id": "equipment_265",
+      "name": "折柳佩·265",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "quests"
+      ],
+      "bind": "none",
+      "priceWen": 14820
+    },
+    {
+      "id": "equipment_266",
+      "name": "藏鋒佩·266",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 44
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 14875
+    },
+    {
+      "id": "equipment_267",
+      "name": "逐浪佩·267",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 42
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 14930
+    },
+    {
+      "id": "equipment_268",
+      "name": "定山佩·268",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 14985
+    },
+    {
+      "id": "equipment_269",
+      "name": "流火佩·269",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 15040
+    },
+    {
+      "id": "equipment_270",
+      "name": "寒星佩·270",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 15095
+    },
+    {
+      "id": "equipment_271",
+      "name": "靜心玉",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "fine",
+      "stats": {
+        "inner": 20,
+        "controlResist": 0.04
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 15150
+    },
+    {
+      "id": "equipment_272",
+      "name": "照膽佩·272",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 15205
+    },
+    {
+      "id": "equipment_273",
+      "name": "問心佩·273",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 44
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 15260
+    },
+    {
+      "id": "equipment_274",
+      "name": "孤鴻佩·274",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 42
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 15315
+    },
+    {
+      "id": "equipment_275",
+      "name": "聽雨佩·275",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 15370
+    },
+    {
+      "id": "equipment_276",
+      "name": "斷雲佩·276",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 15425
+    },
+    {
+      "id": "equipment_277",
+      "name": "玄鐵佩·277",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "famed",
+      "stats": {
+        "inner": 43
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.05
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "none",
+      "priceWen": 15480
+    },
+    {
+      "id": "equipment_278",
+      "name": "赤霞佩·278",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "common",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 15535
+    },
+    {
+      "id": "equipment_279",
+      "name": "白虹佩·279",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 15590
+    },
+    {
+      "id": "equipment_280",
+      "name": "歸元佩·280",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 15645
+    },
+    {
+      "id": "equipment_281",
+      "name": "青鋼佩·281",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 15700
+    },
+    {
+      "id": "equipment_282",
+      "name": "沉水佩·282",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 15755
+    },
+    {
+      "id": "equipment_283",
+      "name": "松紋佩·283",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 15810
+    },
+    {
+      "id": "equipment_284",
+      "name": "雁翎佩·284",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 15865
+    },
+    {
+      "id": "equipment_285",
+      "name": "折柳佩·285",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 15920
+    },
+    {
+      "id": "equipment_286",
+      "name": "藏鋒佩·286",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 15975
+    },
+    {
+      "id": "equipment_287",
+      "name": "逐浪佩·287",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 16030
+    },
+    {
+      "id": "equipment_288",
+      "name": "定山佩·288",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 16085
+    },
+    {
+      "id": "equipment_289",
+      "name": "流火佩·289",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 16140
+    },
+    {
+      "id": "equipment_290",
+      "name": "寒星佩·290",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "black_market"
+      ],
+      "bind": "character",
+      "priceWen": 16195
+    },
+    {
+      "id": "equipment_291",
+      "name": "墨羽佩·291",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16250
+    },
+    {
+      "id": "equipment_292",
+      "name": "照膽佩·292",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16305
+    },
+    {
+      "id": "equipment_293",
+      "name": "問心佩·293",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16360
+    },
+    {
+      "id": "equipment_294",
+      "name": "孤鴻佩·294",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16415
+    },
+    {
+      "id": "equipment_295",
+      "name": "聽雨佩·295",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16470
+    },
+    {
+      "id": "equipment_296",
+      "name": "斷雲佩·296",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16525
+    },
+    {
+      "id": "equipment_297",
+      "name": "玄鐵佩·297",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16580
+    },
+    {
+      "id": "equipment_298",
+      "name": "赤霞佩·298",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16635
+    },
+    {
+      "id": "equipment_299",
+      "name": "白虹佩·299",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 60
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.08
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16690
+    },
+    {
+      "id": "equipment_300",
+      "name": "歸元佩",
+      "slot": "accessory",
+      "weaponType": null,
+      "rarity": "legendary",
+      "stats": {
+        "inner": 55
+      },
+      "effects": [
+        {
+          "effectId": "inner_regen_pct",
+          "params": {
+            "value": 0.004
+          }
+        }
+      ],
+      "sources": [
+        "main_story"
+      ],
+      "bind": "character",
+      "priceWen": 16745
+    }
+  ]
+}

@@ -1,0 +1,474 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "location_001",
+      "name": "上京",
+      "country": "dasheng",
+      "type": "city",
+      "adjacentIds": [
+        "location_018",
+        "location_002"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_002",
+      "name": "洛川城",
+      "country": "dasheng",
+      "type": "city",
+      "adjacentIds": [
+        "location_001",
+        "location_003"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": true,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_003",
+      "name": "河陽城",
+      "country": "dasheng",
+      "type": "city",
+      "adjacentIds": [
+        "location_002",
+        "location_004"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_004",
+      "name": "太岳城",
+      "country": "dasheng",
+      "type": "city",
+      "adjacentIds": [
+        "location_003",
+        "location_005"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_005",
+      "name": "青雲鎮",
+      "country": "dasheng",
+      "type": "city",
+      "adjacentIds": [
+        "location_004",
+        "location_006"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_006",
+      "name": "朔京",
+      "country": "beishuo",
+      "type": "city",
+      "adjacentIds": [
+        "location_005",
+        "location_007"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_007",
+      "name": "雁關城",
+      "country": "beishuo",
+      "type": "city",
+      "adjacentIds": [
+        "location_006",
+        "location_008"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_008",
+      "name": "黑水城",
+      "country": "beishuo",
+      "type": "city",
+      "adjacentIds": [
+        "location_007",
+        "location_009"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_009",
+      "name": "北原城",
+      "country": "beishuo",
+      "type": "city",
+      "adjacentIds": [
+        "location_008",
+        "location_010"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_010",
+      "name": "鎮北城",
+      "country": "beishuo",
+      "type": "city",
+      "adjacentIds": [
+        "location_009",
+        "location_011"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_011",
+      "name": "黎都",
+      "country": "nanli",
+      "type": "city",
+      "adjacentIds": [
+        "location_010",
+        "location_012"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_012",
+      "name": "江陵港",
+      "country": "nanli",
+      "type": "city",
+      "adjacentIds": [
+        "location_011",
+        "location_013"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_013",
+      "name": "百草城",
+      "country": "nanli",
+      "type": "city",
+      "adjacentIds": [
+        "location_012",
+        "location_014"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_014",
+      "name": "錦水城",
+      "country": "nanli",
+      "type": "city",
+      "adjacentIds": [
+        "location_013",
+        "location_015"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_015",
+      "name": "南江城",
+      "country": "nanli",
+      "type": "city",
+      "adjacentIds": [
+        "location_014",
+        "location_016"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_016",
+      "name": "雁回關",
+      "country": "cross_border",
+      "type": "crossroad",
+      "adjacentIds": [
+        "location_015",
+        "location_017"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_017",
+      "name": "赤水渡",
+      "country": "cross_border",
+      "type": "crossroad",
+      "adjacentIds": [
+        "location_016",
+        "location_018"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    },
+    {
+      "id": "location_018",
+      "name": "三河驛",
+      "country": "cross_border",
+      "type": "crossroad",
+      "adjacentIds": [
+        "location_017",
+        "location_001"
+      ],
+      "firstVisitConditions": [],
+      "fastTravel": false,
+      "facilities": [
+        "inn",
+        "government",
+        "shop",
+        "medicine",
+        "gate"
+      ],
+      "eventPool": [
+        "bandit",
+        "caravan",
+        "inspection"
+      ],
+      "storyLocks": [],
+      "priceModifier": 1
+    }
+  ]
+}

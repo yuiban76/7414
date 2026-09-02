@@ -1,0 +1,1013 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "quest_chapter_1",
+      "name": "斷鏢",
+      "type": "main",
+      "chapter": 1,
+      "prerequisites": [],
+      "states": [
+        "locked",
+        "active",
+        "completed",
+        "failed",
+        "transformed"
+      ],
+      "steps": [
+        {
+          "id": "investigate",
+          "sceneId": "scene_ch1_investigate",
+          "conditions": [],
+          "choices": [
+            {
+              "id": "ch1_choice_1",
+              "label": "交給巡武司",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_1_path",
+                    "value": 1
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_taiyue",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch1_choice_2",
+              "label": "交給天下鏢盟",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_1_path",
+                    "value": 2
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_jingang",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch1_choice_3",
+              "label": "公諸於眾",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_1_path",
+                    "value": 3
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_qingxu",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch1_choice_4",
+              "label": "自行保留",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_1_path",
+                    "value": 4
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_zhenbei",
+                    "value": -5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "failureRoutes": [
+        {
+          "id": "setback",
+          "result": "transformed"
+        }
+      ],
+      "rewards": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 100
+          }
+        }
+      ],
+      "nextQuestIds": [
+        "quest_chapter_2"
+      ]
+    },
+    {
+      "id": "quest_chapter_2",
+      "name": "暗流",
+      "type": "main",
+      "chapter": 2,
+      "prerequisites": [
+        {
+          "flagEquals": [
+            "chapter_1_complete",
+            true
+          ]
+        }
+      ],
+      "states": [
+        "locked",
+        "active",
+        "completed",
+        "failed",
+        "transformed"
+      ],
+      "steps": [
+        {
+          "id": "investigate",
+          "sceneId": "scene_ch2_investigate",
+          "conditions": [],
+          "choices": [
+            {
+              "id": "ch2_choice_1",
+              "label": "截斷商路",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_2_path",
+                    "value": 1
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_jingang",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch2_choice_2",
+              "label": "追查官線",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_2_path",
+                    "value": 2
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_qingxu",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch2_choice_3",
+              "label": "與無門會交換情報",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_2_path",
+                    "value": 3
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_zhenbei",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch2_choice_4",
+              "label": "放長線釣大魚",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_2_path",
+                    "value": 4
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_baicao",
+                    "value": -5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "failureRoutes": [
+        {
+          "id": "setback",
+          "result": "transformed"
+        }
+      ],
+      "rewards": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 200
+          }
+        }
+      ],
+      "nextQuestIds": [
+        "quest_chapter_3"
+      ]
+    },
+    {
+      "id": "quest_chapter_3",
+      "name": "裂盟",
+      "type": "main",
+      "chapter": 3,
+      "prerequisites": [
+        {
+          "flagEquals": [
+            "chapter_2_complete",
+            true
+          ]
+        }
+      ],
+      "states": [
+        "locked",
+        "active",
+        "completed",
+        "failed",
+        "transformed"
+      ],
+      "steps": [
+        {
+          "id": "investigate",
+          "sceneId": "scene_ch3_investigate",
+          "conditions": [],
+          "choices": [
+            {
+              "id": "ch3_choice_1",
+              "label": "調停三派",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_3_path",
+                    "value": 1
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_qingxu",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch3_choice_2",
+              "label": "公開證據",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_3_path",
+                    "value": 2
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_zhenbei",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch3_choice_3",
+              "label": "支持門派自治",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_3_path",
+                    "value": 3
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_baicao",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch3_choice_4",
+              "label": "保持中立",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_3_path",
+                    "value": 4
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_qianji",
+                    "value": -5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "failureRoutes": [
+        {
+          "id": "setback",
+          "result": "transformed"
+        }
+      ],
+      "rewards": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 300
+          }
+        }
+      ],
+      "nextQuestIds": [
+        "quest_chapter_4"
+      ]
+    },
+    {
+      "id": "quest_chapter_4",
+      "name": "北境風雷",
+      "type": "main",
+      "chapter": 4,
+      "prerequisites": [
+        {
+          "flagEquals": [
+            "chapter_3_complete",
+            true
+          ]
+        }
+      ],
+      "states": [
+        "locked",
+        "active",
+        "completed",
+        "failed",
+        "transformed"
+      ],
+      "steps": [
+        {
+          "id": "investigate",
+          "sceneId": "scene_ch4_investigate",
+          "conditions": [],
+          "choices": [
+            {
+              "id": "ch4_choice_1",
+              "label": "守住雁關",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_4_path",
+                    "value": 1
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_zhenbei",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch4_choice_2",
+              "label": "救援百姓",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_4_path",
+                    "value": 2
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_baicao",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch4_choice_3",
+              "label": "奪回軍械",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_4_path",
+                    "value": 3
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_qianji",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch4_choice_4",
+              "label": "揭破換械陰謀",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_4_path",
+                    "value": 4
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_xuehe",
+                    "value": -5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "failureRoutes": [
+        {
+          "id": "setback",
+          "result": "transformed"
+        }
+      ],
+      "rewards": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 400
+          }
+        }
+      ],
+      "nextQuestIds": [
+        "quest_chapter_5"
+      ]
+    },
+    {
+      "id": "quest_chapter_5",
+      "name": "血河真相",
+      "type": "main",
+      "chapter": 5,
+      "prerequisites": [
+        {
+          "flagEquals": [
+            "chapter_4_complete",
+            true
+          ]
+        }
+      ],
+      "states": [
+        "locked",
+        "active",
+        "completed",
+        "failed",
+        "transformed"
+      ],
+      "steps": [
+        {
+          "id": "investigate",
+          "sceneId": "scene_ch5_investigate",
+          "conditions": [],
+          "choices": [
+            {
+              "id": "ch5_choice_1",
+              "label": "支持改革派",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_5_path",
+                    "value": 1
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_baicao",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch5_choice_2",
+              "label": "協助守舊派",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_5_path",
+                    "value": 2
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_qianji",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch5_choice_3",
+              "label": "剿滅激進派",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_5_path",
+                    "value": 3
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_xuehe",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch5_choice_4",
+              "label": "迫使血河分裂",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_5_path",
+                    "value": 4
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_wumen",
+                    "value": -5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "failureRoutes": [
+        {
+          "id": "setback",
+          "result": "transformed"
+        }
+      ],
+      "rewards": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 500
+          }
+        }
+      ],
+      "nextQuestIds": [
+        "quest_chapter_6"
+      ]
+    },
+    {
+      "id": "quest_chapter_6",
+      "name": "三國棋局",
+      "type": "main",
+      "chapter": 6,
+      "prerequisites": [
+        {
+          "flagEquals": [
+            "chapter_5_complete",
+            true
+          ]
+        }
+      ],
+      "states": [
+        "locked",
+        "active",
+        "completed",
+        "failed",
+        "transformed"
+      ],
+      "steps": [
+        {
+          "id": "investigate",
+          "sceneId": "scene_ch6_investigate",
+          "conditions": [],
+          "choices": [
+            {
+              "id": "ch6_choice_1",
+              "label": "維持三國制衡",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_6_path",
+                    "value": 1
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_qianji",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch6_choice_2",
+              "label": "削弱朝廷",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_6_path",
+                    "value": 2
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_xuehe",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch6_choice_3",
+              "label": "限制商盟",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_6_path",
+                    "value": 3
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_wumen",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch6_choice_4",
+              "label": "聯合江湖",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_6_path",
+                    "value": 4
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_patrol",
+                    "value": -5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "failureRoutes": [
+        {
+          "id": "setback",
+          "result": "transformed"
+        }
+      ],
+      "rewards": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 600
+          }
+        }
+      ],
+      "nextQuestIds": [
+        "quest_chapter_7"
+      ]
+    },
+    {
+      "id": "quest_chapter_7",
+      "name": "天下將亂",
+      "type": "main",
+      "chapter": 7,
+      "prerequisites": [
+        {
+          "flagEquals": [
+            "chapter_6_complete",
+            true
+          ]
+        }
+      ],
+      "states": [
+        "locked",
+        "active",
+        "completed",
+        "failed",
+        "transformed"
+      ],
+      "steps": [
+        {
+          "id": "investigate",
+          "sceneId": "scene_ch7_investigate",
+          "conditions": [],
+          "choices": [
+            {
+              "id": "ch7_choice_1",
+              "label": "先救邊境",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_7_path",
+                    "value": 1
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_xuehe",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch7_choice_2",
+              "label": "先止門派衝突",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_7_path",
+                    "value": 2
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_wumen",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch7_choice_3",
+              "label": "阻止刺殺",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_7_path",
+                    "value": 3
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_patrol",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch7_choice_4",
+              "label": "保住商路",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_7_path",
+                    "value": 4
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_escort",
+                    "value": -5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "failureRoutes": [
+        {
+          "id": "setback",
+          "result": "transformed"
+        }
+      ],
+      "rewards": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 700
+          }
+        }
+      ],
+      "nextQuestIds": [
+        "quest_chapter_8"
+      ]
+    },
+    {
+      "id": "quest_chapter_8",
+      "name": "江湖歸處",
+      "type": "main",
+      "chapter": 8,
+      "prerequisites": [
+        {
+          "flagEquals": [
+            "chapter_7_complete",
+            true
+          ]
+        }
+      ],
+      "states": [
+        "locked",
+        "active",
+        "completed",
+        "failed",
+        "transformed"
+      ],
+      "steps": [
+        {
+          "id": "investigate",
+          "sceneId": "scene_ch8_investigate",
+          "conditions": [],
+          "choices": [
+            {
+              "id": "ch8_choice_1",
+              "label": "維持舊秩序",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_8_path",
+                    "value": 1
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_wumen",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch8_choice_2",
+              "label": "推動改革",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_8_path",
+                    "value": 2
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_patrol",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch8_choice_3",
+              "label": "擁立單一勢力",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_8_path",
+                    "value": 3
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_escort",
+                    "value": 10
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ch8_choice_4",
+              "label": "江湖自主",
+              "effects": [
+                {
+                  "effectId": "set_flag",
+                  "params": {
+                    "key": "chapter_8_path",
+                    "value": 4
+                  }
+                },
+                {
+                  "effectId": "faction_change",
+                  "params": {
+                    "factionId": "faction_trade",
+                    "value": -5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "failureRoutes": [
+        {
+          "id": "setback",
+          "result": "transformed"
+        }
+      ],
+      "rewards": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 800
+          }
+        }
+      ],
+      "nextQuestIds": []
+    }
+  ]
+}

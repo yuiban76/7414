@@ -1,0 +1,9 @@
+{
+  "name": "江湖歸處",
+  "short_name": "江湖歸處",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b0e0c",
+  "theme_color": "#111512",
+  "lang": "zh-Hant"
+}

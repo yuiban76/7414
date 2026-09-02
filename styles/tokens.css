@@ -1,0 +1,30 @@
+:root {
+  --ink-950: #0b0e0c;
+  --ink-900: #111512;
+  --ink-800: #1b2420;
+  --ink-700: #2b3832;
+  --paper-100: #f3ecd9;
+  --paper-200: #e8dfc8;
+  --paper-300: #d4c8aa;
+  --paper-ink: #27251f;
+  --cinnabar: #b74732;
+  --cinnabar-dark: #843426;
+  --jade: #78aa92;
+  --jade-dark: #436f5c;
+  --gold: #c7a660;
+  --danger: #d55c4a;
+  --focus: #ffe29a;
+  --shadow: 0 18px 55px rgb(0 0 0 / .28);
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --font-display: I.Ming, PMingLiU, "Noto Serif TC", serif;
+  --font-body: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --font-data: "Cascadia Mono", "SFMono-Regular", monospace;
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+}

@@ -1,0 +1,410 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "npc_001",
+      "name": "陸小川",
+      "region": "大晟",
+      "role": "攻擊／身法",
+      "introduction": "第 1 章開局同伴，劍術型，直率；成長身法＞悟性＞臂力",
+      "growthProfile": "攻擊／身法",
+      "recruitConditions": [],
+      "relationshipState": "信任",
+      "availability": "party",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_002",
+      "name": "沈青禾",
+      "region": "大晟",
+      "role": "控制／醫療",
+      "introduction": "第 1 章，年輕醫者，截脈與銀針",
+      "growthProfile": "控制／醫療",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 1
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "cautious",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_003",
+      "name": "韓鐵山",
+      "region": "大晟",
+      "role": "護衛／防禦",
+      "introduction": "第 2 章，老鏢師，重承諾",
+      "growthProfile": "護衛／防禦",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 1
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "protective",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_004",
+      "name": "柳明月",
+      "region": "大晟",
+      "role": "身法／攻擊",
+      "introduction": "第 2 章，江湖遊俠，情報靈通",
+      "growthProfile": "身法／攻擊",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 2
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_005",
+      "name": "趙玄策",
+      "region": "大晟・太岳",
+      "role": "破勢／攻擊",
+      "introduction": "第 3 章，門派立場強",
+      "growthProfile": "破勢／攻擊",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 2
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_006",
+      "name": "顧清玄",
+      "region": "大晟・青虛",
+      "role": "防禦／身法",
+      "introduction": "第 3 章，冷靜寡言",
+      "growthProfile": "防禦／身法",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 2
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_007",
+      "name": "段長安",
+      "region": "大晟・巡武司",
+      "role": "控制／官府",
+      "introduction": "第 2 章，引導官府線",
+      "growthProfile": "控制／官府",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 3
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "cautious",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_008",
+      "name": "蘇晚晴",
+      "region": "大晟・商戶",
+      "role": "特殊／支援",
+      "introduction": "第 3 章，情報與道具玩法",
+      "growthProfile": "特殊／支援",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 3
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_009",
+      "name": "石破軍",
+      "region": "北朔・鎮北武府",
+      "role": "破勢／護衛",
+      "introduction": "震甲槍、鐵壁架、挺槍護衛；根骨＞臂力＞定力",
+      "growthProfile": "破勢／護衛",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 3
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "protective",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_010",
+      "name": "岳寒川",
+      "region": "北朔",
+      "role": "攻擊",
+      "introduction": "寡言實際、不喜門派規矩的刀客",
+      "growthProfile": "攻擊",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 4
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_011",
+      "name": "蕭雁",
+      "region": "北朔",
+      "role": "身法／攻擊",
+      "introduction": "邊地斥候，追蹤、速度、身法",
+      "growthProfile": "身法／攻擊",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 4
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_012",
+      "name": "孟千鈞",
+      "region": "北朔",
+      "role": "防禦／破勢",
+      "introduction": "軍中教頭，重防型",
+      "growthProfile": "防禦／破勢",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 4
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_013",
+      "name": "白昭",
+      "region": "北朔官府",
+      "role": "控制",
+      "introduction": "擒拿與限制行動",
+      "growthProfile": "控制",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 5
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "cautious",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_014",
+      "name": "林九歌",
+      "region": "北朔",
+      "role": "攻擊／特殊",
+      "introduction": "自由浪客，開啟江湖支線",
+      "growthProfile": "攻擊／特殊",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 5
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_015",
+      "name": "唐若雪",
+      "region": "南黎・百草谷",
+      "role": "控制／醫療",
+      "introduction": "金針鎖穴、封氣手、護脈掌；悟性＞身法＞定力",
+      "growthProfile": "控制／醫療",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 5
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "cautious",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_016",
+      "name": "溫如玉",
+      "region": "南黎・百草谷",
+      "role": "防禦／支援",
+      "introduction": "偏恢復與保護",
+      "growthProfile": "防禦／支援",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 6
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_017",
+      "name": "江無聲",
+      "region": "南黎・千機樓",
+      "role": "身法／控制",
+      "introduction": "暗器、流影步、牽絲手",
+      "growthProfile": "身法／控制",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 6
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "cautious",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_018",
+      "name": "方十三",
+      "region": "南黎",
+      "role": "攻擊／身法",
+      "introduction": "傭兵，高爆發但脆弱",
+      "growthProfile": "攻擊／身法",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 6
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_019",
+      "name": "商雲舟",
+      "region": "南黎・四海商盟",
+      "role": "特殊／護衛",
+      "introduction": "商會與跨國任務",
+      "growthProfile": "特殊／護衛",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 7
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "protective",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_020",
+      "name": "蘭秋水",
+      "region": "南黎地下江湖",
+      "role": "控制／特殊",
+      "introduction": "與黑市、夜梟有聯繫",
+      "growthProfile": "控制／特殊",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 7
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "cautious",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_021",
+      "name": "裴無咎",
+      "region": "血河門",
+      "role": "攻擊／破勢",
+      "introduction": "第 5 章；依玩家處理血河門的方式決定加入",
+      "growthProfile": "攻擊／破勢",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 7
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_022",
+      "name": "夏侯離",
+      "region": "無門會",
+      "role": "防禦／控制",
+      "introduction": "多派雜學，展示雜學流",
+      "growthProfile": "防禦／控制",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 8
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "cautious",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_023",
+      "name": "夜七",
+      "region": "夜梟",
+      "role": "身法／特殊",
+      "introduction": "情報、暗器、逃脫；不完全可信但不主動惡意坑隊",
+      "growthProfile": "身法／特殊",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 8
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "aggressive",
+      "storyFlags": []
+    },
+    {
+      "id": "npc_024",
+      "name": "慧空",
+      "region": "金剛寺",
+      "role": "護衛／防禦",
+      "introduction": "金剛架、護法掌、捨身擋，純隊伍保護",
+      "growthProfile": "護衛／防禦",
+      "recruitConditions": [
+        {
+          "chapterAtLeast": 8
+        }
+      ],
+      "relationshipState": "陌生",
+      "availability": "locked",
+      "aiProfile": "protective",
+      "storyFlags": []
+    }
+  ]
+}

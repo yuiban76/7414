@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111512">
+  <meta name="description" content="支援單人與本機多人協作的原創高武俠文字角色扮演遊戲。">
+  <title>江湖歸處</title>
+  <link rel="stylesheet" href="./styles/tokens.css">
+  <link rel="stylesheet" href="./styles/base.css">
+  <link rel="stylesheet" href="./styles/layout.css">
+  <link rel="stylesheet" href="./styles/components.css">
+  <link rel="manifest" href="./manifest.webmanifest">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
+  <div id="app" aria-live="polite">
+    <main id="main" class="boot-screen" tabindex="-1">
+      <p class="eyebrow">江湖錄 · 卷一</p>
+      <h1>江湖歸處</h1>
+      <p>正在展卷……</p>
+    </main>
+  </div>
+  <div id="toast-region" class="toast-region" role="status" aria-live="polite"></div>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

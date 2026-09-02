@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "meridian_001",
+      "name": "任脈",
+      "maxLevel": 10,
+      "perLevel": [
+        {
+          "effectId": "max_hp_pct",
+          "params": {
+            "value": 0.01
+          }
+        }
+      ],
+      "costs": [
+        100,
+        150,
+        220,
+        300,
+        400,
+        520,
+        660,
+        820,
+        1000,
+        1200
+      ]
+    },
+    {
+      "id": "meridian_002",
+      "name": "督脈",
+      "maxLevel": 10,
+      "perLevel": [
+        {
+          "effectId": "max_inner_pct",
+          "params": {
+            "value": 0.01
+          }
+        }
+      ],
+      "costs": [
+        100,
+        150,
+        220,
+        300,
+        400,
+        520,
+        660,
+        820,
+        1000,
+        1200
+      ]
+    },
+    {
+      "id": "meridian_003",
+      "name": "手陽脈",
+      "maxLevel": 10,
+      "perLevel": [
+        {
+          "effectId": "damage_pct",
+          "params": {
+            "value": 0.005
+          }
+        }
+      ],
+      "costs": [
+        100,
+        150,
+        220,
+        300,
+        400,
+        520,
+        660,
+        820,
+        1000,
+        1200
+      ]
+    },
+    {
+      "id": "meridian_004",
+      "name": "手陰脈",
+      "maxLevel": 10,
+      "perLevel": [
+        {
+          "effectId": "posture_damage_pct",
+          "params": {
+            "value": 0.005
+          }
+        }
+      ],
+      "costs": [
+        100,
+        150,
+        220,
+        300,
+        400,
+        520,
+        660,
+        820,
+        1000,
+        1200
+      ]
+    },
+    {
+      "id": "meridian_005",
+      "name": "足陽脈",
+      "maxLevel": 10,
+      "perLevel": [
+        {
+          "effectId": "speed_pct",
+          "params": {
+            "value": 0.01
+          }
+        }
+      ],
+      "costs": [
+        100,
+        150,
+        220,
+        300,
+        400,
+        520,
+        660,
+        820,
+        1000,
+        1200
+      ]
+    },
+    {
+      "id": "meridian_006",
+      "name": "足陰脈",
+      "maxLevel": 10,
+      "perLevel": [
+        {
+          "effectId": "max_posture_pct",
+          "params": {
+            "value": 0.01
+          }
+        }
+      ],
+      "costs": [
+        100,
+        150,
+        220,
+        300,
+        400,
+        520,
+        660,
+        820,
+        1000,
+        1200
+      ]
+    }
+  ]
+}

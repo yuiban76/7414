@@ -1,0 +1,406 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "talent_001",
+      "name": "孔武有力",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "臂力 +5",
+      "effects": []
+    },
+    {
+      "id": "talent_002",
+      "name": "筋骨結實",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "根骨 +5",
+      "effects": []
+    },
+    {
+      "id": "talent_003",
+      "name": "步履輕快",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "身法 +5",
+      "effects": []
+    },
+    {
+      "id": "talent_004",
+      "name": "心思敏捷",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "悟性 +5",
+      "effects": []
+    },
+    {
+      "id": "talent_005",
+      "name": "沉著冷靜",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "定力 +5",
+      "effects": []
+    },
+    {
+      "id": "talent_006",
+      "name": "氣息綿長",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "內力上限 +8%",
+      "effects": []
+    },
+    {
+      "id": "talent_007",
+      "name": "耐力過人",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "氣血上限 +8%",
+      "effects": []
+    },
+    {
+      "id": "talent_008",
+      "name": "眼明手快",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "行動順序判定身法 +4",
+      "effects": []
+    },
+    {
+      "id": "talent_009",
+      "name": "勤學苦練",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "武功熟練取得 +8%",
+      "effects": []
+    },
+    {
+      "id": "talent_010",
+      "name": "靜心修行",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "內功熟練取得 +8%",
+      "effects": []
+    },
+    {
+      "id": "talent_011",
+      "name": "皮粗肉厚",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "普通攻擊承傷 -5%",
+      "effects": []
+    },
+    {
+      "id": "talent_012",
+      "name": "力沉勢猛",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "架勢傷害 +8%",
+      "effects": []
+    },
+    {
+      "id": "talent_013",
+      "name": "守勢穩固",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "架勢上限 +10%",
+      "effects": []
+    },
+    {
+      "id": "talent_014",
+      "name": "善於觀察",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "觀察有效情報能力 +10%",
+      "effects": []
+    },
+    {
+      "id": "talent_015",
+      "name": "護友心切",
+      "rarity": "普通",
+      "type": "positive",
+      "description": "護衛時承傷 -8%",
+      "effects": []
+    },
+    {
+      "id": "talent_016",
+      "name": "天生神力",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "臂力 +9",
+      "effects": []
+    },
+    {
+      "id": "talent_017",
+      "name": "根基深厚",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "根骨 +9",
+      "effects": []
+    },
+    {
+      "id": "talent_018",
+      "name": "身輕如燕",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "身法 +9",
+      "effects": []
+    },
+    {
+      "id": "talent_019",
+      "name": "悟性過人",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "悟性 +9",
+      "effects": []
+    },
+    {
+      "id": "talent_020",
+      "name": "心如止水",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "定力 +9",
+      "effects": []
+    },
+    {
+      "id": "talent_021",
+      "name": "氣海寬廣",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "內力上限 +15%",
+      "effects": []
+    },
+    {
+      "id": "talent_022",
+      "name": "精力旺盛",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "氣血上限 +15%",
+      "effects": []
+    },
+    {
+      "id": "talent_023",
+      "name": "一學就會",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "武功熟練取得 +12%",
+      "effects": []
+    },
+    {
+      "id": "talent_024",
+      "name": "內息自然",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "內功熟練取得 +12%",
+      "effects": []
+    },
+    {
+      "id": "talent_025",
+      "name": "破勢高手",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "架勢傷害 +15%",
+      "effects": []
+    },
+    {
+      "id": "talent_026",
+      "name": "鐵壁之姿",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "所受架勢傷害 -12%",
+      "effects": []
+    },
+    {
+      "id": "talent_027",
+      "name": "妙手回春",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "藥物與治療效果 +15%",
+      "effects": []
+    },
+    {
+      "id": "talent_028",
+      "name": "臨危不亂",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "氣血低於 30% 時定力判定 +15",
+      "effects": []
+    },
+    {
+      "id": "talent_029",
+      "name": "後發制人",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "若本回合在敵人後行動，傷害 +10%",
+      "effects": []
+    },
+    {
+      "id": "talent_030",
+      "name": "護法之才",
+      "rarity": "稀有",
+      "type": "positive",
+      "description": "護衛承傷 -15%",
+      "effects": []
+    },
+    {
+      "id": "talent_031",
+      "name": "武學奇才",
+      "rarity": "絕品",
+      "type": "positive",
+      "description": "武功熟練取得 +20%",
+      "effects": []
+    },
+    {
+      "id": "talent_032",
+      "name": "內功奇才",
+      "rarity": "絕品",
+      "type": "positive",
+      "description": "內功熟練取得 +20%",
+      "effects": []
+    },
+    {
+      "id": "talent_033",
+      "name": "銅皮鐵骨",
+      "rarity": "絕品",
+      "type": "positive",
+      "description": "氣血 +20%，承傷 -5%",
+      "effects": []
+    },
+    {
+      "id": "talent_034",
+      "name": "百脈通暢",
+      "rarity": "絕品",
+      "type": "positive",
+      "description": "內力 +20%，內功修煉速度 +10%",
+      "effects": []
+    },
+    {
+      "id": "talent_035",
+      "name": "洞察入微",
+      "rarity": "絕品",
+      "type": "positive",
+      "description": "觀察效果 +25%，更易發現 Boss 弱點",
+      "effects": []
+    },
+    {
+      "id": "talent_036",
+      "name": "不動如山",
+      "rarity": "絕品",
+      "type": "positive",
+      "description": "架勢上限 +25%",
+      "effects": []
+    },
+    {
+      "id": "talent_037",
+      "name": "勢如破竹",
+      "rarity": "絕品",
+      "type": "positive",
+      "description": "架勢傷害 +25%",
+      "effects": []
+    },
+    {
+      "id": "talent_038",
+      "name": "越戰越勇",
+      "rarity": "絕品",
+      "type": "positive",
+      "description": "氣血低於 50% 時傷害 +12%",
+      "effects": []
+    },
+    {
+      "id": "talent_039",
+      "name": "絕境求生",
+      "rarity": "絕品",
+      "type": "positive",
+      "description": "每戰首次低於 20% 氣血時恢復 10% 氣血",
+      "effects": []
+    },
+    {
+      "id": "talent_040",
+      "name": "武骨天成",
+      "rarity": "天命",
+      "type": "positive",
+      "description": "武功熟練 +25%，五大屬性修煉效率 +10%",
+      "effects": []
+    },
+    {
+      "id": "talent_041",
+      "name": "天生氣海",
+      "rarity": "天命",
+      "type": "positive",
+      "description": "內力 +30%，內功熟練 +15%",
+      "effects": []
+    },
+    {
+      "id": "talent_042",
+      "name": "玲瓏心竅",
+      "rarity": "天命",
+      "type": "positive",
+      "description": "悟性 +12，觀察效果 +20%",
+      "effects": []
+    },
+    {
+      "id": "talent_043",
+      "name": "金剛之軀",
+      "rarity": "天命",
+      "type": "positive",
+      "description": "根骨 +12，氣血 +20%，架勢 +15%",
+      "effects": []
+    },
+    {
+      "id": "talent_044",
+      "name": "急功近利",
+      "rarity": "優缺點",
+      "type": "tradeoff",
+      "description": "武功熟練 +15%，定力 -8",
+      "effects": []
+    },
+    {
+      "id": "talent_045",
+      "name": "好勇鬥狠",
+      "rarity": "優缺點",
+      "type": "tradeoff",
+      "description": "傷害 +10%，自身承傷 +8%",
+      "effects": []
+    },
+    {
+      "id": "talent_046",
+      "name": "輕靈體質",
+      "rarity": "優缺點",
+      "type": "tradeoff",
+      "description": "身法 +10，氣血上限 -10%",
+      "effects": []
+    },
+    {
+      "id": "talent_047",
+      "name": "體弱",
+      "rarity": "負面",
+      "type": "negative",
+      "description": "氣血上限 -15%",
+      "effects": []
+    },
+    {
+      "id": "talent_048",
+      "name": "經脈狹窄",
+      "rarity": "負面",
+      "type": "negative",
+      "description": "內力上限 -15%",
+      "effects": []
+    },
+    {
+      "id": "talent_049",
+      "name": "反應遲緩",
+      "rarity": "負面",
+      "type": "negative",
+      "description": "身法 -8",
+      "effects": []
+    },
+    {
+      "id": "talent_050",
+      "name": "心浮氣躁",
+      "rarity": "負面",
+      "type": "negative",
+      "description": "定力 -10",
+      "effects": []
+    }
+  ]
+}

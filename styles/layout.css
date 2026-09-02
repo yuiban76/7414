@@ -1,0 +1,16 @@
+.shell { min-height: 100vh; padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) calc(5.5rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left)); }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 1440px; margin: 0 auto 1rem; }
+.brand { display: flex; align-items: baseline; gap: .75rem; }
+.brand h1 { margin: 0; font-size: clamp(1.3rem, 3vw, 2rem); }
+.chapter-mark { color: var(--cinnabar); font-family: var(--font-display); font-size: .85rem; }
+.game-grid { display: grid; grid-template-columns: minmax(210px, 260px) minmax(0, 760px) minmax(210px, 290px); gap: 1rem; max-width: 1440px; margin: 0 auto; align-items: start; }
+.main-column { min-width: 0; }
+.side-column { display: grid; gap: 1rem; position: sticky; top: 1rem; }
+.home-wrap, .creator-wrap { width: min(100%, 920px); margin: 0 auto; }
+.home-hero { min-height: calc(100vh - 8rem); display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: clamp(2rem, 6vw, 6rem); }
+.home-actions { display: grid; gap: .75rem; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.span-all { grid-column: 1 / -1; }
+.bottom-nav { position: fixed; z-index: 20; left: 50%; bottom: max(.75rem, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; gap: .25rem; padding: .35rem; background: rgb(17 21 18 / .94); border: 1px solid var(--ink-700); border-radius: 999px; backdrop-filter: blur(12px); box-shadow: var(--shadow); }
+@media (max-width: 1020px) { .game-grid { grid-template-columns: minmax(190px, 230px) minmax(0, 1fr); } .right-column { display: none; } }
+@media (max-width: 720px) { .shell { padding-inline: .75rem; } .game-grid { display: block; } .side-column { position: static; } .left-column { display: none; } .home-hero { min-height: auto; grid-template-columns: 1fr; padding: 2rem 0 6rem; } .form-grid { grid-template-columns: 1fr; } .span-all { grid-column: auto; } .bottom-nav { width: calc(100% - 1.5rem); justify-content: space-around; border-radius: 14px; } }

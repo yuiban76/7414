@@ -1,0 +1,906 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "item_001",
+      "name": "金創散",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復少量氣血",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 30
+          }
+        }
+      ],
+      "priceWen": 40
+    },
+    {
+      "id": "item_002",
+      "name": "止血散",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復氣血並解除流血",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 33
+          }
+        }
+      ],
+      "priceWen": 60
+    },
+    {
+      "id": "item_003",
+      "name": "活血膏",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "中量恢復氣血",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 36
+          }
+        }
+      ],
+      "priceWen": 80
+    },
+    {
+      "id": "item_004",
+      "name": "回春丸",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "中量恢復氣血",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 39
+          }
+        }
+      ],
+      "priceWen": 100
+    },
+    {
+      "id": "item_005",
+      "name": "白玉膏",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "大量恢復氣血",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 42
+          }
+        }
+      ],
+      "priceWen": 120
+    },
+    {
+      "id": "item_006",
+      "name": "百草丹",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復氣血並降低內傷",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 45
+          }
+        }
+      ],
+      "priceWen": 140
+    },
+    {
+      "id": "item_007",
+      "name": "玉露丸",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "大量恢復氣血",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 48
+          }
+        }
+      ],
+      "priceWen": 160
+    },
+    {
+      "id": "item_008",
+      "name": "護心丹",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復氣血，短暫增加控制抗性",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 51
+          }
+        }
+      ],
+      "priceWen": 180
+    },
+    {
+      "id": "item_009",
+      "name": "續命丹",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": 1,
+      "description": "極大量恢復氣血，每戰限 1 次",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 54
+          }
+        }
+      ],
+      "priceWen": 200
+    },
+    {
+      "id": "item_010",
+      "name": "大還丹",
+      "category": "療傷",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": 1,
+      "description": "頂級療傷藥，極稀有",
+      "effects": [
+        {
+          "effectId": "heal_flat",
+          "params": {
+            "value": 57
+          }
+        }
+      ],
+      "priceWen": 220
+    },
+    {
+      "id": "item_011",
+      "name": "行氣散",
+      "category": "回氣",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復少量內力",
+      "effects": [
+        {
+          "effectId": "restore_inner_flat",
+          "params": {
+            "value": 60
+          }
+        }
+      ],
+      "priceWen": 240
+    },
+    {
+      "id": "item_012",
+      "name": "聚元丸",
+      "category": "回氣",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復中量內力",
+      "effects": [
+        {
+          "effectId": "restore_inner_flat",
+          "params": {
+            "value": 63
+          }
+        }
+      ],
+      "priceWen": 260
+    },
+    {
+      "id": "item_013",
+      "name": "清氣丹",
+      "category": "回氣",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復內力並解除部分內力異常",
+      "effects": [
+        {
+          "effectId": "restore_inner_flat",
+          "params": {
+            "value": 66
+          }
+        }
+      ],
+      "priceWen": 280
+    },
+    {
+      "id": "item_014",
+      "name": "回元丹",
+      "category": "回氣",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "大量恢復內力",
+      "effects": [
+        {
+          "effectId": "restore_inner_flat",
+          "params": {
+            "value": 69
+          }
+        }
+      ],
+      "priceWen": 300
+    },
+    {
+      "id": "item_015",
+      "name": "參氣丸",
+      "category": "回氣",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復內力並短暫提高自然回氣",
+      "effects": [
+        {
+          "effectId": "restore_inner_flat",
+          "params": {
+            "value": 72
+          }
+        }
+      ],
+      "priceWen": 320
+    },
+    {
+      "id": "item_016",
+      "name": "凝神露",
+      "category": "回氣",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復內力、增加定力抗性",
+      "effects": [
+        {
+          "effectId": "restore_inner_flat",
+          "params": {
+            "value": 75
+          }
+        }
+      ],
+      "priceWen": 340
+    },
+    {
+      "id": "item_017",
+      "name": "紫元丹",
+      "category": "回氣",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "大量恢復內力",
+      "effects": [
+        {
+          "effectId": "restore_inner_flat",
+          "params": {
+            "value": 78
+          }
+        }
+      ],
+      "priceWen": 360
+    },
+    {
+      "id": "item_018",
+      "name": "天元丹",
+      "category": "回氣",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": 1,
+      "description": "頂級回氣藥，每戰限 1 次",
+      "effects": [
+        {
+          "effectId": "restore_inner_flat",
+          "params": {
+            "value": 81
+          }
+        }
+      ],
+      "priceWen": 380
+    },
+    {
+      "id": "item_019",
+      "name": "定元散",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復架勢",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 84
+          }
+        }
+      ],
+      "priceWen": 400
+    },
+    {
+      "id": "item_020",
+      "name": "固身丸",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "恢復大量架勢",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 87
+          }
+        }
+      ],
+      "priceWen": 420
+    },
+    {
+      "id": "item_021",
+      "name": "解毒丹",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "解除一般中毒",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 90
+          }
+        }
+      ],
+      "priceWen": 440
+    },
+    {
+      "id": "item_022",
+      "name": "百解丸",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "解除高階中毒",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 93
+          }
+        }
+      ],
+      "priceWen": 460
+    },
+    {
+      "id": "item_023",
+      "name": "活絡散",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "解除筋脈遲滯",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 96
+          }
+        }
+      ],
+      "priceWen": 480
+    },
+    {
+      "id": "item_024",
+      "name": "清心散",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "解除恐懼／混亂",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 99
+          }
+        }
+      ],
+      "priceWen": 500
+    },
+    {
+      "id": "item_025",
+      "name": "定神丹",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "短時間提高控制抗性",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 102
+          }
+        }
+      ],
+      "priceWen": 520
+    },
+    {
+      "id": "item_026",
+      "name": "化瘀膏",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "降低內傷影響",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 105
+          }
+        }
+      ],
+      "priceWen": 540
+    },
+    {
+      "id": "item_027",
+      "name": "醒神露",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "解除部分昏沉／遲緩",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 108
+          }
+        }
+      ],
+      "priceWen": 560
+    },
+    {
+      "id": "item_028",
+      "name": "護脈丹",
+      "category": "架勢／狀態",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "短時間降低控制與封脈效果",
+      "effects": [
+        {
+          "effectId": "cleanse",
+          "params": {
+            "value": 111
+          }
+        }
+      ],
+      "priceWen": 580
+    },
+    {
+      "id": "item_029",
+      "name": "聚氣散",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "增加少量內功熟練",
+      "effects": [
+        {
+          "effectId": "proficiency",
+          "params": {
+            "value": 114
+          }
+        }
+      ],
+      "priceWen": 600
+    },
+    {
+      "id": "item_030",
+      "name": "聚氣丹",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "增加較多內功熟練",
+      "effects": [
+        {
+          "effectId": "proficiency",
+          "params": {
+            "value": 117
+          }
+        }
+      ],
+      "priceWen": 620
+    },
+    {
+      "id": "item_031",
+      "name": "練武散",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "增加少量武功熟練",
+      "effects": [
+        {
+          "effectId": "proficiency",
+          "params": {
+            "value": 120
+          }
+        }
+      ],
+      "priceWen": 640
+    },
+    {
+      "id": "item_032",
+      "name": "武悟丹",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "增加較多武功熟練",
+      "effects": [
+        {
+          "effectId": "proficiency",
+          "params": {
+            "value": 123
+          }
+        }
+      ],
+      "priceWen": 660
+    },
+    {
+      "id": "item_033",
+      "name": "養身丹",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "增加少量修為",
+      "effects": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 126
+          }
+        }
+      ],
+      "priceWen": 680
+    },
+    {
+      "id": "item_034",
+      "name": "洗筋散",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "增加修為",
+      "effects": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 129
+          }
+        }
+      ],
+      "priceWen": 700
+    },
+    {
+      "id": "item_035",
+      "name": "通脈丹",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "增加較多修為",
+      "effects": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 132
+          }
+        }
+      ],
+      "priceWen": 720
+    },
+    {
+      "id": "item_036",
+      "name": "靜心香",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "修煉時熟練收益提高",
+      "effects": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 135
+          }
+        }
+      ],
+      "priceWen": 740
+    },
+    {
+      "id": "item_037",
+      "name": "凝神香",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "內功修煉收益提高",
+      "effects": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 138
+          }
+        }
+      ],
+      "priceWen": 760
+    },
+    {
+      "id": "item_038",
+      "name": "強身湯",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "一段時間氣血修煉效率提高",
+      "effects": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 141
+          }
+        }
+      ],
+      "priceWen": 780
+    },
+    {
+      "id": "item_039",
+      "name": "活絡湯",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "一段時間架勢修煉效率提高",
+      "effects": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 144
+          }
+        }
+      ],
+      "priceWen": 800
+    },
+    {
+      "id": "item_040",
+      "name": "百煉丹",
+      "category": "修煉",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "高階修煉道具，稀有",
+      "effects": [
+        {
+          "effectId": "cultivation",
+          "params": {
+            "value": 147
+          }
+        }
+      ],
+      "priceWen": 820
+    },
+    {
+      "id": "item_041",
+      "name": "火摺子",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "夜間／洞穴事件使用",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 150
+          }
+        }
+      ],
+      "priceWen": 840
+    },
+    {
+      "id": "item_042",
+      "name": "繩索",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "攀爬、救援、追捕事件",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 153
+          }
+        }
+      ],
+      "priceWen": 860
+    },
+    {
+      "id": "item_043",
+      "name": "簡易藥箱",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "醫療事件需求",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 156
+          }
+        }
+      ],
+      "priceWen": 880
+    },
+    {
+      "id": "item_044",
+      "name": "捕獸夾",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "獵戶與野外事件使用",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 159
+          }
+        }
+      ],
+      "priceWen": 900
+    },
+    {
+      "id": "item_045",
+      "name": "官府路引",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "跨城盤查",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 162
+          }
+        }
+      ],
+      "priceWen": 920
+    },
+    {
+      "id": "item_046",
+      "name": "偽造路引",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "地下管道取得，有識破風險",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 165
+          }
+        }
+      ],
+      "priceWen": 940
+    },
+    {
+      "id": "item_047",
+      "name": "煙霧彈",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": true,
+      "perBattleLimit": null,
+      "description": "特殊事件或逃跑",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 168
+          }
+        }
+      ],
+      "priceWen": 960
+    },
+    {
+      "id": "item_048",
+      "name": "信號箭",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "多人／護送事件",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 171
+          }
+        }
+      ],
+      "priceWen": 980
+    },
+    {
+      "id": "item_049",
+      "name": "精製工具箱",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "機關、修繕事件",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 174
+          }
+        }
+      ],
+      "priceWen": 1000
+    },
+    {
+      "id": "item_050",
+      "name": "密封信筒",
+      "category": "工具",
+      "stackLimit": 99,
+      "battleUsable": false,
+      "perBattleLimit": null,
+      "description": "重要運送／情報任務",
+      "effects": [
+        {
+          "effectId": "event_tool",
+          "params": {
+            "value": 177
+          }
+        }
+      ],
+      "priceWen": 1020
+    }
+  ]
+}

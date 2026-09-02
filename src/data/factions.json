@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "faction_taiyue",
+      "name": "太岳劍宗",
+      "alignment": "名門正派"
+    },
+    {
+      "id": "faction_jingang",
+      "name": "金剛寺",
+      "alignment": "正派"
+    },
+    {
+      "id": "faction_qingxu",
+      "name": "青虛觀",
+      "alignment": "中立偏正"
+    },
+    {
+      "id": "faction_zhenbei",
+      "name": "鎮北武府",
+      "alignment": "中立"
+    },
+    {
+      "id": "faction_baicao",
+      "name": "百草谷",
+      "alignment": "中立"
+    },
+    {
+      "id": "faction_qianji",
+      "name": "千機樓",
+      "alignment": "中立偏灰"
+    },
+    {
+      "id": "faction_xuehe",
+      "name": "血河門",
+      "alignment": "邪派"
+    },
+    {
+      "id": "faction_wumen",
+      "name": "無門會",
+      "alignment": "中立偏邪"
+    },
+    {
+      "id": "faction_patrol",
+      "name": "巡武司",
+      "alignment": "官府"
+    },
+    {
+      "id": "faction_escort",
+      "name": "天下鏢盟",
+      "alignment": "跨國"
+    },
+    {
+      "id": "faction_trade",
+      "name": "四海商盟",
+      "alignment": "商業"
+    },
+    {
+      "id": "faction_nightowl",
+      "name": "夜梟",
+      "alignment": "地下情報"
+    }
+  ]
+}

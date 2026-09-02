@@ -1,0 +1,14 @@
+{
+  "name": "jianghu-rpg",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-content.mjs",
+    "test": "node --test --test-isolation=none",
+    "validate": "node scripts/validate-content.mjs",
+    "balance": "node scripts/balance-audit.mjs",
+    "serve": "node scripts/serve.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

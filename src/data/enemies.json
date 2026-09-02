@@ -1,0 +1,2536 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "data": [
+    {
+      "id": "enemy_001",
+      "name": "黑巾客・陳五",
+      "chapter": 1,
+      "faction": "不明",
+      "tier": "elite",
+      "realm": 0,
+      "stats": {
+        "strength": 24,
+        "constitution": 26,
+        "agility": 21,
+        "comprehension": 19,
+        "willpower": 22
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "高速攻擊、逃跑"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter1_elite"
+    },
+    {
+      "id": "enemy_002",
+      "name": "血刀客・伍三",
+      "chapter": 1,
+      "faction": "偽裝血河門",
+      "tier": "elite",
+      "realm": 0,
+      "stats": {
+        "strength": 24,
+        "constitution": 26,
+        "agility": 21,
+        "comprehension": 19,
+        "willpower": 22
+      },
+      "skillIds": [
+        "skill_003",
+        "skill_004",
+        "skill_011"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "高破勢"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter1_elite"
+    },
+    {
+      "id": "enemy_003",
+      "name": "貨棧守衛・杜雄",
+      "chapter": 1,
+      "faction": "私兵",
+      "tier": "boss",
+      "realm": 0,
+      "stats": {
+        "strength": 30,
+        "constitution": 32,
+        "agility": 27,
+        "comprehension": 25,
+        "willpower": 28
+      },
+      "skillIds": [
+        "skill_006",
+        "skill_009",
+        "skill_021",
+        "skill_030",
+        "skill_031",
+        "skill_036"
+      ],
+      "phases": [],
+      "aiProfile": "protective",
+      "observeInfo": [
+        "防禦＋護衛"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter1_boss"
+    },
+    {
+      "id": "enemy_004",
+      "name": "鐵掌・嚴震",
+      "chapter": 1,
+      "faction": "不明",
+      "tier": "major_boss",
+      "realm": 0,
+      "stats": {
+        "strength": 36,
+        "constitution": 38,
+        "agility": 33,
+        "comprehension": 31,
+        "willpower": 34
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "強行運功後高攻低架勢"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter1_major_boss"
+    },
+    {
+      "id": "enemy_005",
+      "name": "黑市刀客・曹六",
+      "chapter": 1,
+      "faction": "黑市",
+      "tier": "elite",
+      "realm": 0,
+      "stats": {
+        "strength": 24,
+        "constitution": 26,
+        "agility": 21,
+        "comprehension": 19,
+        "willpower": 22
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "低血追擊"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter1_elite"
+    },
+    {
+      "id": "enemy_006",
+      "name": "滅口人・邢烈",
+      "chapter": 1,
+      "faction": "不明",
+      "tier": "boss",
+      "realm": 0,
+      "stats": {
+        "strength": 30,
+        "constitution": 32,
+        "agility": 27,
+        "comprehension": 25,
+        "willpower": 28
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "優先攻擊受傷角色"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter1_boss"
+    },
+    {
+      "id": "enemy_007",
+      "name": "無面使者",
+      "chapter": 1,
+      "faction": "幕後勢力",
+      "tier": "major_boss",
+      "realm": 0,
+      "stats": {
+        "strength": 36,
+        "constitution": 38,
+        "agility": 33,
+        "comprehension": 31,
+        "willpower": 34
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "首次出現不明武學高手"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter1_major_boss"
+    },
+    {
+      "id": "enemy_008",
+      "name": "商盟護衛・季東",
+      "chapter": 2,
+      "faction": "四海商盟",
+      "tier": "elite",
+      "realm": 0,
+      "stats": {
+        "strength": 29,
+        "constitution": 31,
+        "agility": 26,
+        "comprehension": 24,
+        "willpower": 27
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "protective",
+      "observeInfo": [
+        "護衛商人"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter2_elite"
+    },
+    {
+      "id": "enemy_009",
+      "name": "無門浪客・徐拓",
+      "chapter": 2,
+      "faction": "無門會",
+      "tier": "boss",
+      "realm": 0,
+      "stats": {
+        "strength": 35,
+        "constitution": 37,
+        "agility": 32,
+        "comprehension": 30,
+        "willpower": 33
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "多類武功混用"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter2_boss"
+    },
+    {
+      "id": "enemy_010",
+      "name": "追捕使・許文",
+      "chapter": 2,
+      "faction": "官府",
+      "tier": "elite",
+      "realm": 0,
+      "stats": {
+        "strength": 29,
+        "constitution": 31,
+        "agility": 26,
+        "comprehension": 24,
+        "willpower": 27
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "cunning",
+      "observeInfo": [
+        "控制"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter2_elite"
+    },
+    {
+      "id": "enemy_011",
+      "name": "黑帳房・周元慶",
+      "chapter": 2,
+      "faction": "四海商盟",
+      "tier": "major_boss",
+      "realm": 0,
+      "stats": {
+        "strength": 41,
+        "constitution": 43,
+        "agility": 38,
+        "comprehension": 36,
+        "willpower": 39
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "protective",
+      "observeInfo": [
+        "階段召喚護衛"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter2_major_boss"
+    },
+    {
+      "id": "enemy_012",
+      "name": "江匪頭目・宋鯊",
+      "chapter": 2,
+      "faction": "江匪",
+      "tier": "boss",
+      "realm": 0,
+      "stats": {
+        "strength": 35,
+        "constitution": 37,
+        "agility": 32,
+        "comprehension": 30,
+        "willpower": 33
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "高攻低防"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter2_boss"
+    },
+    {
+      "id": "enemy_013",
+      "name": "暗線刺客・阿九",
+      "chapter": 2,
+      "faction": "夜梟相關",
+      "tier": "elite",
+      "realm": 0,
+      "stats": {
+        "strength": 29,
+        "constitution": 31,
+        "agility": 26,
+        "comprehension": 24,
+        "willpower": 27
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "cunning",
+      "observeInfo": [
+        "身法、控制"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter2_elite"
+    },
+    {
+      "id": "enemy_014",
+      "name": "斷水刀・章烈",
+      "chapter": 2,
+      "faction": "地下勢力",
+      "tier": "major_boss",
+      "realm": 0,
+      "stats": {
+        "strength": 41,
+        "constitution": 43,
+        "agility": 38,
+        "comprehension": 36,
+        "willpower": 39
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "破綻爆發"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter2_major_boss"
+    },
+    {
+      "id": "enemy_015",
+      "name": "商路統領・衛長青",
+      "chapter": 2,
+      "faction": "商盟",
+      "tier": "boss",
+      "realm": 0,
+      "stats": {
+        "strength": 35,
+        "constitution": 37,
+        "agility": 32,
+        "comprehension": 30,
+        "willpower": 33
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "團隊型 AI"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter2_boss"
+    },
+    {
+      "id": "enemy_016",
+      "name": "太岳執劍弟子・林晟",
+      "chapter": 3,
+      "faction": "太岳",
+      "tier": "boss",
+      "realm": 1,
+      "stats": {
+        "strength": 40,
+        "constitution": 42,
+        "agility": 37,
+        "comprehension": 35,
+        "willpower": 38
+      },
+      "skillIds": [
+        "skill_006",
+        "skill_009",
+        "skill_021",
+        "skill_030",
+        "skill_031",
+        "skill_036"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "劍攻擊＋防禦"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter3_boss"
+    },
+    {
+      "id": "enemy_017",
+      "name": "太岳長老・岳承鋒",
+      "chapter": 3,
+      "faction": "太岳",
+      "tier": "major_boss",
+      "realm": 1,
+      "stats": {
+        "strength": 46,
+        "constitution": 48,
+        "agility": 43,
+        "comprehension": 41,
+        "willpower": 44
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "劍術三階段"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter3_major_boss"
+    },
+    {
+      "id": "enemy_018",
+      "name": "青虛弟子・楚玄",
+      "chapter": 3,
+      "faction": "青虛",
+      "tier": "elite",
+      "realm": 1,
+      "stats": {
+        "strength": 34,
+        "constitution": 36,
+        "agility": 31,
+        "comprehension": 29,
+        "willpower": 32
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "身法"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter3_elite"
+    },
+    {
+      "id": "enemy_019",
+      "name": "青虛護道人・玄成",
+      "chapter": 3,
+      "faction": "青虛",
+      "tier": "boss",
+      "realm": 1,
+      "stats": {
+        "strength": 40,
+        "constitution": 42,
+        "agility": 37,
+        "comprehension": 35,
+        "willpower": 38
+      },
+      "skillIds": [
+        "skill_006",
+        "skill_009",
+        "skill_021",
+        "skill_030",
+        "skill_031",
+        "skill_036"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "卸力、防禦"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter3_boss"
+    },
+    {
+      "id": "enemy_020",
+      "name": "金剛寺戒律首座・法嚴",
+      "chapter": 3,
+      "faction": "金剛寺",
+      "tier": "major_boss",
+      "realm": 1,
+      "stats": {
+        "strength": 46,
+        "constitution": 48,
+        "agility": 43,
+        "comprehension": 41,
+        "willpower": 44
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "超高架勢"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter3_major_boss"
+    },
+    {
+      "id": "enemy_021",
+      "name": "金剛武僧・慧震",
+      "chapter": 3,
+      "faction": "金剛寺",
+      "tier": "elite",
+      "realm": 1,
+      "stats": {
+        "strength": 34,
+        "constitution": 36,
+        "agility": 31,
+        "comprehension": 29,
+        "willpower": 32
+      },
+      "skillIds": [
+        "skill_003",
+        "skill_004",
+        "skill_011"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "破勢"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter3_elite"
+    },
+    {
+      "id": "enemy_022",
+      "name": "挑事劍客・秦牧",
+      "chapter": 3,
+      "faction": "不明",
+      "tier": "boss",
+      "realm": 1,
+      "stats": {
+        "strength": 40,
+        "constitution": 42,
+        "agility": 37,
+        "comprehension": 35,
+        "willpower": 38
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "嫁禍門派"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter3_boss"
+    },
+    {
+      "id": "enemy_023",
+      "name": "裂盟使・白藏鋒",
+      "chapter": 3,
+      "faction": "幕後勢力",
+      "tier": "major_boss",
+      "realm": 1,
+      "stats": {
+        "strength": 46,
+        "constitution": 48,
+        "agility": 43,
+        "comprehension": 41,
+        "willpower": 44
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "多派武功"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter3_major_boss"
+    },
+    {
+      "id": "enemy_024",
+      "name": "門派叛徒・唐策",
+      "chapter": 3,
+      "faction": "不明",
+      "tier": "elite",
+      "realm": 1,
+      "stats": {
+        "strength": 34,
+        "constitution": 36,
+        "agility": 31,
+        "comprehension": 29,
+        "willpower": 32
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "cunning",
+      "observeInfo": [
+        "控制＋偷襲"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter3_elite"
+    },
+    {
+      "id": "enemy_025",
+      "name": "北朔斥候長・赫連風",
+      "chapter": 4,
+      "faction": "北朔",
+      "tier": "elite",
+      "realm": 2,
+      "stats": {
+        "strength": 39,
+        "constitution": 41,
+        "agility": 36,
+        "comprehension": 34,
+        "willpower": 37
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "高身法"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_elite"
+    },
+    {
+      "id": "enemy_026",
+      "name": "邊軍都頭・謝戰",
+      "chapter": 4,
+      "faction": "大晟",
+      "tier": "boss",
+      "realm": 2,
+      "stats": {
+        "strength": 45,
+        "constitution": 47,
+        "agility": 42,
+        "comprehension": 40,
+        "willpower": 43
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "protective",
+      "observeInfo": [
+        "軍陣護衛"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_boss"
+    },
+    {
+      "id": "enemy_027",
+      "name": "鎮北武府教頭・韓破軍",
+      "chapter": 4,
+      "faction": "武府",
+      "tier": "major_boss",
+      "realm": 2,
+      "stats": {
+        "strength": 51,
+        "constitution": 53,
+        "agility": 48,
+        "comprehension": 46,
+        "willpower": 49
+      },
+      "skillIds": [
+        "skill_003",
+        "skill_004",
+        "skill_011",
+        "skill_015",
+        "skill_018",
+        "skill_020"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "槍法、高破勢"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_major_boss"
+    },
+    {
+      "id": "enemy_028",
+      "name": "軍械監・羅安",
+      "chapter": 4,
+      "faction": "不明",
+      "tier": "elite",
+      "realm": 2,
+      "stats": {
+        "strength": 39,
+        "constitution": 41,
+        "agility": 36,
+        "comprehension": 34,
+        "willpower": 37
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "道具干擾"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_elite"
+    },
+    {
+      "id": "enemy_029",
+      "name": "北原虎將・拓跋烈",
+      "chapter": 4,
+      "faction": "北朔",
+      "tier": "major_boss",
+      "realm": 2,
+      "stats": {
+        "strength": 51,
+        "constitution": 53,
+        "agility": 48,
+        "comprehension": 46,
+        "willpower": 49
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "重攻、狂暴"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_major_boss"
+    },
+    {
+      "id": "enemy_030",
+      "name": "大晟偏將・程遠",
+      "chapter": 4,
+      "faction": "大晟",
+      "tier": "boss",
+      "realm": 2,
+      "stats": {
+        "strength": 45,
+        "constitution": 47,
+        "agility": 42,
+        "comprehension": 40,
+        "willpower": 43
+      },
+      "skillIds": [
+        "skill_006",
+        "skill_009",
+        "skill_021",
+        "skill_030",
+        "skill_031",
+        "skill_036"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "防禦反擊"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_boss"
+    },
+    {
+      "id": "enemy_031",
+      "name": "軍中密探・申十三",
+      "chapter": 4,
+      "faction": "不明",
+      "tier": "elite",
+      "realm": 2,
+      "stats": {
+        "strength": 39,
+        "constitution": 41,
+        "agility": 36,
+        "comprehension": 34,
+        "willpower": 37
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "cunning",
+      "observeInfo": [
+        "控制"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_elite"
+    },
+    {
+      "id": "enemy_032",
+      "name": "破關將・宇文震",
+      "chapter": 4,
+      "faction": "北朔",
+      "tier": "major_boss",
+      "realm": 2,
+      "stats": {
+        "strength": 51,
+        "constitution": 53,
+        "agility": 48,
+        "comprehension": 46,
+        "willpower": 49
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "多目標壓迫"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_major_boss"
+    },
+    {
+      "id": "enemy_033",
+      "name": "邊境傭兵王・魏龍",
+      "chapter": 4,
+      "faction": "傭兵",
+      "tier": "boss",
+      "realm": 2,
+      "stats": {
+        "strength": 45,
+        "constitution": 47,
+        "agility": 42,
+        "comprehension": 40,
+        "willpower": 43
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "攻擊型"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_boss"
+    },
+    {
+      "id": "enemy_034",
+      "name": "赤旗統領・穆征",
+      "chapter": 4,
+      "faction": "幕後軍系",
+      "tier": "major_boss",
+      "realm": 2,
+      "stats": {
+        "strength": 51,
+        "constitution": 53,
+        "agility": 48,
+        "comprehension": 46,
+        "willpower": 49
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "戰場事件 Boss"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter4_major_boss"
+    },
+    {
+      "id": "enemy_035",
+      "name": "血河護法・赤魁",
+      "chapter": 5,
+      "faction": "血河門",
+      "tier": "boss",
+      "realm": 2,
+      "stats": {
+        "strength": 50,
+        "constitution": 52,
+        "agility": 47,
+        "comprehension": 45,
+        "willpower": 48
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "以傷換傷"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter5_boss"
+    },
+    {
+      "id": "enemy_036",
+      "name": "血河左使・裴千仇",
+      "chapter": 5,
+      "faction": "血河激進派",
+      "tier": "major_boss",
+      "realm": 2,
+      "stats": {
+        "strength": 56,
+        "constitution": 58,
+        "agility": 53,
+        "comprehension": 51,
+        "willpower": 54
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "低血狂暴"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter5_major_boss"
+    },
+    {
+      "id": "enemy_037",
+      "name": "血衣弟子・荊九",
+      "chapter": 5,
+      "faction": "血河",
+      "tier": "elite",
+      "realm": 2,
+      "stats": {
+        "strength": 44,
+        "constitution": 46,
+        "agility": 41,
+        "comprehension": 39,
+        "willpower": 42
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "高攻"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter5_elite"
+    },
+    {
+      "id": "enemy_038",
+      "name": "夜梟殺手・無聲",
+      "chapter": 5,
+      "faction": "夜梟",
+      "tier": "boss",
+      "realm": 2,
+      "stats": {
+        "strength": 50,
+        "constitution": 52,
+        "agility": 47,
+        "comprehension": 45,
+        "willpower": 48
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "閃避＋暗器"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter5_boss"
+    },
+    {
+      "id": "enemy_039",
+      "name": "血河右使・顧無生",
+      "chapter": 5,
+      "faction": "血河守舊派",
+      "tier": "major_boss",
+      "realm": 2,
+      "stats": {
+        "strength": 56,
+        "constitution": 58,
+        "agility": 53,
+        "comprehension": 51,
+        "willpower": 54
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "防守反擊"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter5_major_boss"
+    },
+    {
+      "id": "enemy_040",
+      "name": "夜梟執行者・鴉七",
+      "chapter": 5,
+      "faction": "夜梟",
+      "tier": "elite",
+      "realm": 2,
+      "stats": {
+        "strength": 44,
+        "constitution": 46,
+        "agility": 41,
+        "comprehension": 39,
+        "willpower": 42
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "封脈"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter5_elite"
+    },
+    {
+      "id": "enemy_041",
+      "name": "血河叛徒・常烈",
+      "chapter": 5,
+      "faction": "血河",
+      "tier": "boss",
+      "realm": 2,
+      "stats": {
+        "strength": 50,
+        "constitution": 52,
+        "agility": 47,
+        "comprehension": 45,
+        "willpower": 48
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "混合刀掌"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter5_boss"
+    },
+    {
+      "id": "enemy_042",
+      "name": "血河門主・段滄海",
+      "chapter": 5,
+      "faction": "血河門",
+      "tier": "major_boss",
+      "realm": 2,
+      "stats": {
+        "strength": 56,
+        "constitution": 58,
+        "agility": 53,
+        "comprehension": 51,
+        "willpower": 54
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "是否交戰由劇情決定"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter5_major_boss"
+    },
+    {
+      "id": "enemy_043",
+      "name": "夜梟黑羽使",
+      "chapter": 5,
+      "faction": "夜梟",
+      "tier": "major_boss",
+      "realm": 2,
+      "stats": {
+        "strength": 56,
+        "constitution": 58,
+        "agility": 53,
+        "comprehension": 51,
+        "willpower": 54
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "cunning",
+      "observeInfo": [
+        "隱藏意圖、高速控制"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter5_major_boss"
+    },
+    {
+      "id": "enemy_044",
+      "name": "南黎密使・許觀",
+      "chapter": 6,
+      "faction": "南黎",
+      "tier": "elite",
+      "realm": 3,
+      "stats": {
+        "strength": 49,
+        "constitution": 51,
+        "agility": 46,
+        "comprehension": 44,
+        "willpower": 47
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "cunning",
+      "observeInfo": [
+        "控制"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_elite"
+    },
+    {
+      "id": "enemy_045",
+      "name": "商盟總管・顧財",
+      "chapter": 6,
+      "faction": "四海商盟",
+      "tier": "boss",
+      "realm": 3,
+      "stats": {
+        "strength": 55,
+        "constitution": 57,
+        "agility": 52,
+        "comprehension": 50,
+        "willpower": 53
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "protective",
+      "observeInfo": [
+        "召喚護衛"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_boss"
+    },
+    {
+      "id": "enemy_046",
+      "name": "巡武司鎮撫使・傅長卿",
+      "chapter": 6,
+      "faction": "大晟",
+      "tier": "major_boss",
+      "realm": 3,
+      "stats": {
+        "strength": 61,
+        "constitution": 63,
+        "agility": 58,
+        "comprehension": 56,
+        "willpower": 59
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "官府高階武功"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_major_boss"
+    },
+    {
+      "id": "enemy_047",
+      "name": "北朔御前衛・阿史那弘",
+      "chapter": 6,
+      "faction": "北朔",
+      "tier": "elite",
+      "realm": 3,
+      "stats": {
+        "strength": 49,
+        "constitution": 51,
+        "agility": 46,
+        "comprehension": 44,
+        "willpower": 47
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "protective",
+      "observeInfo": [
+        "護衛"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_elite"
+    },
+    {
+      "id": "enemy_048",
+      "name": "南黎禁軍統領・陸沉舟",
+      "chapter": 6,
+      "faction": "南黎",
+      "tier": "boss",
+      "realm": 3,
+      "stats": {
+        "strength": 55,
+        "constitution": 57,
+        "agility": 52,
+        "comprehension": 50,
+        "willpower": 53
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "均衡"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_boss"
+    },
+    {
+      "id": "enemy_049",
+      "name": "四海商盟副盟主・沈萬川",
+      "chapter": 6,
+      "faction": "商盟",
+      "tier": "major_boss",
+      "realm": 3,
+      "stats": {
+        "strength": 61,
+        "constitution": 63,
+        "agility": 58,
+        "comprehension": 56,
+        "willpower": 59
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "金錢／傭兵機制"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_major_boss"
+    },
+    {
+      "id": "enemy_050",
+      "name": "朝堂高手・楚天策",
+      "chapter": 6,
+      "faction": "大晟",
+      "tier": "boss",
+      "realm": 3,
+      "stats": {
+        "strength": 55,
+        "constitution": 57,
+        "agility": 52,
+        "comprehension": 50,
+        "willpower": 53
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "cunning",
+      "observeInfo": [
+        "控制＋防守"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_boss"
+    },
+    {
+      "id": "enemy_051",
+      "name": "千機密探・葉十三",
+      "chapter": 6,
+      "faction": "千機樓",
+      "tier": "elite",
+      "realm": 3,
+      "stats": {
+        "strength": 49,
+        "constitution": 51,
+        "agility": 46,
+        "comprehension": 44,
+        "willpower": 47
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "暗器"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_elite"
+    },
+    {
+      "id": "enemy_052",
+      "name": "三國掮客・公孫策",
+      "chapter": 6,
+      "faction": "幕後集團",
+      "tier": "major_boss",
+      "realm": 3,
+      "stats": {
+        "strength": 61,
+        "constitution": 63,
+        "agility": 58,
+        "comprehension": 56,
+        "willpower": 59
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "三種武學切換"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_major_boss"
+    },
+    {
+      "id": "enemy_053",
+      "name": "棋局執掌者・聞人策",
+      "chapter": 6,
+      "faction": "幕後核心",
+      "tier": "major_boss",
+      "realm": 3,
+      "stats": {
+        "strength": 61,
+        "constitution": 63,
+        "agility": 58,
+        "comprehension": 56,
+        "willpower": 59
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "首次核心首腦戰"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter6_major_boss"
+    },
+    {
+      "id": "enemy_054",
+      "name": "太岳叛劍・顧寒",
+      "chapter": 7,
+      "faction": "太岳分裂派",
+      "tier": "boss",
+      "realm": 4,
+      "stats": {
+        "strength": 60,
+        "constitution": 62,
+        "agility": 57,
+        "comprehension": 55,
+        "willpower": 58
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "高劍傷"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter7_boss"
+    },
+    {
+      "id": "enemy_055",
+      "name": "北境大將・赫連山河",
+      "chapter": 7,
+      "faction": "北朔",
+      "tier": "major_boss",
+      "realm": 4,
+      "stats": {
+        "strength": 66,
+        "constitution": 68,
+        "agility": 63,
+        "comprehension": 61,
+        "willpower": 64
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "軍陣三階段"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter7_major_boss"
+    },
+    {
+      "id": "enemy_056",
+      "name": "城防統領・陳鐵",
+      "chapter": 7,
+      "faction": "大晟",
+      "tier": "elite",
+      "realm": 4,
+      "stats": {
+        "strength": 54,
+        "constitution": 56,
+        "agility": 51,
+        "comprehension": 49,
+        "willpower": 52
+      },
+      "skillIds": [
+        "skill_006",
+        "skill_009",
+        "skill_021"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "防禦"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter7_elite"
+    },
+    {
+      "id": "enemy_057",
+      "name": "夜梟玄羽・烏沉",
+      "chapter": 7,
+      "faction": "夜梟",
+      "tier": "boss",
+      "realm": 4,
+      "stats": {
+        "strength": 60,
+        "constitution": 62,
+        "agility": 57,
+        "comprehension": 55,
+        "willpower": 58
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "刺殺型"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter7_boss"
+    },
+    {
+      "id": "enemy_058",
+      "name": "千機樓叛徒・洛千機",
+      "chapter": 7,
+      "faction": "千機樓",
+      "tier": "major_boss",
+      "realm": 4,
+      "stats": {
+        "strength": 66,
+        "constitution": 68,
+        "agility": 63,
+        "comprehension": 61,
+        "willpower": 64
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "cunning",
+      "observeInfo": [
+        "控制、暗器"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter7_major_boss"
+    },
+    {
+      "id": "enemy_059",
+      "name": "血河狂徒・羅血衣",
+      "chapter": 7,
+      "faction": "血河",
+      "tier": "elite",
+      "realm": 4,
+      "stats": {
+        "strength": 54,
+        "constitution": 56,
+        "agility": 51,
+        "comprehension": 49,
+        "willpower": 52
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "狂暴"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter7_elite"
+    },
+    {
+      "id": "enemy_060",
+      "name": "戰場屠夫・拓跋孤城",
+      "chapter": 7,
+      "faction": "戰爭派",
+      "tier": "major_boss",
+      "realm": 4,
+      "stats": {
+        "strength": 66,
+        "constitution": 68,
+        "agility": 63,
+        "comprehension": 61,
+        "willpower": 64
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "高傷、多人機制"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter7_major_boss"
+    },
+    {
+      "id": "enemy_061",
+      "name": "商盟私軍主・厲承",
+      "chapter": 7,
+      "faction": "商盟",
+      "tier": "boss",
+      "realm": 4,
+      "stats": {
+        "strength": 60,
+        "constitution": 62,
+        "agility": 57,
+        "comprehension": 55,
+        "willpower": 58
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "protective",
+      "observeInfo": [
+        "護衛部隊"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter7_boss"
+    },
+    {
+      "id": "enemy_062",
+      "name": "亂世使・謝無疆",
+      "chapter": 7,
+      "faction": "幕後核心",
+      "tier": "major_boss",
+      "realm": 4,
+      "stats": {
+        "strength": 66,
+        "constitution": 68,
+        "agility": 63,
+        "comprehension": 61,
+        "willpower": 64
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "依前期盟友改變戰場"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter7_major_boss"
+    },
+    {
+      "id": "enemy_063",
+      "name": "盟軍統領・韓青",
+      "chapter": 8,
+      "faction": "可變勢力",
+      "tier": "boss",
+      "realm": 4,
+      "stats": {
+        "strength": 65,
+        "constitution": 67,
+        "agility": 62,
+        "comprehension": 60,
+        "willpower": 63
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "依玩家選邊決定敵我"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter8_boss"
+    },
+    {
+      "id": "enemy_064",
+      "name": "太岳掌門・岳天衡",
+      "chapter": 8,
+      "faction": "太岳",
+      "tier": "major_boss",
+      "realm": 4,
+      "stats": {
+        "strength": 71,
+        "constitution": 73,
+        "agility": 68,
+        "comprehension": 66,
+        "willpower": 69
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "特定結局路線成敵"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter8_major_boss"
+    },
+    {
+      "id": "enemy_065",
+      "name": "無門宗師・莫問",
+      "chapter": 8,
+      "faction": "無門會",
+      "tier": "elite",
+      "realm": 4,
+      "stats": {
+        "strength": 59,
+        "constitution": 61,
+        "agility": 56,
+        "comprehension": 54,
+        "willpower": 57
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010"
+      ],
+      "phases": [],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "六類武功混搭"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter8_elite"
+    },
+    {
+      "id": "enemy_066",
+      "name": "北朔戰神・拓跋天雄",
+      "chapter": 8,
+      "faction": "北朔",
+      "tier": "major_boss",
+      "realm": 4,
+      "stats": {
+        "strength": 71,
+        "constitution": 73,
+        "agility": 68,
+        "comprehension": 66,
+        "willpower": 69
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "一代宗師級"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter8_major_boss"
+    },
+    {
+      "id": "enemy_067",
+      "name": "南黎第一護國使・江千岳",
+      "chapter": 8,
+      "faction": "南黎",
+      "tier": "boss",
+      "realm": 4,
+      "stats": {
+        "strength": 65,
+        "constitution": 67,
+        "agility": 62,
+        "comprehension": 60,
+        "willpower": 63
+      },
+      "skillIds": [
+        "skill_006",
+        "skill_009",
+        "skill_021",
+        "skill_030",
+        "skill_031",
+        "skill_036"
+      ],
+      "phases": [],
+      "aiProfile": "cunning",
+      "observeInfo": [
+        "防禦控制"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter8_boss"
+    },
+    {
+      "id": "enemy_068",
+      "name": "商盟盟主・沈天富",
+      "chapter": 8,
+      "faction": "四海商盟",
+      "tier": "major_boss",
+      "realm": 4,
+      "stats": {
+        "strength": 71,
+        "constitution": 73,
+        "agility": 68,
+        "comprehension": 66,
+        "willpower": 69
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "protective",
+      "observeInfo": [
+        "傭兵、資源、護衛階段"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter8_major_boss"
+    },
+    {
+      "id": "enemy_069",
+      "name": "天下第一劍・葉孤塵",
+      "chapter": 8,
+      "faction": "中立傳說",
+      "tier": "major_boss",
+      "realm": 4,
+      "stats": {
+        "strength": 71,
+        "constitution": 73,
+        "agility": 68,
+        "comprehension": 66,
+        "willpower": 69
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "特殊路線才交戰"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter8_major_boss"
+    },
+    {
+      "id": "enemy_070",
+      "name": "最終敵人：秩序執掌者",
+      "chapter": 8,
+      "faction": "依世界線改變",
+      "tier": "major_boss",
+      "realm": 4,
+      "stats": {
+        "strength": 71,
+        "constitution": 73,
+        "agility": 68,
+        "comprehension": 66,
+        "willpower": 69
+      },
+      "skillIds": [
+        "skill_001",
+        "skill_005",
+        "skill_010",
+        "skill_013",
+        "skill_016",
+        "skill_017"
+      ],
+      "phases": [
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.6
+          },
+          "effect": "phase_two"
+        },
+        {
+          "trigger": {
+            "type": "hp_below",
+            "value": 0.25
+          },
+          "effect": "desperate"
+        }
+      ],
+      "aiProfile": "aggressive",
+      "observeInfo": [
+        "身份、武功、盟友與戰場由第 7 章旗標決定"
+      ],
+      "rewards": [],
+      "storyFlags": [],
+      "scalingProfile": "chapter8_major_boss"
+    }
+  ]
+}
