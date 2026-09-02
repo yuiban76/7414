@@ -1,0 +1,4 @@
+import { MAX_PARTY } from "../config/constants.js";
+export function canRecruit(npc,world){return (npc.recruitConditions??[]).every(condition=>condition.chapterAtLeast==null||world.chapter>=condition.chapterAtLeast);}
+export function recruitNpc(world,npc){if(!canRecruit(npc,world))throw new Error("尚未滿足招募條件");if(world.party.npcIds.includes(npc.id))return world;if(world.party.playerIds.length+world.party.npcIds.length>=MAX_PARTY)throw new Error("隊伍最多 4 個單位");world.party.npcIds.push(npc.id);world.npcStates[npc.id]={...(world.npcStates[npc.id]??{}),availability:"party",relationshipState:"信任"};return world;}
+export function dismissNpc(world,npcId){world.party.npcIds=world.party.npcIds.filter(id=>id!==npcId);world.npcStates[npcId]={...(world.npcStates[npcId]??{}),availability:"available"};return world;}

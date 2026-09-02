@@ -4,7 +4,7 @@ import { clamp } from "../core/validators.js";
 export function makePlayerCombatant(character, skillCatalog) {
   const resources = deriveResources(character.stats);
   return {
-    id: character.id, name: character.name, side: "party", stats: structuredClone(character.stats),
+    id: character.id, name: character.name, side: "party", stats: {...structuredClone(character.stats),agility:Math.round(character.stats.agility*(1+(character.speedPct??0)))}, damageMultiplier:1+(character.damagePct??0), postureDamageMultiplier:1+(character.postureDamagePct??0),
     maxHp: character.maxHp ?? resources.maxHp, hp: character.maxHp ?? resources.maxHp,
     maxPosture: character.maxPosture ?? resources.maxPosture, posture: character.maxPosture ?? resources.maxPosture,
     maxInner: character.maxInner ?? resources.maxInner, inner: character.maxInner ?? resources.maxInner,
@@ -74,7 +74,7 @@ export class BattleSystem {
     const outgoing=actor.damageMultiplier??1;
     const hpDamage=Math.max(1,Math.round((hpPower+actor.stats.strength*.5)*(1-defense)*vulnerable*outgoing*(.94+this.rng.next()*.12)));
     const postureReduction=target.defended?BALANCE.defendPostureReduction:0;
-    const postureDamage=Math.max(1,Math.round((posturePower+actor.stats.strength*.5)*(1-postureReduction)*outgoing));
+    const postureDamage=Math.max(1,Math.round((posturePower+actor.stats.strength*.5)*(1-postureReduction)*outgoing*(actor.postureDamageMultiplier??1)));
     target.hp=clamp(target.hp-hpDamage,0,target.maxHp); target.posture=clamp(target.posture-postureDamage,0,target.maxPosture);
     this.log.push(`${actor.name}${skill?`施展${skill.name}`:"出手"}，對${target.name}造成 ${hpDamage} 氣血、${postureDamage} 架勢傷害。`);
     if(skill?.type==="control"){const drained=Math.min(target.inner,Math.max(5,skill.innerCost));target.inner-=drained;this.log.push(`${target.name}的內息受制，額外流失 ${drained} 內力。`);}

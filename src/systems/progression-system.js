@@ -14,7 +14,7 @@ export function createCharacter(input, talents, skills) {
     stats: { ...input.stats }, talents: talents.map(t => t.id),
     skills: { [startSkill.id]: { realm: 0, proficiency: 0, completeness: 1 } },
     equippedSkills: [startSkill.id], innerArts: {}, meridians: Object.fromEntries(Array.from({length:6},(_,i)=>[`meridian_${String(i+1).padStart(3,"0")}`,0])),
-    equipment: { weapon:null, armor:null, bracer:null, accessory:null }, inventory: [{ itemId:"item_001", quantity:3 }], storyItems: [], moneyWen: 500,
+    equipment: { weapon:null, armor:null, bracer:null, accessory:null }, ownedEquipment:["equipment_001"], inventory: [{ itemId:"item_001", quantity:3 }], storyItems: [], moneyWen: 500, cultivation:0,
     office: null, factionMemberships: [], wanted: { dasheng:0, beishuo:0, nanli:0 }, ...resources, hp: resources.maxHp, posture: resources.maxPosture, inner: resources.maxInner
   };
   const errors = validateCharacter(character);
