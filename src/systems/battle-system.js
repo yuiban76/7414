@@ -1,3 +1,4 @@
+import { escortIntent, escortObjective, escortHit, resolveEscortAction } from "./zhaoye-escort-battle.js";
 import { BALANCE, deriveResources } from "../config/balance.js";
 import { finalIntent, finalObjective, finalDamageReduction, finalHit, resolveFinalAction, finalRoundEnd } from "./zhaoye-final-battle.js";
 import { clamp } from "../core/validators.js";
@@ -30,12 +31,12 @@ export function makeEnemy(definition, skillCatalog, partySize = 2) {
 }
 
 export class BattleSystem {
-  constructor({ party, enemies, rng, scenario=null }) { this.scenario=scenario; if(scenario?.id==="8-4")for(const enemy of enemies)enemy.phases=[]; this.party=party; this.enemies=enemies; this.rng=rng; this.round=1; this.log=["刀劍出鞘，戰鬥開始。"] ; this.finished=null; this.prepareIntents(); }
+  constructor({ party, enemies, rng, scenario=null }) { this.scenario=scenario; if(["8-4","6-4"].includes(scenario?.id))for(const enemy of enemies)enemy.phases=[]; this.party=party; this.enemies=enemies; this.rng=rng; this.round=1; this.log=["刀劍出鞘，戰鬥開始。"] ; this.finished=null; this.prepareIntents(); }
   get all() { return [...this.party, ...this.enemies]; }
   living(side) { return (side === "party" ? this.party : this.enemies).filter(c => c.hp > 0); }
   prepareIntents() { for (const enemy of this.living("enemy")) enemy.intent = this.chooseEnemyAction(enemy, true); }
   chooseEnemyAction(actor, includeTarget=true) {
-    const scripted=finalIntent(this,actor);if(scripted)return scripted;
+    const scripted=finalIntent(this,actor)??escortIntent(this,actor);if(scripted)return scripted;
     const opponents = this.living("party");
     const low = opponents.toSorted((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];
     let type = actor.posture/actor.maxPosture < .25 ? "defend" : "attack";
@@ -60,8 +61,8 @@ export class BattleSystem {
   chooseAllyAction(actor) { const target=this.living("enemy").toSorted((a,b)=>a.hp-b.hp)[0]; const skill=actor.skills.find(s=>s.innerCost<=actor.inner && s.type==="attack"); return skill?{type:"skill",skillId:skill.id,targetId:target?.id}:{type:"attack",targetId:target?.id}; }
   resolve(actor, action) {
     actor.defended=false; actor.defenseHpReduction=0;actor.defensePostureReduction=0; actor.guard=null; actor.dodge=0;
-    if(resolveFinalAction(this,actor,action))return;
-    if(action.type === "objective") { if(actor.side === "party" && this.onScenarioAction) { this.onScenarioAction(this.round); finalObjective(this); this.log.push(`${actor.name}完成一次場景操作，這回合不另攻擊或防禦。`); } return; }
+    if(resolveFinalAction(this,actor,action)||resolveEscortAction(this,actor,action))return;
+    if(action.type === "objective") { if(actor.side === "party" && this.onScenarioAction) { this.onScenarioAction(this.round); finalObjective(this); escortObjective(this); this.log.push(`${actor.name}完成一次場景操作，這回合不另攻擊或防禦。`); } return; }
     if (action.type === "defend") { actor.defended=true;actor.defenseHpReduction=BALANCE.defendHpReduction;actor.defensePostureReduction=BALANCE.defendPostureReduction; this.log.push(`${actor.name}沉身守勢。`); return; }
     if (action.type === "observe") { const target=this.find(action.targetId)??this.living("enemy")[0]; if(target){target.observationProgress=(target.observationProgress??target.observed)+1+(actor.observationPct??0);target.observed=Math.min(3,Math.floor(target.observationProgress)); this.log.push(`${actor.name}觀察${target.name}：${target.observeInfo?.[Math.max(0,target.observed-1)]??target.observeInfo?.[0]??"呼吸與步法露出些許端倪"}。`);} return; }
     if (action.type === "guard") { if(actor.vulnerableTurns>0){this.log.push(`${actor.name}正露破綻，無法護衛。`);return;}actor.guard={targetId:action.targetId,hits:1,reduction:0}; this.log.push(`${actor.name}擋在同伴身前。`); return; }
@@ -86,7 +87,7 @@ export class BattleSystem {
     for(const effect of skill?.effects??[])if(effect.effectId==="status")target.statuses.push({description:effect.params.description,remaining:(effect.params.turns??1)+1});
     const newBreak=target.posture===0&&target.vulnerableTurns===0;
     if(newBreak){target.vulnerableTurns=2;this.log.push(`${target.name}架勢崩解，下一回合將持續露出破綻！`);}
-    finalHit(this,actor,target,skill,newBreak); this.triggerPhases(target); this.checkFinished();
+    finalHit(this,actor,target,skill,newBreak); escortHit(this,actor,target,skill,newBreak); this.triggerPhases(target); this.checkFinished();
   }
   redirectGuard(target) { const guardian=this.living(target.side).find(c=>c.guard?.targetId===target.id&&c.guard.hits>0); if(!guardian)return target; guardian.guard.hits--;guardian.guardReductionOnce=(guardian.guard.reduction??0)+(guardian.guardReductionPct??0); this.log.push(`${guardian.name}替${target.name}擋下攻擊。`); return guardian; }
   triggerPhases(target) { for(const phase of target.phases??[]){if(target.triggeredPhases.includes(phase.effect))continue;if(phase.trigger.type==="hp_below"&&target.hp/target.maxHp<=phase.trigger.value){target.triggeredPhases.push(phase.effect);target.stats.strength+=phase.effect==="desperate"?8:4;target.stats.agility+=3;this.log.push(`${target.name}氣機驟變，進入新的戰鬥階段。`);}} }

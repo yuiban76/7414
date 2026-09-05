@@ -113,7 +113,7 @@ text=text.replace(/若第四章曾協助船工履約，他會先認出你們：�
    (this.character.storyHistory??=[]).push({worldId:w.id,eventId:pending.eventId,prompt:title,answer:choice.label});
    if(title==='舊案到期：如何處理？'){if(id==='supplement:0'){s.oldCaseSubmitted=true;s.oldCaseStrategy='submitted';s.promises.oldCase.status='fulfilled';}else if(id==='supplement:2'){s.oldCaseStrategy='concealed';s.promises.oldCase.status='refused';}else s.promises.oldCase.remedy='由受害者代理人保管，仍可返回提交';}
    if(pending.eventId==='7-4'&&id==='supplement:1'&&title==='斷軸老人與工具箱')s.promises.tools={who:'斷軸老人',what:'依標記回取工具箱',where:'鎖雲鎮',due:7,status:'pending'};
-   pending.index++;if(pending.index<pending.steps.length)return {id};s.supplement=null;e.supplementsComplete=true;return this.advance();}
+   pending.index++;if(pending.index<pending.steps.length)return {id};if(pending.eventId==='6-4'&&s.escortOutcome?.backup==='pending')s.escortOutcome.backup='delivered';s.supplement=null;e.supplementsComplete=true;return this.advance();}
   if(id.startsWith('fulfil:')){const key=id.slice(7),p=s.promises[key];p.status='fulfilled';if(key==='oldCase'){s.oldCaseSubmitted=true;s.oldCaseStrategy='submitted';}if(key==='4-2C'||key==='7-2B')support(w,'civil',`${p.who}履約完成`);s.aftermath={title:'承諾已實際交接',text:`你返回${p.where}，與${p.who}核對：${p.what}。交接人將結果寫回卷末。`};return {id};}
   if(id==='next-chapter'){s.assignments={};s.chapterSafe=false;w.chapter++;w.currentSceneId=ZHAOYE_ORDER.find(k=>k.startsWith(`${w.chapter}-`));w.quests[`quest_chapter_${w.chapter}`]='active';w.currentLocationId=ZHAOYE_LOCATION_IDS[w.chapter-1];if(!w.visitedLocations.includes(w.currentLocationId))w.visitedLocations.push(w.currentLocationId);return {id};}
   const eventId=w.currentSceneId,scene=ZHAOYE_SCENES[eventId],e=eventOf(w,eventId);
@@ -128,8 +128,8 @@ text=text.replace(/若第四章曾協助船工履約，他會先認出你們：�
   if(scene.investigate){e.investigations.push(key);e.choice=key;if(eventId==='7-1')s.preparations.push(key);s.aftermath={title:scene.title+' · 調查所得',text:REACTIONS[eventId]?.['ABC'.indexOf(key)]??`已完成「${c.label}」，原始來源已分開記錄，尚未調查的項目仍可繼續。`};return {id};}
   return this.resolve(eventId,key);
  }
- resolve(id,key){const w=this.world,s=stateOf(w),e=eventOf(w,id);e.status='completed';e.choice=key;applyChoice(w,id,key);if(MAJOR[id]){w.flags[`chapter_${w.chapter}_choice`]=`zhaoye_${id}_${key}`;w.flags[`chapter_${w.chapter}_path`]='ABC'.indexOf(key)+1;}
-  const steps=supplementsFor(id,key);if(id==='5-5'&&!s.oldCaseSubmitted&&s.promises.oldCase)steps.push(['舊案到期：如何處理？',['現在提交舊案與口供','記明補救方式後延後，仍可返回提交','拒絕提交，承擔持續隱瞞的後果']]);
+ resolve(id,key,extraSteps=[]){const w=this.world,s=stateOf(w),e=eventOf(w,id);e.status='completed';e.choice=key;applyChoice(w,id,key);if(MAJOR[id]){w.flags[`chapter_${w.chapter}_choice`]=`zhaoye_${id}_${key}`;w.flags[`chapter_${w.chapter}_path`]='ABC'.indexOf(key)+1;}
+  const steps=[...supplementsFor(id,key),...extraSteps];if(id==='5-5'&&!s.oldCaseSubmitted&&s.promises.oldCase)steps.push(['舊案到期：如何處理？',['現在提交舊案與口供','記明補救方式後延後，仍可返回提交','拒絕提交，承擔持續隱瞞的後果']]);
   if(steps.length)s.supplement={eventId:id,index:0,steps};
   const result=steps.length?{}:this.advance();s.aftermath={title:ZHAOYE_SCENES[id].title+' · 選後',text:AFTER[id]?.[key]??REACTIONS[id]?.['ABC'.indexOf(key)]??`你選擇「${ZHAOYE_SCENES[id].choices.find(c=>c.id===key)?.label??'完成現場處理'}」。這一段經過與參與者的說法已記入旅途案卷。${s.promises[id]?'\n承諾尚未履行，已列入章末返回清單。':''}`};if(s.promises[id])s.aftermath.text+='\n\n待履約：'+s.promises[id].what+'（'+s.promises[id].where+'）。';if(id==='3-4'&&s.losses.includes('grain_wait'))s.aftermath.text+='\n備糧到達前，一位老人因失溫死亡。家屬確認後，損失列入問責，不以保住點驗安慰他們。';return result;
  }
@@ -139,6 +139,18 @@ text=text.replace(/若第四章曾協助船工履約，他會先認出你們：�
  battleProgress(){const id=this.world.currentSceneId,b=this.battleDefinition(id);if(!b)return null;const e=eventOf(this.world,id);return {...b,done:e.actions??0,limit:this.battleLimit(id)};}
  battleAction(type,round){const w=this.world,id=w.currentSceneId,e=eventOf(w,id),b=this.battleDefinition(id);if(!b)return; if(type==='objective'&&e.actions<b.objectives.length&&round<=this.battleLimit(id)){e.actions++;if(b.persistent)stateOf(w).facilities.mainLock=e.actions;}return false;}
  finishBattle(choice,result){const w=this.world,id=choice.eventId;if(w.currentSceneId!==id)throw new Error('戰鬥與當前場景不符');const e=eventOf(w,id),s=stateOf(w),meta=this.battleDefinition(id),complete=e.actions>=meta.objectives.length; e.attempts=(e.attempts??0)+1;
+  if(id==='6-4'){
+   const delivered=result==='victory'&&complete;
+   s.escortOutcome={primary:delivered?'delivered':'intercepted',backup:delivered?'not-needed':'pending',delay:delivered?0:1,governmentTrustPenalty:delivered?0:1};
+   const steps=delivered?[]:[
+    ['城外醫館：核對封存副本',['與御史逐頁核封，確認第二路信使領件']],
+    ['第二路護送：繞過封街',['沿醫館後巷護送信使至城外接應點']],
+    ['第二路護送：完成交接',['核對收件人及案號，留下送達時刻與回執']]
+   ];
+   const reward=this.resolve(id,e.choice??'A',steps);
+   s.aftermath={title:delivered?'案卷越過封街':'醫館醒轉：第二路仍可送達',text:delivered?'持卷人走完三段街道，接應者核對封記後帶隊撤離。賀嶠與增援仍在街後，不把逃離寫成已拘押所有親衛。':'御史保住封存副本。送達延遲一段行程，官府護送信任降低，下一章來襲壓力小幅增加；已驗證的證據不抹去。你必須親自核封、護送第二路信使並完成交接，才會繼續議定保管方案。'};
+   return reward;
+  }
   if(meta.sparring||meta.shortEncounter){e.challengeResult=result;e.localTime=(e.localTime??0)+(result==='victory'?0:1);if(meta.sparring){(this.character.learningClues??=[]).push({worldId:w.id,eventId:id,topic:id==='5-1B'?'上乘招式拜訪與護送演練':'基本破勢與輪班規矩',result});}const reward=this.resolve(id,e.choice);s.aftermath.text=(meta.sparring?(result==='victory'?'木器收起，雙方交換招式與站位的看法。':'比試落敗，對方說明被克制的一步；該說的證詞不因勝負取消。'):(result==='victory'?'短戰後攔下接頭護衛，來路仍须核對。':'你循退路脫離，傳信者已先報警；留下的腳印仍能指向磨坊。'))+'\n'+(REACTIONS[id]?.['ABC'.indexOf(e.choice)]??'');return reward;}
   if(id==='8-4'&&(result!=='victory'||!complete)&&e.attempts<2){s.aftermath={title:'鎖雲鎮 · 撤回整備',text:'盟友接住了倒下的人。主鎖與其他設施的操作進度保留，再次上臺前可以整備；若再失利，援隊會強行開閘，造成救援損失。'};return;}
   if(id==='1-3'){s.taoAlive=result==='victory'&&complete;if(!s.taoAlive)recordLoss(w,'mill');}

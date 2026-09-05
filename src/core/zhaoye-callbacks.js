@@ -11,6 +11,7 @@ export function storyCallbacks(w,id){
  if(id==='6-1'&&choice(w,'1-0A')==='B')lines.push('出發前約好的交接紀錄一直保留，案卷來歷不用靠誰記性好來補。');
  if(id==='6-1B'&&s.ledger==='escort')lines.push(`救援公帳另存：尚餘 ${s.publicFunds} 文。這不是角色私領的酬金，說明時必須區分。`);
  if(id==='7-2'){
+  if(s.escortOutcome?.backup==='delivered')lines.push('第二路信使的回執已到，證據沒有失落；封街延誤仍列在案，官府暫縮一部分前哨護送。');
   lines.push(choice(w,'3-4')==='A'?'開倉時登記的車戶回來接人，仍逐車確認載量。':'查糧官送來軍用通行令，備糧核驗留下的協作現在用來開路。');
   lines.push(choice(w,'4-4')==='A'?'汀州自願作證的船工帶来班表，愿協助一段航程。':'庇護所的聯絡人帶來安全渡船，證人住址仍不公開。');
   const siblings=choice(w,'3-2B');if(siblings)lines.push(({A:'阿拓從冬棚寄來平安信，尚不願隨軍，哥哥沒有替他改口。',B:'軍令出現衝突，阿史那衡先核人員和交接，不再叫普通兵只管服從。',C:'阿拓寄来修車師傅畫的輪軸，願協助的是民間車隊，不是再領軍籍。'})[siblings]);
@@ -36,6 +37,7 @@ export function storyBattleModifiers(w){
  if(id==='6-4'){add(c('6-3B','A'),'hp',.1,'原件證人同行，敵方集中堵截');add(c('6-2D','A'),'incoming',-.1,'受限授權的正式陪同');}
  if(id==='7-3'){add(w.zhaoye.preparations.includes('B'),'incoming',-.1,'事先查驗騎隊');add(c('7-2C','B'),'hp',-.1,'監督交信截去側翼');add(c('7-2D','B'),'incoming',.05,'保留烽火，騎隊較近才交戰');}
  if(id==='8-4'){add(c('8-3A','C'),'hp',.1,'現場詳細對照，顧已调整站位');add(c('8-3B','B'),'incoming',-.15,'普通護衛閱令離場');}
+ if(id==='7-3')add(w.zhaoye.escortOutcome?.governmentTrustPenalty>0,'incoming',.05,'封街送達延誤，官府前哨護送暫縮');
  return {incoming:Math.max(.7,incoming),hp:Math.max(.7,hp),grace,reasons};
 }
 

@@ -67,7 +67,7 @@ export const BATTLES = {
  '3-3':{name:'韓崇',objectives:['卡住卸糧絞盤'],limit:2},
  '4-3':{name:'羅津',objectives:['護送醫工','封漏斷火'],limit:4},
  '5-4':{name:'程岳',objectives:['保住卷宗出口','打開證人通道']},
- '6-4':{name:'賀嶠',objectives:['護送第一街段','護送第二街段','護送第三街段']},
+ '6-4':{name:'賀嶠',objectives:['拆障並通過街口拒馬','護送第一街段','護送第二街段','護送第三街段']},
  '7-3':{name:'韓烈',objectives:['操作副絞盤','宣讀已驗假旗軍令']},
  '8-3':{name:'魏沉沙',objectives:['掩護信使'],limit:3},
  '8-4':{name:'顧長纓',objectives:['鬆開主鎖外栓','打開主鎖'],persistent:true}
