@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { createFinalScenario } from '../src/systems/zhaoye-final-battle.js';
 import { createCharacter } from '../src/systems/progression-system.js';
 import { IDENTITIES } from '../src/config/constants.js';
 import { recalculateEquipment } from '../src/systems/inventory-system.js';
@@ -23,14 +24,14 @@ for(const [id,scene] of Object.entries(BATTLES).filter(([id])=>!process.env.ZHAO
    const party=[makePlayerCombatant(character,skills),...Array.from({length:size-1},(_,i)=>makeNpcCompanion({id:`npc_00${i+1}`,name:`接應${i+1}`,role:'攻擊／身法'},skills,chapter))];
    const candidates=chapters[chapter-1].keyEnemyIds.map(id=>enemies.find(e=>e.id===id)).filter(Boolean);
    const def=chapter===1?enemies.find(e=>e.id===(id==='1-3'?'enemy_004':'enemy_001')):candidates.find(e=>e.tier==='major_boss')??candidates.find(e=>e.tier==='boss')??candidates[0];
-   const enemy=makeEnemy({...def,name:scene.name},skills,size);scaleStoryEncounter(enemy,{currentSceneId:id,zhaoye:createZhaoyeState()},size);const battle=new BattleSystem({party,enemies:[enemy],rng:new SeededRng(`zhaoye:${id}:${size}:${startSkillName}:${seed}`)});
-   let progress=0,defenses=0;battle.onScenarioAction=()=>{progress++;};
+   const enemy=makeEnemy({...def,name:scene.name},skills,size);scaleStoryEncounter(enemy,{currentSceneId:id,zhaoye:createZhaoyeState()},size);const battle=new BattleSystem({party,enemies:[enemy],scenario:id==='8-4'?createFinalScenario():null,rng:new SeededRng(`zhaoye:${id}:${size}:${startSkillName}:${seed}`)});
+   let progress=0;battle.onScenarioAction=()=>{progress++;};
    while(!battle.finished&&battle.round<=100){const actor=battle.living('party')[0],target=battle.living('enemy')[0];if(!actor||!target)break;
     let action;if(progress<scene.objectives.length&&battle.round<=(scene.limit??Infinity))action={type:'objective'};
     else if(id==='8-4'&&progress>=2)action={type:'defend'};
     else if(actor.hp/actor.maxHp<.3&&actor.consumablesUsed<3)action={type:'item'};
     else {const skill=actor.skills.find(s=>['attack','posture','control'].includes(s.type)&&s.innerCost<=actor.inner);action=skill?{type:'skill',skillId:skill.id,targetId:target.id}:{type:'attack',targetId:target.id};}
-    battle.submit(action);if(id==='8-4'&&action.type==='defend'&&battle.living('party').length&&++defenses>=3)battle.finished='victory';
+    battle.submit(action);
    }
    wins+=battle.finished==='victory';rescues+=progress>=scene.objectives.length&&battle.finished==='victory';rounds+=battle.round;total++;trials++;
   }rates.push(wins/40);
