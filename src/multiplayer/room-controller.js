@@ -73,13 +73,21 @@ export class RoomController {
     player.connected=true;
     player.reconnectDeadline=null;
     player.lastSeenAt=this.now();
-    if(command.playerId===this.state.hostPlayerId&&this.state.status==="paused")this.state.status="playing";
+    if(command.playerId===this.state.hostPlayerId&&this.state.status==="paused"){
+      this.state.status=this.state.resumeStatus??"playing";
+      this.state.reconnectDeadline=null;
+      delete this.state.resumeStatus;
+    }
+    if(this.state.vote?.notice?.startsWith("等待斷線")&&this.state.vote.eligiblePlayerIds.every(id=>this.state.players[id]?.connected))delete this.state.vote.notice;
     this.bump("reconnect",command.playerId);
   }
 
   apply(command){
     const player=this.state.players[command.playerId];
     if(!player)throw new Error("玩家不在房間中");
+    if(command.type==="reconnect"){this.acceptReconnect(command);return;}
+    if(!player.connected)throw new Error("玩家已斷線，請先重連");
+    if(this.state.status==="paused"&&!["chat","disconnect"].includes(command.type))throw new Error("房主斷線，世界操作暫停");
     if(command.type==="ready")player.ready=Boolean(command.payload.ready);
     else if(command.type==="start")this.start(command.playerId);
     else if(command.type==="chat")this.addChat(command.playerId,command.payload.text);
@@ -117,6 +125,7 @@ export class RoomController {
     player.ready=false;
     player.reconnectDeadline=this.now()+RECONNECT_WINDOW_MS;
     if(playerId===this.state.hostPlayerId){
+      this.state.resumeStatus=this.state.status;
       this.state.status="paused";
       this.state.reconnectDeadline=player.reconnectDeadline;
     }
@@ -138,7 +147,7 @@ export class RoomController {
   startVote(playerId,{id,choices,flagKey}){
     if(playerId!==this.state.hostPlayerId)throw new Error("只有房主可以發起重大投票");
     if(this.state.vote?.status==="open")throw new Error("已有進行中的投票");
-    const eligible=Object.values(this.state.players).filter(item=>item.connected).map(item=>item.id);
+    const eligible=Object.values(this.state.players).filter(item=>item.connected||item.reconnectDeadline>this.now()).map(item=>item.id);
     this.state.vote={...createVote({id,choices,playerIds:eligible,hostPlayerId:this.state.hostPlayerId}),flagKey};
   }
 
@@ -150,6 +159,18 @@ export class RoomController {
   resolveCurrentVote(playerId,hostTieChoice){
     if(playerId!==this.state.hostPlayerId)throw new Error("只有房主可以結算投票");
     if(!this.state.vote)throw new Error("目前沒有投票");
+    if(this.state.vote.status==="resolved")return resolveVote(this.state.vote);
+    const absent=this.state.vote.eligiblePlayerIds.filter(id=>!this.state.players[id]?.connected);
+    const waiting=absent.filter(id=>this.state.players[id]?.reconnectDeadline>this.now());
+    if(waiting.length){
+      this.state.vote.notice="等待斷線玩家重連，最長 60 秒；逾時後僅計在線玩家。";
+      return {status:"waiting-reconnect",missing:waiting};
+    }
+    if(absent.length){
+      this.state.vote.eligiblePlayerIds=this.state.vote.eligiblePlayerIds.filter(id=>!absent.includes(id));
+      for(const id of absent)delete this.state.vote.ballots[id];
+      this.state.vote.notice="重連等待已結束，本次只計在線玩家；斷線票不視為贊成。";
+    }
     const outcome=resolveVote(this.state.vote,hostTieChoice);
     if(outcome.status==="resolved"&&this.state.vote.flagKey){
       this.state.authoritativeState.flags??={};

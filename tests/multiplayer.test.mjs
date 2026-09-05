@@ -52,6 +52,9 @@ test("major vote resolves ties only through an explicit host choice",async()=>{
   await host.command("vote",{choiceId:"court"});await guest.command("vote",{choiceId:"publish"});
   await host.command("vote-resolve",{});
   assert.equal(host.state.vote.status,"open");
+  assert.equal(host.state.vote.round,2);
+  assert.deepEqual(guest.state.vote.ballots,{});
+  await host.command("vote",{choiceId:"court"});await guest.command("vote",{choiceId:"publish"});
   await host.command("vote-resolve",{hostTieChoice:"publish"});
   assert.equal(host.state.authoritativeState.flags.ledger_choice,"publish");
   assert.equal(guest.state.vote.result,"publish");
