@@ -6,6 +6,7 @@ export const INVENTORY_SLOTS = 30;
 export function addItem(character, itemId, quantity, itemCatalog) {
   if (!Number.isInteger(quantity) || quantity <= 0) throw new Error("加入數量必須是正整數");
   const definition=itemCatalog.find(item=>item.id===itemId); if(!definition)throw new Error("未知道具");
+  if(quantity>definition.stackLimit)throw new Error(`${definition.name}超過堆疊上限`);
   const existing=character.inventory.find(entry=>entry.itemId===itemId);
   if(existing){if(existing.quantity+quantity>definition.stackLimit)throw new Error(`${definition.name}超過堆疊上限`);existing.quantity+=quantity;return character;}
   if(character.inventory.length>=INVENTORY_SLOTS)throw new Error("一般背包已滿（30 格）");
@@ -13,6 +14,7 @@ export function addItem(character, itemId, quantity, itemCatalog) {
 }
 
 export function removeItem(character, itemId, quantity=1) {
+  if(!Number.isSafeInteger(quantity)||quantity<=0)throw new Error("移除數量必須是正整數");
   const index=character.inventory.findIndex(entry=>entry.itemId===itemId); if(index<0)throw new Error("背包中沒有這項道具");
   const entry=character.inventory[index]; if(quantity<=0||entry.quantity<quantity)throw new Error("道具數量不足");
   entry.quantity-=quantity; if(entry.quantity===0)character.inventory.splice(index,1); return character;
