@@ -1,6 +1,8 @@
-# 江湖歸處
+# 照夜行
 
 純 HTML、CSS 與 JavaScript ES Modules 製作的原創高武俠文字 RPG，可直接部署至 GitHub Pages。單人核心不依賴伺服器、資料庫、付費 API 或建置工具。
+
+0.3.0 正在接入新版《照夜行》：新遊戲採用新八章與 64 個擴寫事件，既有《江湖歸處》存檔仍由舊版引擎讀取。完整接入尚未驗收完成；已驗證內容及待辦見 [劇本接入驗收紀錄](docs/zhaoye-integration-status.md)。
 
 ## 本機執行
 
@@ -19,12 +21,14 @@ npm run validate
 npm test
 npm run balance
 npm run balance:campaign
+npm run balance:zhaoye
 ```
 
 - `validate`：檢查資料數量、分布、ID、效果白名單、來源與跨檔引用。
 - `test`：檢查戰鬥、破綻生命週期、創角、背包裝備、城市經濟、七階官職、修煉經脈、旅行、隊伍上限、重大投票、匯入匯出與原型污染防護。
 - `balance`：每個起始武功執行 80 次教學戰與第一章 Boss 模擬；最佳化配置最低勝率需達 55%，選項差距不得超過 40 個百分點。
 - `balance:campaign`：以六身份全部 18 種起始武功橫跨八章、每組 80 次，共 11,520 場模擬；合理成長配置最低勝率 45%，同章差距不得超過 45 個百分點。
+- `balance:zhaoye`：新版十場主線交鋒、18 起始武功、1～4 人隊伍、各 40 個隨機種子，共 28,800 場。納入救援操作的行動成本，不使用章節直接贈送的境界或支線準備加成。這是戰鬥可行性檢查，不代表所有劇情分支已完整驗收。
 
 ## GitHub Pages
 
@@ -32,7 +36,7 @@ npm run balance:campaign
 
 ## 多人說明
 
-內建 `LocalRoomTransport` 使用 BroadcastChannel，供同一裝置多分頁測試 1～4 人大廳。正式匿名多人服務只需實作 `RoomTransport`，核心規則與永久存檔不依賴供應商。
+內建 `LocalRoomTransport` 使用 BroadcastChannel，供同一裝置多分頁測試 1～4 人大廳。跨裝置匿名多人尚未完成；除了遠端傳輸，仍須補後端權威驗證、劇情同步、斷線規則及永久世界寫入驗證。
 
 ## 已實作系統
 

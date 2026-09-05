@@ -58,6 +58,7 @@ export class BattleSystem {
   chooseAllyAction(actor) { const target=this.living("enemy").toSorted((a,b)=>a.hp-b.hp)[0]; const skill=actor.skills.find(s=>s.innerCost<=actor.inner && s.type==="attack"); return skill?{type:"skill",skillId:skill.id,targetId:target?.id}:{type:"attack",targetId:target?.id}; }
   resolve(actor, action) {
     actor.defended=false; actor.defenseHpReduction=0;actor.defensePostureReduction=0; actor.guard=null; actor.dodge=0;
+    if(action.type === "objective") { if(actor.side === "party" && this.onScenarioAction) { this.onScenarioAction(this.round); this.log.push(`${actor.name}完成一次場景操作，這回合不另攻擊或防禦。`); } return; }
     if (action.type === "defend") { actor.defended=true;actor.defenseHpReduction=BALANCE.defendHpReduction;actor.defensePostureReduction=BALANCE.defendPostureReduction; this.log.push(`${actor.name}沉身守勢。`); return; }
     if (action.type === "observe") { const target=this.find(action.targetId)??this.living("enemy")[0]; if(target){target.observationProgress=(target.observationProgress??target.observed)+1+(actor.observationPct??0);target.observed=Math.min(3,Math.floor(target.observationProgress)); this.log.push(`${actor.name}觀察${target.name}：${target.observeInfo?.[Math.max(0,target.observed-1)]??target.observeInfo?.[0]??"呼吸與步法露出些許端倪"}。`);} return; }
     if (action.type === "guard") { if(actor.vulnerableTurns>0){this.log.push(`${actor.name}正露破綻，無法護衛。`);return;}actor.guard={targetId:action.targetId,hits:1,reduction:0}; this.log.push(`${actor.name}擋在同伴身前。`); return; }

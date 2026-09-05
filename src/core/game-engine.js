@@ -2,13 +2,14 @@ import { COUNTRIES, CONTENT_VERSION } from "../config/constants.js";
 import { STORY_SCENES } from "./story.js";
 import { applyOutcome, chooseMajorPath } from "../systems/quest-system.js";
 import { applyIdentitySceneBonus } from "../systems/identity-system.js";
+import { ZhaoyeEngine } from "./zhaoye-engine.js";
 
 export function createWorld({ name, startingCountry, ownerCharacterId, seed }) {
   return { id:globalThis.crypto?.randomUUID?.()??`world_${Date.now()}`, name:name.trim()||"風起江湖", schemaVersion:1, contentVersion:CONTENT_VERSION, ownerCharacterId, startingCountry, chapter:1, currentSceneId:"opening", currentLocationId:"location_002", clock:{day:1,segment:"evening"}, party:{playerIds:[ownerCharacterId],npcIds:["npc_001"]}, partyMoney:0, quests:{quest_chapter_1:"active"}, flags:{}, clues:[], npcStates:{npc_001:{availability:"party"}}, bossStates:{}, cityStates:{}, factionRelations:{}, wantedLevels:{dasheng:0,beishuo:0,nanli:0}, officeState:null, visitedLocations:["location_002"], worldEvents:[], participantHistory:[ownerCharacterId], rng:{seed,counter:0}, updatedAt:new Date().toISOString() };
 }
 
 export class GameEngine {
-  constructor({ world, character, content }) { this.world=world; this.character=character; this.content=content; }
+  constructor({ world, character, content }) { if(world.zhaoye)return new ZhaoyeEngine({world,character,content});this.world=world; this.character=character; this.content=content; }
   get scene() { return STORY_SCENES[this.world.currentSceneId]; }
   sceneView() { const scene=this.scene; if(!scene)return null; return { ...scene, text:typeof scene.text==="function"?scene.text({countryOpening:COUNTRIES[this.world.startingCountry].opening,world:this.world}):scene.text } }
   choose(choiceId) {

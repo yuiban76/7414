@@ -1,6 +1,6 @@
 {
   "name": "jianghu-rpg",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,6 +9,7 @@
     "validate": "node scripts/validate-content.mjs",
     "balance": "node scripts/balance-audit.mjs",
     "balance:campaign": "node scripts/campaign-balance-audit.mjs",
+    "balance:zhaoye": "node scripts/zhaoye-balance-audit.mjs",
     "serve": "node scripts/serve.mjs"
   },
   "engines": { "node": ">=20" }

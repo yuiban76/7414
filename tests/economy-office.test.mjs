@@ -1,13 +1,25 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { buyEquipment, buyItem, priceAt, restAtInn, sellItem, shopStock } from "../src/systems/economy-system.js";
+import { buyEquipment, buyItem, priceAt, restAtInn, sellEquipment, sellItem, shopStock } from "../src/systems/economy-system.js";
 import { OFFICE_RANKS, availableOfficeTasks, completeOfficeTask, joinOffice, resignOffice } from "../src/systems/office-system.js";
 
 const read=name=>JSON.parse(fs.readFileSync(new URL(`../src/data/${name}.json`,import.meta.url),"utf8")).data;
 const items=read("items"),equipment=read("equipment"),locations=read("locations"),city=locations.find(row=>row.id==="location_002");
 const character=()=>({moneyWen:2000,inventory:[],ownedEquipment:[],equipment:{weapon:null,armor:null,bracer:null,accessory:null},hp:1,maxHp:200,inner:1,maxInner:80,posture:1,maxPosture:100,office:null});
 const world=()=>({chapter:3,clock:{day:1,segment:"morning"},officeState:null,factionRelations:{},wantedLevels:{dasheng:0,beishuo:0,nanli:0}});
+
+test("invalid prices cannot remove equipment or corrupt inn payment",()=>{
+  const c=character(),w=world();c.ownedEquipment.push("equipment_001");
+  const before=structuredClone({c,w});
+  for(const priceModifier of [NaN,Infinity,-1,0]){
+    const invalid={...city,priceModifier};
+    assert.throws(()=>sellEquipment(c,"equipment_001",equipment,invalid));
+    assert.throws(()=>restAtInn(c,w,invalid));assert.deepEqual({c,w},before);
+  }
+  assert.equal(sellEquipment(c,"equipment_001",equipment,city),150);
+  assert.deepEqual(c.ownedEquipment,[]);assert.equal(c.moneyWen,2150);
+});
 
 test("rejected inventory transactions preserve money and stock",()=>{
   const c=character();c.moneyWen=100000;const before=structuredClone(c);
