@@ -41,6 +41,8 @@ test("defeating Han Lie cannot erase the bridge objective",()=>{
  assert.equal(b.finished,null);assert.equal(b.enemies[0].hp,1);assert.equal(b.scenario.subdued,true);
  b.submit({type:"objective"});b.submit({type:"objective"});
  assert.equal(b.finished,null);assert.equal(b.scenario.ordersRead,true);
+ b.submit({type:"attack",targetId:b.enemies[0].id});
+ assert.equal(b.finished,"victory");assert.equal(b.enemies[0].hp,1);
 });
 test("flag phase, evidence readiness and interruption survive reload",()=>{
  const b=setup(true);b.submit({type:"objective"});

@@ -24,7 +24,10 @@ export function flagHit(battle,actor,target,skill,newBreak){
  }
  if(target.hp===0){
   target.hp=1;s.subdued=true;
-  battle.log.push("韓烈受創但未被寫成死亡；封橋與軍令仍須由現場行動處理。");
+  if(s.ordersRead){
+   battle.finished="victory";
+   battle.log.push("韓烈被非致命制伏；副絞盤與假旗軍令已留在現場記錄，普通軍士不再替他封橋。");
+  }else battle.log.push("韓烈受創但未被寫成死亡；封橋與軍令仍須由現場行動處理。");
  }
 }
 export function resolveFlagAction(battle,actor,action){

@@ -1,5 +1,6 @@
 import { escortIntent, escortObjective, escortHit, resolveEscortAction } from "./zhaoye-escort-battle.js";
 import { flagIntent, flagObjective, flagHit, resolveFlagAction } from "./zhaoye-flag-battle.js";
+import { messengerIntent, messengerObjective, messengerHit, resolveMessengerAction } from "./zhaoye-messenger-battle.js";
 import { BALANCE, deriveResources } from "../config/balance.js";
 import { finalIntent, finalObjective, finalDamageReduction, finalHit, resolveFinalAction, finalRoundEnd } from "./zhaoye-final-battle.js";
 import { clamp } from "../core/validators.js";
@@ -32,12 +33,12 @@ export function makeEnemy(definition, skillCatalog, partySize = 2) {
 }
 
 export class BattleSystem {
-  constructor({ party, enemies, rng, scenario=null }) { this.scenario=scenario; this.lastActionResults=[]; if(["8-4","6-4","7-3"].includes(scenario?.id))for(const enemy of enemies)enemy.phases=[]; this.party=party; this.enemies=enemies; this.rng=rng; this.round=1; this.log=["刀劍出鞘，戰鬥開始。"] ; this.finished=null; this.prepareIntents(); }
+  constructor({ party, enemies, rng, scenario=null }) { this.scenario=scenario; this.lastActionResults=[]; if(["8-4","6-4","7-3","8-3"].includes(scenario?.id))for(const enemy of enemies)enemy.phases=[]; this.party=party; this.enemies=enemies; this.rng=rng; this.round=1; this.log=["刀劍出鞘，戰鬥開始。"] ; this.finished=null; this.prepareIntents(); }
   get all() { return [...this.party, ...this.enemies]; }
   living(side) { return (side === "party" ? this.party : this.enemies).filter(c => c.hp > 0); }
   prepareIntents() { for (const enemy of this.living("enemy")) enemy.intent = this.chooseEnemyAction(enemy, true); }
   chooseEnemyAction(actor, includeTarget=true) {
-    const scripted=finalIntent(this,actor)??escortIntent(this,actor)??flagIntent(this,actor);if(scripted)return scripted;
+    const scripted=finalIntent(this,actor)??escortIntent(this,actor)??flagIntent(this,actor)??messengerIntent(this,actor);if(scripted)return scripted;
     const opponents = this.living("party");
     const low = opponents.toSorted((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];
     let type = actor.posture/actor.maxPosture < .25 ? "defend" : "attack";
@@ -65,8 +66,8 @@ export class BattleSystem {
     const actionResult={actorId:actor.id,requestedType:action.type,skillId:action.skillId??null,executed:true,usedSkill:false};
     this.lastActionResults.push(actionResult);
     actor.defended=false; actor.defenseHpReduction=0;actor.defensePostureReduction=0; actor.guard=null; actor.dodge=0;
-    if(resolveFinalAction(this,actor,action)||resolveEscortAction(this,actor,action)||resolveFlagAction(this,actor,action))return;
-    if(action.type === "objective") { if(actor.side === "party" && this.onScenarioAction) { this.onScenarioAction(this.round); finalObjective(this); escortObjective(this); flagObjective(this); this.log.push(`${actor.name}完成一次場景操作，這回合不另攻擊或防禦。`); } return; }
+    if(resolveFinalAction(this,actor,action)||resolveEscortAction(this,actor,action)||resolveFlagAction(this,actor,action)||resolveMessengerAction(this,actor,action))return;
+    if(action.type === "objective") { if(actor.side === "party" && this.onScenarioAction) { this.onScenarioAction(this.round); finalObjective(this); escortObjective(this); flagObjective(this); messengerObjective(this); this.log.push(`${actor.name}完成一次場景操作，這回合不另攻擊或防禦。`); } return; }
     if (action.type === "defend") { actor.defended=true;actor.defenseHpReduction=BALANCE.defendHpReduction;actor.defensePostureReduction=BALANCE.defendPostureReduction; this.log.push(`${actor.name}沉身守勢。`); return; }
     if (action.type === "observe") { const target=this.find(action.targetId)??this.living("enemy")[0]; if(target){target.observationProgress=(target.observationProgress??target.observed)+1+(actor.observationPct??0);target.observed=Math.min(3,Math.floor(target.observationProgress)); this.log.push(`${actor.name}觀察${target.name}：${target.observeInfo?.[Math.max(0,target.observed-1)]??target.observeInfo?.[0]??"呼吸與步法露出些許端倪"}。`);} return; }
     if (action.type === "guard") { if(actor.vulnerableTurns>0){this.log.push(`${actor.name}正露破綻，無法護衛。`);return;}actor.guard={targetId:action.targetId,hits:1,reduction:0}; this.log.push(`${actor.name}擋在同伴身前。`); return; }
@@ -91,11 +92,11 @@ export class BattleSystem {
     for(const effect of skill?.effects??[])if(effect.effectId==="status")target.statuses.push({description:effect.params.description,remaining:(effect.params.turns??1)+1});
     const newBreak=target.posture===0&&target.vulnerableTurns===0;
     if(newBreak){target.vulnerableTurns=2;this.log.push(`${target.name}架勢崩解，下一回合將持續露出破綻！`);}
-    finalHit(this,actor,target,skill,newBreak); escortHit(this,actor,target,skill,newBreak); flagHit(this,actor,target,skill,newBreak); this.triggerPhases(target); this.checkFinished();
+    finalHit(this,actor,target,skill,newBreak); escortHit(this,actor,target,skill,newBreak); flagHit(this,actor,target,skill,newBreak); messengerHit(this,actor,target,skill,newBreak); this.triggerPhases(target); this.checkFinished();
   }
   redirectGuard(target) { const guardian=this.living(target.side).find(c=>c.guard?.targetId===target.id&&c.guard.hits>0); if(!guardian)return target; guardian.guard.hits--;guardian.guardReductionOnce=(guardian.guard.reduction??0)+(guardian.guardReductionPct??0); this.log.push(`${guardian.name}替${target.name}擋下攻擊。`); return guardian; }
   triggerPhases(target) { for(const phase of target.phases??[]){if(target.triggeredPhases.includes(phase.effect))continue;if(phase.trigger.type==="hp_below"&&target.hp/target.maxHp<=phase.trigger.value){target.triggeredPhases.push(phase.effect);target.stats.strength+=phase.effect==="desperate"?8:4;target.stats.agility+=3;this.log.push(`${target.name}氣機驟變，進入新的戰鬥階段。`);}} }
-  endRound() { if(this.finished)return; for(const actor of this.living("party").concat(this.living("enemy"))){actor.inner=clamp(actor.inner+Math.max(1,Math.round(actor.maxInner*(actor.innerRegenRate??.03))),0,actor.maxInner); if(actor.vulnerableTurns>0){actor.vulnerableTurns--; if(actor.vulnerableTurns===0)actor.posture=Math.round(actor.maxPosture*BALANCE.postureRecoveryAfterBreak);} else actor.posture=clamp(actor.posture+Math.round(actor.maxPosture*.08*(1+statusValue(actor,"postureRecovery"))),0,actor.maxPosture); actor.dodge=0;for(const status of actor.statuses)status.remaining--;actor.statuses=actor.statuses.filter(status=>status.remaining>0);} finalRoundEnd(this); this.round++; this.prepareIntents(); this.checkFinished(); }
+  endRound() { if(this.finished)return; for(const actor of this.living("party").concat(this.living("enemy"))){actor.inner=clamp(actor.inner+Math.max(1,Math.round(actor.maxInner*(actor.innerRegenRate??.03))),0,actor.maxInner); if(actor.vulnerableTurns>0){actor.vulnerableTurns--; if(actor.vulnerableTurns===0)actor.posture=Math.round(actor.maxPosture*BALANCE.postureRecoveryAfterBreak);} else actor.posture=clamp(actor.posture+Math.round(actor.maxPosture*.08*(1+statusValue(actor,"postureRecovery"))),0,actor.maxPosture); actor.dodge=0;for(const status of actor.statuses)status.remaining--;actor.statuses=actor.statuses.filter(status=>status.remaining>0);} finalRoundEnd(this); this.round++; if(this.scenario?.id==="8-3"&&this.scenario.phase===1)this.scenario.phase=2; this.prepareIntents(); this.checkFinished(); }
   find(id){return this.all.find(c=>c.id===id&&c.hp>0);}
   checkFinished(){if(this.finished)return;if(!this.living("enemy").length)this.finished="victory";else if(!this.living("party").length)this.finished="defeat";if(this.finished)this.log.push(this.finished==="victory"?"敵手盡退，此戰告捷。":"眾人不支，先行退回城中。");}
   snapshot(){return {scenario:structuredClone(this.scenario??null),round:this.round,party:structuredClone(this.party),enemies:structuredClone(this.enemies),log:[...this.log],finished:this.finished};}

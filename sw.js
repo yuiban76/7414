@@ -1,10 +1,10 @@
 const PREFIX=`jianghu-rpg:${self.registration.scope}:`;
-const CACHE=PREFIX+'0.3.3';
+const CACHE=PREFIX+'0.3.4';
 const MODULES={
  config:['constants','balance'],
  core:['effects','game-engine','migrations','rng','story','validators','zhaoye-catalog','zhaoye-engine','zhaoye-story','zhaoye-reactions','zhaoye-callbacks','zhaoye-supplements'],
  data:['loader','manifest','zhaoye-script'],
- systems:['battle-system','zhaoye-final-battle','zhaoye-escort-battle','zhaoye-flag-battle','economy-system','faction-system','identity-system','inventory-system','npc-system','office-system','progression-system','quest-system','realm-system','talent-system','training-system','travel-system','vote-system'],
+ systems:['battle-system','zhaoye-final-battle','zhaoye-escort-battle','zhaoye-flag-battle','zhaoye-messenger-battle','economy-system','faction-system','identity-system','inventory-system','npc-system','office-system','progression-system','quest-system','realm-system','talent-system','training-system','travel-system','vote-system'],
  persistence:['checksum','import-export','indexeddb','save-service','battle-snapshot'],
  multiplayer:['local-transport','room-controller','room-transport']
 };
