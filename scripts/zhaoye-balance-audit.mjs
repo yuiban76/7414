@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import { createStoryScenario } from '../src/systems/zhaoye-escort-battle.js';
 import { createFlagScenario } from '../src/systems/zhaoye-flag-battle.js';
 import { createMessengerScenario } from '../src/systems/zhaoye-messenger-battle.js';
+import { createScrollScenario } from '../src/systems/zhaoye-scroll-battle.js';
 import { createCharacter } from '../src/systems/progression-system.js';
 import { IDENTITIES } from '../src/config/constants.js';
 import { recalculateEquipment } from '../src/systems/inventory-system.js';
@@ -26,7 +27,7 @@ for(const [id,scene] of Object.entries(BATTLES).filter(([id])=>!process.env.ZHAO
    const party=[makePlayerCombatant(character,skills),...Array.from({length:size-1},(_,i)=>makeNpcCompanion({id:`npc_00${i+1}`,name:`接應${i+1}`,role:'攻擊／身法'},skills,chapter))];
    const candidates=chapters[chapter-1].keyEnemyIds.map(id=>enemies.find(e=>e.id===id)).filter(Boolean);
    const def=chapter===1?enemies.find(e=>e.id===(id==='1-3'?'enemy_004':'enemy_001')):candidates.find(e=>e.tier==='major_boss')??candidates.find(e=>e.tier==='boss')??candidates[0];
-   const enemy=makeEnemy({...def,name:scene.name},skills,size);scaleStoryEncounter(enemy,{currentSceneId:id,zhaoye:createZhaoyeState()},size);const battle=new BattleSystem({party,enemies:[enemy],scenario:id==='7-3'?createFlagScenario(0,true):id==='8-3'?createMessengerScenario(0):createStoryScenario(id),rng:new SeededRng(`zhaoye:${id}:${size}:${startSkillName}:${seed}`)});
+   const enemy=makeEnemy({...def,name:scene.name},skills,size);scaleStoryEncounter(enemy,{currentSceneId:id,zhaoye:createZhaoyeState()},size);const battle=new BattleSystem({party,enemies:[enemy],scenario:id==='7-3'?createFlagScenario(0,true):id==='8-3'?createMessengerScenario(0):id==='5-4'?createScrollScenario(0):createStoryScenario(id),rng:new SeededRng(`zhaoye:${id}:${size}:${startSkillName}:${seed}`)});
    let progress=0;battle.onScenarioAction=()=>{progress++;};
    while(!battle.finished&&battle.round<=100){const actor=battle.living('party')[0],target=battle.living('enemy')[0];if(!actor||!target)break;
     let action;if(progress<scene.objectives.length&&battle.round<=(scene.limit??Infinity))action={type:'objective'};

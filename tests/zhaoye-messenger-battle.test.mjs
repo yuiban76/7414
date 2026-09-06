@@ -5,6 +5,8 @@ import { BattleSystem,makeEnemy,makeNpcCompanion } from "../src/systems/battle-s
 import { createMessengerScenario } from "../src/systems/zhaoye-messenger-battle.js";
 import { packBattle,restoreBattle } from "../src/persistence/battle-snapshot.js";
 import { SeededRng } from "../src/core/rng.js";
+import { createWorld } from "../src/core/game-engine.js";
+import { createZhaoyeState, ZhaoyeEngine } from "../src/core/zhaoye-engine.js";
 const read=name=>JSON.parse(fs.readFileSync(new URL(`../src/data/${name}.json`,import.meta.url),"utf8")).data;
 const skills=read("skills"),enemies=read("enemies");
 function setup(){
@@ -46,4 +48,12 @@ test("messenger phase and sealed-packet outcome survive reload",()=>{
  assert.deepEqual(restored.snapshot(),b.snapshot());
  const bad=packBattle(b,{});bad.scenario.limit=4;
  assert.throws(()=>restoreBattle(bad),/信使階段/);
+});
+test("battle result carries messenger death into the narrative engine",()=>{
+ const world=createWorld({name:"測試",startingCountry:"dasheng",ownerCharacterId:"hero",seed:"handoff"});
+ world.zhaoye=createZhaoyeState();world.chapter=8;world.currentSceneId="8-3";
+ const engine=new ZhaoyeEngine({world,character:{id:"hero"}});
+ engine.battleAction("objective",1);
+ engine.finishBattle({eventId:"8-3",next:"8-3",battle:"zhaoye_8-3"},"victory",{id:"8-3",messengerSafe:true,messengerDead:true});
+ assert.equal(world.zhaoye.messengerAlive,false);
 });
