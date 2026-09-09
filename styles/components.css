@@ -40,6 +40,27 @@
 .battlefield { display: grid; gap: 1rem; }
 .combatants { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
 .combatant { padding: .75rem; border: 1px solid #aa9d7c; background: rgb(255 255 255 / .2); }
+.paper .chip,.journey-card .chip { color:var(--paper-ink); }
+.paper .muted { color:#686149; }
+.paper .danger { color:#9e342b; }
+.paper .panel .muted { color:#aaa994; }
+.paper .panel .danger { color:#ff9b8c; }
+.paper .btn-ghost { color:var(--paper-ink); }
+.paper .panel .chip { color:var(--paper-100); }
+.route-diagram { display:block; width:100%; max-height:560px; background:var(--paper-100); margin-block:1rem; }
+.route-diagram line { stroke:var(--paper-300); stroke-width:3; }
+.route-diagram circle { fill:var(--jade-dark); }
+.route-diagram .here circle { fill:var(--cinnabar); }
+.route-diagram text { fill:var(--paper-ink); font-size:16px; font-family:var(--font-display); }
+.route-diagram .map-title { font-size:36px; letter-spacing:.3em; }
+.route-diagram .map-event-dot { fill:var(--cinnabar); }
+.loadout-slots { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; }
+.loadout-slots>div { padding:1rem; border:1px solid var(--paper-300); }
+.loadout-slots strong { display:block; }
+.battle-skills { border-top:2px solid var(--cinnabar); padding-top:1rem; }
+.combat-feedback { color:var(--paper-ink); }
+.combat-feedback .chip { border-color:var(--cinnabar); }
+@media(max-width:720px){.loadout-slots{grid-template-columns:repeat(2,1fr);}.battlefield { padding:1rem; }.battlefield h2{font-size:1.2rem;}.route-diagram{min-height:270px;}.toast{max-width:calc(100vw - 2rem);}}
 .combatant.is-broken { border-color: var(--cinnabar); box-shadow: inset 0 0 0 2px rgb(183 71 50 / .25); }
 .combat-log { max-height: 180px; overflow: auto; padding: .75rem; border-left: 3px solid var(--cinnabar); background: rgb(255 255 255 / .25); font-size: .9rem; }
 .identity-grid, .talent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }

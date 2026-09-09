@@ -5,6 +5,23 @@
 .chapter-mark { color: var(--cinnabar); font-family: var(--font-display); font-size: .85rem; }
 .game-grid { display: grid; grid-template-columns: minmax(210px, 260px) minmax(0, 760px) minmax(210px, 290px); gap: 1rem; max-width: 1440px; margin: 0 auto; align-items: start; }
 .main-column { min-width: 0; }
+.adventure-main { max-width:900px; margin:0 auto; }
+.local-context .choices { display:flex; flex-wrap:wrap; margin-top:.75rem; }
+.battle-objective { padding:1rem; background:var(--paper-100); border-left:4px solid var(--cinnabar); }
+.journey-page { max-width: 1100px; margin: 0 auto; min-height: 65vh; }
+.route-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-block:1.5rem; }
+.route-node { padding:1rem; border:1px solid var(--paper-300); border-left:3px solid var(--jade-dark); border-radius:4px; }
+.route-node.current { border-color:var(--cinnabar); background:var(--paper-200); }
+.journey-card,.flow-banner { padding:1.4rem; margin-block:1rem; border:1px solid var(--paper-300); background:var(--paper-100); color:var(--paper-ink); border-radius:var(--radius-sm); }
+.flow-banner { border-top:4px solid var(--cinnabar); }
+.local-context { margin-bottom:1rem; }
+.combat-feedback { display:flex; flex-wrap:wrap; gap:.5rem; margin-block:1rem; }
+.last-strike { border-left:3px solid var(--cinnabar); padding-left:1rem; }
+.bottom-nav [aria-current="page"] { background:var(--paper-100); color:var(--paper-ink); }
+.journey-page .panel { color:var(--paper-100); }
+button,summary { min-height:44px; }
+summary { cursor:pointer; padding-block:.75rem; }
+@media(max-width:720px){.journey-page { padding:1rem; }.combatants { grid-template-columns:1fr 1fr; }.route-grid{grid-template-columns:1fr;}.topbar { flex-wrap:wrap; }}
 .side-column { display: grid; gap: 1rem; position: sticky; top: 1rem; }
 .home-wrap, .creator-wrap { width: min(100%, 920px); margin: 0 auto; }
 .home-hero { min-height: calc(100vh - 8rem); display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: clamp(2rem, 6vw, 6rem); }

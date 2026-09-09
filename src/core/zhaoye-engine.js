@@ -3,7 +3,7 @@ import { REACTIONS } from './zhaoye-reactions.js';
 import { storyCallbacks, storyBattleModifiers } from './zhaoye-callbacks.js';
 import { supplementsFor } from './zhaoye-supplements.js';
 
-export function createZhaoyeState(){return {version:1,events:{},evidence:{E1:'missing',E2:'missing',E3:'missing',E4:'missing'},sources:{},support:{},losses:[],promises:{},facilities:{},publicFunds:0,preparations:[],rewards:[],scrollSecondaryLost:false,custody:{},assignments:{},chapterSafe:false};}
+export function createZhaoyeState(){return {version:1,events:{},evidence:{E1:'missing',E2:'missing',E3:'missing',E4:'missing'},sources:{},support:{},losses:[],promises:{},facilities:{},publicFunds:0,preparations:[],rewards:[],scrollSecondaryLost:false,custody:{},assignments:{},chapterSafe:false,journey:{completed:[],declined:false,stage:0,notes:[]}};}
 const stateOf=w=>w.zhaoye;
 const eventOf=(w,id)=>stateOf(w).events[id]??={status:'active',choice:null,investigations:[],paid:0,actions:0,aftermathSeen:false};
 const picked=(w,id,value)=>stateOf(w).events[id]?.choice===value;

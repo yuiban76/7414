@@ -2,7 +2,7 @@
 
 純 HTML、CSS 與 JavaScript ES Modules 製作的原創高武俠文字 RPG，可直接部署至 GitHub Pages。單人核心不依賴伺服器、資料庫、付費 API 或建置工具。
 
-0.3.5 正在接入新版《照夜行》：新遊戲採用新八章與 64 個擴寫事件，既有《江湖歸處》存檔仍由舊版引擎讀取。完整接入尚未驗收完成；已驗證內容及待辦見 [劇本接入驗收紀錄](docs/zhaoye-integration-status.md)。
+0.4.0 已完成新版《照夜行》的單人完整化示範流程：從地圖傳聞、破勢連攻養成、成形後壓制到成名之戰與江湖回應均可遊玩；既有《江湖歸處》存檔仍由舊版引擎讀取。功能證據與尚待核對的內容見 [完整化驗收](docs/journey-integration-status.md)，八章接入紀錄見 [劇本接入驗收紀錄](docs/zhaoye-integration-status.md)。
 
 ## 本機執行
 
@@ -22,6 +22,7 @@ npm test
 npm run balance
 npm run balance:campaign
 npm run balance:zhaoye
+npm run balance:journey
 ```
 
 - `validate`：檢查資料數量、分布、ID、效果白名單、來源與跨檔引用。
@@ -29,6 +30,7 @@ npm run balance:zhaoye
 - `balance`：每個起始武功執行 80 次教學戰與第一章 Boss 模擬；最佳化配置最低勝率需達 55%，選項差距不得超過 40 個百分點。
 - `balance:campaign`：以六身份全部 18 種起始武功橫跨八章、每組 80 次，共 11,520 場模擬；合理成長配置最低勝率 45%，同章差距不得超過 45 個百分點。
 - `balance:zhaoye`：新版十場主線交鋒、18 起始武功、1～4 人隊伍、各 40 個隨機種子，共 28,800 場。納入救援操作的行動成本，不使用章節直接贈送的境界或支線準備加成。這是戰鬥可行性檢查，不代表所有劇情分支已完整驗收。
+- `balance:journey`：固定 40 組種子對照破勢連攻四個成長階段，檢查木樁試招與成名戰的勝率、回合數與成形後壓制差異。
 
 ## GitHub Pages
 

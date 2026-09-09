@@ -20,6 +20,8 @@ export function restoreBattle(saved){
   }else throw new Error('未知戰鬥階段');
  }
  const ids=new Set();for(const actor of [...saved.party,...saved.enemies]){if(!actor.id||ids.has(actor.id))throw new Error('戰鬥角色編號無效');ids.add(actor.id);for(const [value,max] of [['hp','maxHp'],['inner','maxInner'],['posture','maxPosture']])if(!Number.isFinite(actor[value])||!Number.isFinite(actor[max])||actor[max]<0||actor[value]<0||actor[value]>actor[max])throw new Error('戰鬥資源值無效');}
- const battle=Object.create(BattleSystem.prototype);Object.assign(battle,structuredClone({scenario:saved.scenario??null,round:saved.round,party:saved.party,enemies:saved.enemies,log:saved.log,finished:saved.finished}));battle.rng=new SeededRng(saved.rng.seed);battle.rng.state=saved.rng.state;battle.rng.counter=saved.rng.counter;
+ for(const actor of [...saved.party,...saved.enemies]){if(actor.flowStage!=null&&![0,1,2,3].includes(actor.flowStage))throw new Error('連攻階段無效');if(actor.flowRound!=null&&(!Number.isInteger(actor.flowRound)||actor.flowRound<1||actor.flowRound>saved.round))throw new Error('連攻回合無效');if(actor.flowTriggers!=null&&['break','refund','chase'].some(k=>typeof actor.flowTriggers[k]!=='boolean'))throw new Error('連攻次數無效');}
+ if(saved.events!=null&&(!Array.isArray(saved.events)||saved.events.length>200||saved.events.some(e=>!['hit','break','kill','follow','chase','refund'].includes(e.type))))throw new Error('戰鬥回饋無效');
+ const battle=Object.create(BattleSystem.prototype);Object.assign(battle,structuredClone({events:saved.events??[],scenario:saved.scenario??null,round:saved.round,party:saved.party,enemies:saved.enemies,log:saved.log,finished:saved.finished}));battle.rng=new SeededRng(saved.rng.seed);battle.rng.state=saved.rng.state;battle.rng.counter=saved.rng.counter;
  return {battle,choice:structuredClone(saved.choice),skillUses:structuredClone(saved.skillUses??{})};
 }

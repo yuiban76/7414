@@ -1,3 +1,5 @@
+import { validateJourney } from '../systems/exploration-system.js';
+import { restoreBattle } from './battle-snapshot.js';
 import { GAME_VERSION, SAVE_FORMAT, SCHEMA_VERSION } from "../config/constants.js";
 import { assertSafeObject } from "../core/validators.js";
 import { migrateSave } from "../core/migrations.js";
@@ -22,6 +24,8 @@ export async function parseImport(text) {
 function validateImportReferences(bundle){
   const worldIds=new Set(),characterIds=new Set();
   for(const world of bundle.worlds){
+    validateJourney(world);
+    if(world.zhaoye?.activeBattle)restoreBattle(world.zhaoye.activeBattle);
     if(!world?.id||!world?.ownerCharacterId||!Number.isInteger(world.chapter)||world.chapter<1||world.chapter>8)throw new Error("世界資料缺少必要欄位或章節無效。");
     if(worldIds.has(world.id))throw new Error(`世界 ID 重複：${world.id}`);worldIds.add(world.id);
   }
