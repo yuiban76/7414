@@ -1,6 +1,6 @@
 import { ZHAOYE_SCENES, ZHAOYE_ORDER, ZHAOYE_CHAPTERS, ZHAOYE_PLACES, BATTLES, OPTIONAL_BATTLES, MAJOR, ZHAOYE_LOCATION_IDS, PROLOGUES, IDENTITY_OBSERVATIONS } from './zhaoye-story.js';
 import { REACTIONS } from './zhaoye-reactions.js';
-import { storyCallbacks, storyBattleModifiers } from './zhaoye-callbacks.js';
+import { storyCallbacks, storyBattleModifiers, chapterHandoff } from './zhaoye-callbacks.js';
 import { supplementsFor } from './zhaoye-supplements.js';
 
 export function createZhaoyeState(){return {version:1,events:{},evidence:{E1:'missing',E2:'missing',E3:'missing',E4:'missing'},sources:{},support:{},losses:[],promises:{},facilities:{},publicFunds:0,preparations:[],rewards:[],scrollSecondaryLost:false,custody:{},assignments:{},chapterSafe:false,journey:{completed:[],declined:false,stage:0,notes:[]}};}
@@ -84,7 +84,7 @@ export class ZhaoyeEngine {
   if(!s.chapterSafe&&pendingScene?.chapter===1&&pendingScene.id!=='1-0'&&w.currentLocationId!==ZHAOYE_LOCATION_IDS[0])return {title:`主線現場：${ZHAOYE_PLACES[0]}`,text:`你已離開${ZHAOYE_PLACES[0]}。目前待辦是「${pendingScene.title}」；請從下方地圖沿相鄰路線返回，抵達前無法繼續調查、交接或交鋒。`,choices:[{id:'open-map',label:`查看地圖，前往${ZHAOYE_PLACES[0]}`}],locationLocked:true};
   if(s.aftermath)return {title:s.aftermath.title,text:this.conditionText(s.aftermath.text),choices:[{id:'continue',label:'收起這一頁，繼續'}]};
   if(s.supplement){const pending=s.supplement,[title,options]=pending.steps[pending.index];const previous=s.events[pending.eventId].supplements??[];return {title,text:'主要決定已保留。這一段補問與個人回話不替其他人改票，也不抹去先前結果。',choices:options.map((label,index)=>({id:`supplement:${index}`,label})).filter(c=>!['4-1B','6-2C'].includes(pending.eventId)||!previous.some(p=>p.label===c.label))};}
-  if(s.chapterSafe){const pending=Object.entries(s.promises).filter(([,p])=>p.status==='pending'&&p.due<=w.chapter);const end=w.flags.game_complete;const ending=end?endingFor(w):null;return {title:end?ending.title:`${ZHAOYE_PLACES[w.chapter-1]} · 章後安全據點`,text:(end?this.endingText(ending):`《${ZHAOYE_CHAPTERS[w.chapter-1]}》已告一段落。可以自由整備，再主動啟程；離線不推進危機。`)+`\n\n${this.callbacks()}\n\n${evidenceSummary(w)}\n\n未竟事項：\n`+(pending.map(([,p])=>`${p.who}：${p.what}（${p.where}）`).join('\n')||'本章沒有到期未履行承諾。'),choices:[...pending.map(([id,p])=>({id:`fulfil:${id}`,label:`返回${p.where}：${p.what}（完成一次交接）`})),...(end?[]:[{id:'next-chapter',label:'結束休整，啟程下一章'}])]};}
+  if(s.chapterSafe){const pending=Object.entries(s.promises).filter(([,p])=>p.status==='pending'&&p.due<=w.chapter);const end=w.flags.game_complete;const ending=end?endingFor(w):null;const sections=[end?this.endingText(ending):`《${ZHAOYE_CHAPTERS[w.chapter-1]}》已告一段落。可以自由整備，再主動啟程；離線不推進危機。`,this.callbacks(),chapterHandoff(w),evidenceSummary(w),`未竟事項：\n${pending.map(([,p])=>`${p.who}：${p.what}（${p.where}）`).join('\n')||'本章沒有到期未履行承諾。'}`];return {title:end?ending.title:`${ZHAOYE_PLACES[w.chapter-1]} · 章後安全據點`,text:sections.filter(Boolean).join('\n\n'),choices:[...pending.map(([id,p])=>({id:`fulfil:${id}`,label:`返回${p.where}：${p.what}（完成一次交接）`})),...(end?[]:[{id:'next-chapter',label:'結束休整，啟程下一章'}])]};}
   const scene=ZHAOYE_SCENES[w.currentSceneId];if(!scene)throw new Error('照夜行場景不存在，請載入備份存檔');
   const e=s.events[scene.id],done=e?.investigations??[];
   let text=scene.text;const callback=storyCallbacks(w,scene.id);if(callback)text+='\n\n'+callback;
