@@ -20,7 +20,9 @@
 .field label, .field legend { font-weight: 700; }
 .field input, .field select { min-height: 46px; width: 100%; padding: .65rem .75rem; color: var(--paper-100); background: var(--ink-900); border: 1px solid var(--ink-700); border-radius: var(--radius-sm); }
 .stat-list, .resource-list, .clue-list { display: grid; gap: .7rem; margin: 0; padding: 0; list-style: none; }
-.stat-row { display: grid; grid-template-columns: 1fr auto auto auto; align-items: center; gap: .5rem; }
+.stat-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; align-items: center; gap: .5rem; }
+.stat-copy { display: grid; min-width: 0; gap: .15rem; }
+.stat-description { line-height: 1.4; }
 .stat-row output, .number { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
 .meter { height: .5rem; overflow: hidden; border-radius: 999px; background: #090b0a; }
 .meter > span { display: block; height: 100%; background: var(--jade); transition: width .25s ease; }

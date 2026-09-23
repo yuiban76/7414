@@ -25,4 +25,11 @@ export const IDENTITIES = [
 ];
 
 export const STAT_LABELS = { strength: "臂力", constitution: "根骨", agility: "身法", comprehension: "悟性", willpower: "定力" };
+export const STAT_DESCRIPTIONS = {
+  strength: "提高普攻與武功的氣血、架勢傷害。",
+  constitution: "每點增加 5 氣血上限、2 架勢上限。",
+  agility: "影響行動先後；身法越高，越容易先出手。",
+  comprehension: "提升武學熟練度成長速度（20 點約增加 4%）。",
+  willpower: "目前尚未接入效果，不增加戰鬥或修練數值。"
+};
 export const DEFAULT_STATS = { strength: 20, constitution: 20, agility: 20, comprehension: 20, willpower: 20 };

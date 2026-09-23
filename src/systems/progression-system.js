@@ -1,4 +1,4 @@
-import { deriveResources } from "../config/balance.js";
+import { BALANCE, deriveResources } from "../config/balance.js";
 import { IDENTITIES, STAT_LABELS } from "../config/constants.js";
 import { validateCharacter } from "../core/validators.js";
 import { applyTalentModifiers } from "./talent-system.js";
@@ -22,6 +22,15 @@ export function createCharacter(input, talents, skills) {
   const errors = validateCharacter(character);
   if (errors.length) throw new Error(errors.join("、"));
   return character;
+}
+
+export function adjustStatAllocation(stats, key, delta) {
+  if (!stats || !Object.prototype.hasOwnProperty.call(stats, key) || !Number.isInteger(delta) || Math.abs(delta) !== 1) return null;
+  const value = stats[key];
+  const total = Object.values(stats).reduce((sum, stat) => sum + stat, 0);
+  const next = value + delta;
+  if (!Number.isInteger(value) || next < BALANCE.statMin || next > BALANCE.statCreationMax || total + delta > 100) return null;
+  return { ...stats, [key]: next };
 }
 
 export function rollStartingTalents(allTalents, rng) {
