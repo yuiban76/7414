@@ -2,7 +2,7 @@
 
 純 HTML、CSS 與 JavaScript ES Modules 製作的原創高武俠文字 RPG，可直接部署至 GitHub Pages。單人核心不依賴伺服器、資料庫、付費 API 或建置工具。
 
-0.4.0 已完成新版《照夜行》的單人完整化示範流程：從地圖傳聞、破勢連攻養成、成形後壓制到成名之戰與江湖回應均可遊玩；既有《江湖歸處》存檔仍由舊版引擎讀取。功能證據與尚待核對的內容見 [完整化驗收](docs/journey-integration-status.md)，八章接入紀錄見 [劇本接入驗收紀錄](docs/zhaoye-integration-status.md)。
+0.4.1 已完成新版《照夜行》的單人完整化示範流程：從地圖傳聞、破勢連攻養成、成形後壓制到成名之戰與江湖回應均可遊玩；既有《江湖歸處》存檔仍由舊版引擎讀取。功能證據與尚待核對的內容見 [完整化驗收](docs/journey-integration-status.md)，八章接入紀錄見 [劇本接入驗收紀錄](docs/zhaoye-integration-status.md)。
 
 ## 本機執行
 
