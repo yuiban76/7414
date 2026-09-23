@@ -14,6 +14,50 @@
 .route-node { padding:1rem; border:1px solid var(--paper-300); border-left:3px solid var(--jade-dark); border-radius:4px; }
 .route-node.current { border-color:var(--cinnabar); background:var(--paper-200); }
 .route-node.mainline-target { border:2px solid var(--cinnabar-dark); background:var(--paper-200); }
+.map-position { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); gap:1.25rem; margin-block:1rem; padding:1.25rem; color:var(--paper-100); background:var(--ink-800); border-left:6px solid var(--cinnabar); border-radius:var(--radius-sm); }
+.map-position-label { margin:0 0 .25rem; color:var(--focus); font-weight:700; }
+.map-position h3 { margin:.15rem 0; color:var(--paper-100); font:700 clamp(1.6rem,3vw,2.2rem) var(--font-display); }
+.map-position p:last-child { margin:.4rem 0 0; }
+.map-find-me { display:inline-block; margin-top:.8rem; color:var(--focus); font-weight:700; text-underline-offset:.2rem; }
+.map-find-me:focus-visible { outline:3px solid var(--focus); outline-offset:4px; }
+.map-next-routes { display:grid; align-content:center; gap:.6rem; }
+.map-next-routes > div { display:flex; flex-wrap:wrap; gap:.5rem; }
+.map-next-routes .btn { border-color:var(--jade); background:var(--jade-dark); }
+.map-next-routes small { color:var(--paper-100); line-height:1.5; }
+.map-key { display:flex; flex-wrap:wrap; gap:.65rem 1.1rem; margin:1.25rem 0 .65rem; font-size:.9rem; }
+.map-key span { display:inline-flex; align-items:center; gap:.4rem; }
+.map-key b { display:inline-block; width:.85rem; height:.85rem; border-radius:2px; }
+.map-key-here { background:var(--cinnabar-dark); }
+.map-key-target { border:2px solid var(--cinnabar-dark); }
+.map-key-event { background:var(--jade-dark); }
+.route-diagram { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; margin-block:0 1.5rem; }
+.map-region { --region-accent:var(--gold); min-width:0; padding:.85rem; background:var(--paper-100); border:1px solid var(--paper-300); border-top:5px solid var(--region-accent); }
+.map-region[data-country="beishuo"] { --region-accent:var(--jade-dark); }
+.map-region[data-country="nanli"] { --region-accent:var(--cinnabar-dark); }
+.map-region[data-country="cross_border"] { --region-accent:var(--ink-700); }
+.map-region-current { box-shadow:inset 0 0 0 2px var(--cinnabar-dark); }
+.map-region-border { grid-column:1/-1; }
+.map-region-head { display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; margin-bottom:.85rem; padding-bottom:.55rem; border-bottom:1px solid var(--paper-300); }
+.map-region-head h3 { margin:0; font:700 1.35rem var(--font-display); }
+.map-region-head span { color:#625b49; font-size:.9rem; white-space:nowrap; }
+.map-region-list { display:grid; gap:.55rem; }
+.map-region-border .map-region-list { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.route-diagram .route-node { display:grid; align-content:start; min-width:0; gap:.35rem; padding:.75rem; background:#faf6eb; border:1px solid var(--paper-300); border-left:4px solid var(--region-accent); border-radius:var(--radius-sm); }
+.route-diagram .route-node.current { border:2px solid var(--cinnabar-dark); border-left:6px solid var(--cinnabar-dark); background:#fff0dc; box-shadow:0 0 0 2px rgb(132 52 38 / .15); }
+.route-diagram .route-node.mainline-target:not(.current) { border:2px solid var(--cinnabar-dark); background:var(--paper-200); }
+.route-node-head { display:flex; align-items:center; flex-wrap:wrap; gap:.3rem; }
+.route-node-head h4 { width:100%; margin:0; font:700 1.05rem var(--font-display); }
+.route-node.current .route-node-head h4 { font-size:1.25rem; }
+.map-badge { padding:.18rem .4rem; color:var(--paper-100); background:var(--ink-700); border-radius:2px; font-size:.78rem; font-weight:700; }
+.map-badge-here,.map-badge-target { background:var(--cinnabar-dark); }
+.map-badge-event { background:var(--jade-dark); }
+.route-node-status,.route-node-links,.route-node-event { margin:0; line-height:1.45; overflow-wrap:anywhere; }
+.route-node-status { font-weight:700; }
+.route-node-links,.route-node-event { font-size:.85rem; }
+.route-diagram .route-node .btn { justify-self:start; margin-top:.25rem; }
+.route-diagram .route-node .muted { color:#625b49; font-size:.85rem; }
+@media(max-width:850px){.route-diagram{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:720px){.map-position{grid-template-columns:1fr;}.route-diagram{grid-template-columns:1fr;}.map-region-border .map-region-list{grid-template-columns:1fr;}}
 .journey-card,.flow-banner { padding:1.4rem; margin-block:1rem; border:1px solid var(--paper-300); background:var(--paper-100); color:var(--paper-ink); border-radius:var(--radius-sm); }
 .flow-banner { border-top:4px solid var(--cinnabar); }
 .local-context { margin-bottom:1rem; }

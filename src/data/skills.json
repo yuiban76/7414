@@ -66,7 +66,7 @@
     },
     {
       "id": "skill_004",
-      "name": "開山刀",
+      "name": "斷嶺開路刀",
       "type": "posture",
       "grade": "basic",
       "weaponTypes": [],
@@ -84,7 +84,7 @@
     },
     {
       "id": "skill_005",
-      "name": "長風劍",
+      "name": "長虹截影劍",
       "type": "attack",
       "grade": "basic",
       "weaponTypes": [],
@@ -102,7 +102,7 @@
     },
     {
       "id": "skill_006",
-      "name": "鐵臂架",
+      "name": "鐵關不動勢",
       "type": "defense",
       "grade": "basic",
       "weaponTypes": [],

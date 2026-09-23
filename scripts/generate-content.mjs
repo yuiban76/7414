@@ -28,6 +28,7 @@ const tableAfter = heading => {
 const num = value => Number(String(value).replace(/[^0-9.-]/g, "")) || 0;
 const mapType = { "攻擊": "attack", "破勢": "posture", "防禦": "defense", "控制": "control", "護衛": "guard", "身法": "mobility" };
 const mapGrade = { "基礎": "basic", "普通": "normal", "上乘": "advanced", "絕學": "ultimate" };
+const renamedEscortSkills = { "開山刀": "斷嶺開路刀", "長風劍": "長虹截影劍", "鐵臂架": "鐵關不動勢" };
 const sourceIds = { "捕快":"identity_constable","鏢師":"identity_escort","醫者":"identity_healer","獵戶":"identity_hunter","乞丐":"identity_beggar","浪人":"identity_wanderer","太岳劍宗":"faction_taiyue","金剛寺":"faction_jingang","青虛觀":"faction_qingxu","鎮北武府":"faction_zhenbei","百草谷":"faction_baicao","千機樓":"faction_qianji","血河門":"faction_xuehe","無門會":"faction_wumen","朝廷":"faction_court","江湖散學":"source_wanderer" };
 const inferSkillEffects = (effect, type) => {
   if (type === "defense") return [{ effectId: "defend", params: { hpReduction: num(effect.match(/氣血減傷\s*(\d+)/)?.[1]) / 100 || .45, postureReduction: num(effect.match(/架勢減傷\s*(\d+)/)?.[1]) / 100 || .3 } }];
@@ -37,7 +38,7 @@ const inferSkillEffects = (effect, type) => {
   if (effect !== "單體攻擊" && effect !== "高架勢傷害") return [{ effectId: "status", params: { description: effect, turns: effect.includes("2 回合") || effect.includes("兩回合") ? 2 : 1 } }];
   return [];
 };
-const skills = tableAfter("### 8.2 V1 表").map((r, i) => ({ id: slug("skill", i + 1), name: r[1], type: mapType[r[2]], grade: mapGrade[r[3]], weaponTypes: [], power: { hp: num(r[4]), posture: num(r[5]) }, innerCost: num(r[6]), target: mapType[r[2]] === "guard" ? "single_ally" : "single_enemy", effects: inferSkillEffects(r[7], mapType[r[2]]), sources: [sourceIds[r[8]] || "source_wanderer"], tags: [] }));
+const skills = tableAfter("### 8.2 V1 表").map((r, i) => ({ id: slug("skill", i + 1), name: renamedEscortSkills[r[1]] ?? r[1], type: mapType[r[2]], grade: mapGrade[r[3]], weaponTypes: [], power: { hp: num(r[4]), posture: num(r[5]) }, innerCost: num(r[6]), target: mapType[r[2]] === "guard" ? "single_ally" : "single_enemy", effects: inferSkillEffects(r[7], mapType[r[2]]), sources: [sourceIds[r[8]] || "source_wanderer"], tags: [] }));
 
 const talentRows = tableAfter("### 5.2 50 種天賦 V1");
 const talents = talentRows.map((r, i) => ({ id: slug("talent", i + 1), name: r[1], rarity: r[2].split("／")[0], type: r[2].includes("優缺點") ? "tradeoff" : r[2].includes("負面") ? "negative" : "positive", description: r[3], effects: [] }));

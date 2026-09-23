@@ -21,10 +21,11 @@ test("all six identities have unique bundled portrait assets",()=>{
   }
 });
 
-test("identity portraits shrink vertically instead of cropping the art",()=>{
+test("identity portraits use compact square frames without cropping the art",()=>{
   const styles=fs.readFileSync(new URL("../styles/components.css",import.meta.url),"utf8");
-  assert.match(styles,/\.identity-card \.identity-portrait \{[^}]*width: 100%;[^}]*aspect-ratio: 8 \/ 3;[^}]*object-fit: fill;/);
-  assert.match(styles,/\.identity-grid > \.identity-card \.identity-portrait \{[^}]*width: 100%;[^}]*height: 62px;[^}]*aspect-ratio: auto;/);
+  assert.match(styles,/\.identity-grid > \.identity-card \{[^}]*grid-template-columns: 72px minmax\(0, 1fr\);/);
+  assert.match(styles,/\.identity-card \.identity-portrait \{[^}]*width: 100%; height: auto; aspect-ratio: 1; object-fit: contain;/);
+  assert.match(styles,/@media \(max-width: 720px\) \{\s*\.identity-grid > \.identity-card \{ grid-template-columns: 64px/);
 });
 
 test("all six identities expose an operational specialty",()=>{

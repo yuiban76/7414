@@ -17,7 +17,7 @@ export const COUNTRIES = {
 
 export const IDENTITIES = [
   { id: "identity_constable", name: "捕快", ability: "查驗", portrait: "./assets/identities/constable.jpg", description: "調查屍體、現場與可疑物品時取得額外線索。", skills: ["衙門刀法", "鎖拿手", "八方拳"] },
-  { id: "identity_escort", name: "鏢師", ability: "護行", portrait: "./assets/identities/escort.jpg", description: "護衛行動更穩定，境界提升後逐步取得護衛減傷。", skills: ["開山刀", "長風劍", "鐵臂架"] },
+  { id: "identity_escort", name: "鏢師", ability: "護行", portrait: "./assets/identities/escort.jpg", description: "護衛行動更穩定，境界提升後逐步取得護衛減傷。", skills: ["斷嶺開路刀", "長虹截影劍", "鐵關不動勢"] },
   { id: "identity_healer", name: "醫者", ability: "診脈", portrait: "./assets/identities/healer.jpg", description: "查看氣血、中毒、內傷、經脈與特殊狀態。", skills: ["銀針封穴", "截脈手", "養身掌"] },
   { id: "identity_hunter", name: "獵戶", ability: "尋跡", portrait: "./assets/identities/hunter.jpg", description: "發現足跡、血跡、遺留物、行進方向與埋伏。", skills: ["獵刀術", "山行拳", "踏草步"] },
   { id: "identity_beggar", name: "乞丐", ability: "市井耳目", portrait: "./assets/identities/beggar.jpg", description: "城鎮中額外取得傳聞、黑市、幫派、通緝與行蹤。", skills: ["街頭短打", "游身步", "竹杖破陣"] },

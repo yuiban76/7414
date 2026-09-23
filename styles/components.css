@@ -22,6 +22,8 @@
 .stat-list, .resource-list, .clue-list { display: grid; gap: .7rem; margin: 0; padding: 0; list-style: none; }
 .stat-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; align-items: center; gap: .5rem; }
 .stat-copy { display: grid; min-width: 0; gap: .15rem; }
+.stat-heading { display: inline-flex; min-height: 1.25rem; align-items: center; gap: .4rem; }
+.stat-icon { width: 1rem; height: 1rem; flex: none; color: var(--gold); }
 .stat-description { line-height: 1.4; }
 .stat-row output, .number { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
 .meter { height: .5rem; overflow: hidden; border-radius: 999px; background: #090b0a; }
@@ -49,44 +51,45 @@
 .paper .panel .danger { color:#ff9b8c; }
 .paper .btn-ghost { color:var(--paper-ink); }
 .paper .panel .chip { color:var(--paper-100); }
-.route-diagram { display:block; width:100%; max-height:560px; background:var(--paper-100); margin-block:1rem; }
-.route-diagram line { stroke:var(--paper-300); stroke-width:3; }
-.route-diagram circle { fill:var(--jade-dark); }
-.route-diagram .here circle { fill:var(--cinnabar); }
-.route-diagram .story-target circle { stroke:var(--cinnabar-dark); stroke-width:3; }
-.route-diagram .map-target-dot { fill:var(--cinnabar-dark); }
-.route-diagram text { fill:var(--paper-ink); font-size:16px; font-family:var(--font-display); }
-.route-diagram .map-title { font-size:36px; letter-spacing:.3em; }
-.route-diagram .map-event-dot { fill:var(--cinnabar); }
 .loadout-slots { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; }
 .loadout-slots>div { padding:1rem; border:1px solid var(--paper-300); }
 .loadout-slots strong { display:block; }
 .battle-skills { border-top:2px solid var(--cinnabar); padding-top:1rem; }
 .combat-feedback { color:var(--paper-ink); }
 .combat-feedback .chip { border-color:var(--cinnabar); }
-@media(max-width:720px){.loadout-slots{grid-template-columns:repeat(2,1fr);}.battlefield { padding:1rem; }.battlefield h2{font-size:1.2rem;}.route-diagram{min-height:270px;}.toast{max-width:calc(100vw - 2rem);}}
+@media(max-width:720px){.loadout-slots{grid-template-columns:repeat(2,1fr);}.battlefield { padding:1rem; }.battlefield h2{font-size:1.2rem;}.toast{max-width:calc(100vw - 2rem);}}
 .combatant.is-broken { border-color: var(--cinnabar); box-shadow: inset 0 0 0 2px rgb(183 71 50 / .25); }
 .combat-log { max-height: 180px; overflow: auto; padding: .75rem; border-left: 3px solid var(--cinnabar); background: rgb(255 255 255 / .25); font-size: .9rem; }
 .identity-grid, .talent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
 .select-card { min-height: 120px; align-items: flex-start; flex-direction: column; text-align: left; }
 .select-card[aria-pressed="true"] { border-color: var(--focus); box-shadow: 0 0 0 2px var(--focus); }
 .identity-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
-.identity-card { display: flex; min-width: 0; min-height: 0; padding: 0; overflow: hidden; align-items: stretch; justify-content: flex-start; gap: 0; background: linear-gradient(180deg, var(--ink-800), var(--ink-900)); border-color: var(--ink-700); }
-.identity-card .identity-portrait { display: block; width: 100%; aspect-ratio: 8 / 3; object-fit: fill; object-position: center 28%; border-bottom: 1px solid var(--ink-700); background: var(--ink-900); }
-.identity-card-copy { display: grid; width: 100%; min-width: 0; gap: .45rem; padding: .85rem .9rem 1rem; }
+.identity-grid > .identity-card { display: grid; grid-template-columns: 72px minmax(0, 1fr); min-width: 0; min-height: 0; padding: .5rem; align-items: center; gap: .6rem; background: linear-gradient(180deg, var(--ink-800), var(--ink-900)); border-color: var(--ink-700); }
+.identity-card .identity-portrait { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; border: 0; background: var(--ink-900); }
+.identity-card-copy { display: grid; width: 100%; min-width: 0; gap: .35rem; padding: 0; }
 .identity-card-copy strong { color: var(--paper-100); font-family: var(--font-display); font-size: 1rem; line-height: 1.35; }
 .identity-card-copy > span { color: var(--paper-100); font-size: .875rem; line-height: 1.55; }
 .identity-card[aria-pressed="true"] { border-color: var(--gold); background: linear-gradient(180deg, var(--ink-700), var(--ink-800)); box-shadow: 0 0 0 2px var(--focus), 0 8px 24px rgb(0 0 0 / .3); }
 .identity-card:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
 .identity-card:hover .identity-portrait { filter: brightness(1.08) saturate(1.05); }
+.starting-skill-field > p { margin:.2rem 0 .5rem; color:var(--paper-100); line-height:1.55; }
+.starting-skill-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; }
+.starting-skill-card { display:grid; align-content:start; min-width:0; gap:.75rem; padding:1rem; color:var(--paper-100); background:var(--ink-800); border:2px solid var(--ink-700); border-radius:var(--radius-sm); cursor:pointer; }
+.starting-skill-card:has(input:checked) { border-color:var(--gold); background:#26372e; box-shadow:0 0 0 2px var(--focus); }
+.starting-skill-card:focus-within { outline:3px solid var(--focus); outline-offset:3px; }
+.starting-skill-head { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:.5rem; }
+.starting-skill-head input { width:1.15rem; height:1.15rem; margin:0; accent-color:var(--gold); }
+.starting-skill-head strong { font:700 1.1rem var(--font-display); }
+.starting-skill-type { padding:.2rem .4rem; color:var(--paper-100); background:var(--jade-dark); border-radius:2px; font-size:.8rem; }
+.starting-skill-intro { line-height:1.55; }
+.starting-skill-metrics { display:grid; gap:.25rem; margin-top:auto; }
+.starting-skill-metrics > span { display:flex; align-items:center; justify-content:space-between; gap:.5rem; min-width:0; padding:.3rem .55rem; background:var(--ink-900); border:1px solid var(--ink-700); border-radius:2px; font-size:.9rem; line-height:1.4; }
+.starting-skill-metrics strong { font:700 1.1rem var(--font-data); }
 @keyframes reveal { from { opacity: 0; transform: translateY(6px); } }
-@media (max-width: 720px) { .scene { min-height: 360px; } .combatants, .identity-grid, .talent-grid { grid-template-columns: 1fr; } .bottom-nav .btn { min-width: 0; } }
+@media (max-width: 720px) { .scene { min-height: 360px; } .combatants, .identity-grid, .talent-grid, .starting-skill-grid { grid-template-columns: 1fr; } .bottom-nav .btn { min-width: 0; } }
 @media (max-width: 720px) {
-  .identity-grid > .identity-card { display: grid; grid-template-columns: 96px minmax(0, 1fr); grid-template-rows: minmax(124px, auto); }
-  .identity-grid > .identity-card .identity-portrait { grid-column: 1; grid-row: 1; justify-self: center; align-self: center; width: 100%; height: 62px; min-height: 0; aspect-ratio: auto; object-position: center 24%; border: 0; }
-  .identity-grid > .identity-card .identity-card-copy { grid-column: 2; grid-row: 1; align-content: center; padding: .75rem; }
+  .identity-grid > .identity-card { grid-template-columns: 64px minmax(0, 1fr); gap: .75rem; }
 }
-@media (max-width: 360px) { .identity-grid > .identity-card { grid-template-columns: 84px minmax(0, 1fr); } }
 /* Combat uses one status area and a compact command desk. */
 .battle-shell { max-width:1240px; margin:auto; }
 .battle-layout { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:1rem; align-items:start; }
