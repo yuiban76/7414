@@ -4,9 +4,22 @@ import fs from "node:fs";
 import { identityModifiers, applyIdentitySceneBonus } from "../src/systems/identity-system.js";
 import { travel } from "../src/systems/travel-system.js";
 import { SeededRng } from "../src/core/rng.js";
+import { IDENTITIES } from "../src/config/constants.js";
 
 const locations=JSON.parse(fs.readFileSync(new URL("../src/data/locations.json",import.meta.url),"utf8")).data;
 const world=()=>({currentLocationId:"location_002",visitedLocations:["location_002"],partyMoney:100,clock:{day:1,segment:"morning"},worldEvents:[],flags:{},clues:[]});
+
+test("all six identities have unique bundled portrait assets",()=>{
+  assert.equal(IDENTITIES.length,6);
+  assert.equal(new Set(IDENTITIES.map(identity=>identity.portrait)).size,6);
+  const worker=fs.readFileSync(new URL("../sw.js",import.meta.url),"utf8");
+  assert.match(worker,/cache\.addAll\(\[\.\.\.SHELL,\.\.\.IDENTITY_ART\]\)/);
+  for(const identity of IDENTITIES){
+    assert.match(identity.portrait,/^\.\/assets\/identities\/[a-z]+\.jpg$/);
+    assert.ok(fs.existsSync(new URL(`../${identity.portrait.slice(2)}`,import.meta.url)),`missing portrait for ${identity.name}`);
+    assert.ok(worker.includes(identity.portrait.split("/").at(-1).replace(".jpg","")),`offline cache omits portrait for ${identity.name}`);
+  }
+});
 
 test("all six identities expose an operational specialty",()=>{
   assert.equal(identityModifiers("identity_constable").inspection,true);
