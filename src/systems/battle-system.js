@@ -7,6 +7,10 @@ import { BALANCE, deriveResources } from "../config/balance.js";
 import { finalIntent, finalObjective, finalDamageReduction, finalHit, resolveFinalAction, finalRoundEnd } from "./zhaoye-final-battle.js";
 import { clamp } from "../core/validators.js";
 
+export function isScenarioObjectiveOverdue(goal, round) {
+  return Number.isFinite(goal?.limit) && goal.done < goal.objectives.length && round > goal.limit;
+}
+
 export function makePlayerCombatant(character, skillCatalog) {
   const effectiveStats=character.effectiveStats??character.stats;const resources = deriveResources(effectiveStats);
   return {

@@ -9,9 +9,11 @@
 .local-context .choices { display:flex; flex-wrap:wrap; margin-top:.75rem; }
 .battle-objective { padding:1rem; background:var(--paper-100); border-left:4px solid var(--cinnabar); }
 .journey-page { max-width: 1100px; margin: 0 auto; min-height: 65vh; }
+.mainline-journal { margin-block:1rem; padding:.75rem 1rem; border-left:4px solid var(--cinnabar); background:var(--paper-100); }
 .route-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-block:1.5rem; }
 .route-node { padding:1rem; border:1px solid var(--paper-300); border-left:3px solid var(--jade-dark); border-radius:4px; }
 .route-node.current { border-color:var(--cinnabar); background:var(--paper-200); }
+.route-node.mainline-target { border:2px solid var(--cinnabar-dark); background:var(--paper-200); }
 .journey-card,.flow-banner { padding:1.4rem; margin-block:1rem; border:1px solid var(--paper-300); background:var(--paper-100); color:var(--paper-ink); border-radius:var(--radius-sm); }
 .flow-banner { border-top:4px solid var(--cinnabar); }
 .local-context { margin-bottom:1rem; }

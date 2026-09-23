@@ -51,6 +51,8 @@
 .route-diagram line { stroke:var(--paper-300); stroke-width:3; }
 .route-diagram circle { fill:var(--jade-dark); }
 .route-diagram .here circle { fill:var(--cinnabar); }
+.route-diagram .story-target circle { stroke:var(--cinnabar-dark); stroke-width:3; }
+.route-diagram .map-target-dot { fill:var(--cinnabar-dark); }
 .route-diagram text { fill:var(--paper-ink); font-size:16px; font-family:var(--font-display); }
 .route-diagram .map-title { font-size:36px; letter-spacing:.3em; }
 .route-diagram .map-event-dot { fill:var(--cinnabar); }
