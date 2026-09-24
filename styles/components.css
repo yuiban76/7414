@@ -73,10 +73,10 @@
 .loadout-slots { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; }
 .loadout-slots>div { padding:1rem; border:1px solid var(--paper-300); }
 .loadout-slots strong { display:block; }
-.skill-art-card { background-color:var(--ink-800); background-image:linear-gradient(90deg,rgb(20 30 27 / .94) 0%,rgb(20 30 27 / .84) 55%,rgb(20 30 27 / .64) 100%),var(--skill-art); background-size:cover; background-position:center; background-repeat:no-repeat; }
+.skill-art-card { background-color:var(--ink-800); background-image:linear-gradient(90deg,rgb(20 30 27 / .94) 0%,rgb(20 30 27 / .83) 48%,rgb(20 30 27 / .42) 100%),var(--skill-art); background-size:cover; background-position:center,var(--skill-focus-x,78%) var(--skill-focus-y,15%); background-repeat:no-repeat; }
 .skill-art-card.panel { color:var(--paper-100); margin:.5rem 0; }
 .skill-art-card .posture-focus-label { color:#ffd39c; }
-.loadout-slots>.loadout-art-card { min-height:105px; color:var(--paper-ink); background-image:linear-gradient(90deg,rgb(250 246 235 / .94) 0%,rgb(250 246 235 / .78) 62%,rgb(250 246 235 / .56) 100%),var(--skill-art); background-size:cover; background-position:center; }
+.loadout-slots>.loadout-art-card { min-height:125px; color:var(--paper-100); background-image:linear-gradient(90deg,rgb(20 30 27 / .88) 0%,rgb(20 30 27 / .62) 58%,rgb(20 30 27 / .22) 100%),var(--skill-art); background-size:cover; background-position:center,var(--skill-focus-x,78%) var(--skill-focus-y,15%); }
 .battle-skills { border-top:2px solid var(--cinnabar); padding-top:1rem; }
 .combat-feedback { color:var(--paper-ink); }
 .combat-feedback .chip { border-color:var(--cinnabar); }
@@ -98,9 +98,9 @@
 .starting-skill-field > p { margin:.2rem 0 .5rem; color:var(--paper-100); line-height:1.55; }
 .starting-skill-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; }
 .starting-skill-card { display:grid; align-content:start; min-width:0; gap:.75rem; padding:1rem; color:var(--paper-100); background:var(--ink-800); border:2px solid var(--ink-700); border-radius:var(--radius-sm); cursor:pointer; }
-.starting-skill-card.skill-art-card { background-image:linear-gradient(90deg,rgb(20 30 27 / .94) 0%,rgb(20 30 27 / .84) 55%,rgb(20 30 27 / .64) 100%),var(--skill-art); background-size:cover; background-position:center; }
+.starting-skill-card.skill-art-card { background-image:linear-gradient(90deg,rgb(20 30 27 / .94) 0%,rgb(20 30 27 / .84) 55%,rgb(20 30 27 / .48) 100%),var(--skill-art); background-size:cover; background-position:center,var(--skill-focus-x,78%) var(--skill-focus-y,15%); }
 .starting-skill-card:has(input:checked) { border-color:var(--gold); background:#26372e; box-shadow:0 0 0 2px var(--focus); }
-.starting-skill-card.skill-art-card:has(input:checked) { background-image:linear-gradient(90deg,rgb(20 40 32 / .92) 0%,rgb(20 40 32 / .79) 55%,rgb(20 40 32 / .59) 100%),var(--skill-art); }
+.starting-skill-card.skill-art-card:has(input:checked) { background-image:linear-gradient(90deg,rgb(20 40 32 / .92) 0%,rgb(20 40 32 / .79) 55%,rgb(20 40 32 / .43) 100%),var(--skill-art); }
 .starting-skill-card:focus-within { outline:3px solid var(--focus); outline-offset:3px; }
 .starting-skill-head { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:.5rem; }
 .starting-skill-head input { width:1.15rem; height:1.15rem; margin:0; accent-color:var(--gold); }
@@ -162,7 +162,7 @@
 .combat-command small { font-size:.8rem; line-height:1.5; font-weight:normal; }
 .combat-posture-focus { border-left:5px solid var(--cinnabar-dark); background:#fff0d5; }
 .combat-posture-focus:hover { color:var(--paper-ink); background:#ffe3b0; }
-.combat-command.skill-art-card,.combat-command.skill-art-card:hover { color:var(--paper-100); background-image:linear-gradient(90deg,rgb(20 30 27 / .94) 0%,rgb(20 30 27 / .84) 55%,rgb(20 30 27 / .64) 100%),var(--skill-art); background-size:cover; background-position:center; }
+.combat-command.skill-art-card,.combat-command.skill-art-card:hover { color:var(--paper-100); background-image:linear-gradient(90deg,rgb(20 30 27 / .94) 0%,rgb(20 30 27 / .84) 55%,rgb(20 30 27 / .48) 100%),var(--skill-art); background-size:cover; background-position:center,var(--skill-focus-x,78%) var(--skill-focus-y,15%); }
 .combat-command.skill-art-card:hover { border-color:var(--gold); }
 .posture-focus-label { color:var(--cinnabar-dark); }
 .combat-mission { margin-top:.75rem; }

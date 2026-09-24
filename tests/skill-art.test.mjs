@@ -13,7 +13,7 @@ test('all hundred martial arts resolve to bundled, reusable scene backgrounds',(
  for(const skill of skills){
   const art=skillArtName(skill);
   assert.ok(fs.existsSync(new URL(`../assets/skills/${art}.jpg`,import.meta.url)),`${skill.id} (${skill.name}) lacks ${art}.jpg`);
-  assert.match(skillArtStyle(skill),/--skill-art:url\('\.\.\/assets\/skills\/[a-z]+\.jpg'\)/);
+  assert.match(skillArtStyle(skill),/--skill-art:url\('\.\.\/assets\/skills\/[a-z]+\.jpg'\);--skill-focus-x:\d+%;--skill-focus-y:\d+%/);
  }
  assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_033')),'healing');
  assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_041')),'posture');
@@ -25,5 +25,5 @@ test('starting choices and equipped slots carry their matched art',()=>{
  assert.equal(options.length,18);
  assert.ok(options.every(option=>fs.existsSync(new URL(`../assets/skills/${option.art}.jpg`,import.meta.url))));
  const html=loadoutView({equippedSkills:['skill_003'],innerArts:{},equipment:{}},{skills,innerArts:[],equipment:[]});
- assert.match(html,/class="skill-art-card loadout-art-card" style="--skill-art:url\('\.\.\/assets\/skills\/fist\.jpg'\)"/);
+ assert.match(html,/class="skill-art-card loadout-art-card" style="--skill-art:url\('\.\.\/assets\/skills\/fist\.jpg'\);--skill-focus-x:78%;--skill-focus-y:14%"/);
 });

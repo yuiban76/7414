@@ -1,5 +1,11 @@
 // Shared scene art keeps every technique card illustrated without adding image data to saves.
 const ART_NAMES=new Set(['blade','sword','spear','staff','fist','needle','grappling','defense','healing','rally','footwork','qi','posture']);
+// CSS background-position percentages keep faces in view on both wide and narrow cards.
+const ART_FOCUS=Object.freeze({
+ blade:[78,14],sword:[82,13],spear:[82,15],staff:[82,15],fist:[78,14],
+ needle:[92,9],grappling:[76,12],defense:[78,17],healing:[78,12],
+ rally:[83,20],footwork:[92,16],qi:[82,10],posture:[78,16]
+});
 const OVERRIDES=Object.freeze({
  skill_013:'fist',
  skill_019:'sword',
@@ -40,5 +46,6 @@ export function skillArtName(skill){
 export function skillArtStyle(skill){
  const name=typeof skill==='string'?skill:skillArtName(skill);
  if(!ART_NAMES.has(name))throw new Error(`未知武功圖片：${name}`);
- return `style="--skill-art:url('../assets/skills/${name}.jpg')"`;
+ const [x,y]=ART_FOCUS[name];
+ return `style="--skill-art:url('../assets/skills/${name}.jpg');--skill-focus-x:${x}%;--skill-focus-y:${y}%"`;
 }
