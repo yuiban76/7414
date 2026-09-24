@@ -1,4 +1,5 @@
 export const CLOCK_SEGMENTS=["morning","noon","evening","night"];
+export const ROAD_ENCOUNTER_CHANCE=.25;
 
 export function availableDestinations(world, locations) {const current=locations.find(location=>location.id===world.currentLocationId)||locations.find(location=>location.id===world.visitedLocations.at(-1));if(!current)return[];return locations.filter(location=>location.id!==current.id);}
 
@@ -10,13 +11,14 @@ export function travel(world, destinationId, locations, rng, {fast=false,costWen
   if(fast){if(destination.type!=="city")throw new Error("只有已到訪城市可快速旅行");if(!visited)throw new Error("首次前往主要城市不得快速旅行");if((world.partyMoney??0)<costWen)throw new Error("旅費不足");world.partyMoney-=costWen;}
   world.currentLocationId=destinationId;if(!visited)world.visitedLocations.push(destinationId);advanceClock(world,fast?1:2);
   const event=fast?null:rng.pick(destination.eventPool??[]);if(event)world.worldEvents.push({at:new Date().toISOString(),effectId:"travel_event",params:{event,locationId:destinationId}});
+  const encounter=!fast&&rng.next()<ROAD_ENCOUNTER_CHANCE;
   let identityMessage=null;world.flags??={};
   if(identityId==="identity_hunter"&&event)identityMessage=`獵戶尋跡：你提前察覺「${event}」留下的痕跡。`;
   if(identityId==="identity_beggar"&&destination.type==="city"){
     const flag=`beggar_rumor_${destinationId}`;
     if(!world.flags[flag]){world.flags[flag]=true;world.partyMoney=(world.partyMoney??0)+20;identityMessage="丐幫耳目：市井消息換得 20 文盤纏。";}
   }
-  return {destination,event,cost:fast?costWen:0,identityMessage};
+  return {destination,event,encounter,cost:fast?costWen:0,identityMessage};
 }
 
 export function advanceClock(world,steps=1){let index=CLOCK_SEGMENTS.indexOf(world.clock.segment);if(index<0)index=0;for(let i=0;i<steps;i++){index++;if(index>=CLOCK_SEGMENTS.length){index=0;world.clock.day++;}}world.clock.segment=CLOCK_SEGMENTS[index];return world.clock;}
