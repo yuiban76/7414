@@ -1,12 +1,13 @@
 // Shared scene art keeps every technique card illustrated without adding image data to saves.
-const ART_NAMES=new Set(['blade','sword','spear','staff','fist','needle','grappling','defense','healing','rally','footwork','qi','posture']);
-// CSS background-position percentages keep faces in view on both wide and narrow cards.
+const ART_NAMES=new Set(['blade','sword','spear','staff','fist','needlecast','pressurepoint','grappling','defense','healing','rally','footwork','qi','posture']);
+// Keep the weapon, hands, movement trail and stance together in narrow art panels.
 const ART_FOCUS=Object.freeze({
- blade:[78,14],sword:[82,13],spear:[82,15],staff:[82,15],fist:[78,14],
- needle:[92,9],grappling:[76,12],defense:[78,17],healing:[78,12],
- rally:[83,20],footwork:[92,16],qi:[82,10],posture:[78,16]
+ blade:[78,35],sword:[82,35],spear:[82,38],staff:[82,38],fist:[78,38],
+ needlecast:[80,40],pressurepoint:[76,40],grappling:[76,38],defense:[78,40],healing:[78,38],
+ rally:[83,42],footwork:[92,40],qi:[82,38],posture:[78,40]
 });
 const OVERRIDES=Object.freeze({
+ skill_008:'pressurepoint',
  skill_013:'fist',
  skill_019:'sword',
  skill_021:'sword',
@@ -15,10 +16,10 @@ const OVERRIDES=Object.freeze({
  skill_037:'qi',
  skill_041:'posture',
  skill_051:'qi',
- skill_053:'qi',
- skill_059:'needle',
+ skill_053:'pressurepoint',
+ skill_059:'needlecast',
  skill_082:'footwork',
- skill_091:'needle',
+ skill_091:'needlecast',
  skill_095:'fist',
  skill_096:'qi'
 });
@@ -27,7 +28,6 @@ export function skillArtName(skill){
  if(OVERRIDES[skill.id])return OVERRIDES[skill.id];
  const effects=skill.effects??[];
  if(effects.some(effect=>effect.effectId==='heal_pct'))return 'healing';
- if(effects.some(effect=>effect.effectId==='battle_buff'))return 'rally';
  if(effects.some(effect=>effect.effectId==='dodge'))return 'footwork';
  if(skill.type==='defense')return 'defense';
  const name=skill.name??'';
@@ -35,10 +35,12 @@ export function skillArtName(skill){
  if(/[刀斬]/u.test(name))return 'blade';
  if(/[槍]/u.test(name))return 'spear';
  if(/[棍杖]/u.test(name))return 'staff';
- if(/[針指穴脈袖]/u.test(name))return 'needle';
+ if(/針/u.test(name))return 'needlecast';
+ if(/[指穴脈]/u.test(name))return 'pressurepoint';
  if(/[拳掌肘]/u.test(name))return 'fist';
  if(/[步身影]/u.test(name))return 'footwork';
  if(/[拿擒鎖牽纏手]/u.test(name))return 'grappling';
+ if(effects.some(effect=>effect.effectId==='battle_buff'))return 'rally';
  if(skill.tags?.includes('posture_focus'))return 'posture';
  return 'qi';
 }

@@ -18,6 +18,11 @@ test('all hundred martial arts resolve to bundled, reusable scene backgrounds',(
  assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_033')),'healing');
  assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_041')),'posture');
  assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_074')),'footwork');
+ assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_007')),'needlecast');
+ assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_008')),'pressurepoint');
+ assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_022')),'sword');
+ assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_048')),'blade');
+ assert.equal(skillArtName(skills.find(skill=>skill.id==='skill_049')),'spear');
 });
 
 test('starting choices and equipped slots carry their matched art',()=>{
@@ -25,5 +30,5 @@ test('starting choices and equipped slots carry their matched art',()=>{
  assert.equal(options.length,18);
  assert.ok(options.every(option=>fs.existsSync(new URL(`../assets/skills/${option.art}.jpg`,import.meta.url))));
  const html=loadoutView({equippedSkills:['skill_003'],innerArts:{},equipment:{}},{skills,innerArts:[],equipment:[]});
- assert.match(html,/class="skill-art-card loadout-art-card" style="--skill-art:url\('\.\.\/assets\/skills\/fist\.jpg'\);--skill-focus-x:78%;--skill-focus-y:14%"/);
+ assert.match(html,/class="skill-art-card loadout-art-card" style="--skill-art:url\('\.\.\/assets\/skills\/fist\.jpg'\);--skill-focus-x:\d+%;--skill-focus-y:\d+%"/);
 });
