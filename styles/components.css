@@ -30,6 +30,14 @@
 .meter > span { display: block; height: 100%; background: var(--jade); transition: width .25s ease; }
 .meter.hp > span { background: var(--cinnabar); } .meter.inner > span { background: #668cb0; } .meter.posture > span { background: var(--gold); }
 .status-card h2, .status-card h3 { margin: 0 0 .75rem; font-size: 1rem; }
+.character-level { display:grid; gap:.25rem; margin:.45rem 0 .75rem; min-width:0; }
+.character-level-heading { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.25rem .6rem; }
+.character-level-heading strong { color:var(--gold); font-variant-numeric:tabular-nums; }
+.character-level-heading span,.character-level small { color:var(--paper-100); line-height:1.4; }
+.character-level-bar { display:block; width:100%; height:.55rem; overflow:hidden; border:0; border-radius:999px; background:var(--ink-900); }
+.character-level-bar::-webkit-progress-bar { background:var(--ink-900); border-radius:999px; }
+.character-level-bar::-webkit-progress-value { background:var(--gold); border-radius:999px; }
+.character-level-bar::-moz-progress-bar { background:var(--gold); border-radius:999px; }
 .chip-list { display: flex; flex-wrap: wrap; gap: .4rem; }
 .chip { padding: .25rem .55rem; border: 1px solid #64776e; border-radius: 999px; color: #d8dfd7; font-size: .78rem; }
 .bottom-nav .btn { min-width: 64px; padding-inline: .8rem; border: 0; background: transparent; font-size: .85rem; }
@@ -44,6 +52,17 @@
 .battlefield { display: grid; gap: 1rem; }
 .combatants { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
 .combatant { padding: .75rem; border: 1px solid #aa9d7c; background: rgb(255 255 255 / .2); }
+.npc-roster { display:grid; gap:.7rem; }
+.npc-roster-card { display:grid; grid-template-columns:88px minmax(0,1fr); align-items:start; gap:.8rem; min-width:0; }
+.npc-roster-card:not(.has-portrait) { grid-template-columns:minmax(0,1fr); }
+.npc-portrait { display:block; width:88px; height:88px; object-fit:cover; object-position:center 28%; border:1px solid #a58b58; border-radius:var(--radius-sm); background:var(--ink-900); }
+.npc-card-copy { display:grid; gap:.35rem; min-width:0; }
+.npc-card-copy p { margin:.1rem 0 .35rem; line-height:1.55; }
+.combatant-identity { display:flex; align-items:center; gap:.55rem; min-width:0; margin-bottom:.45rem; }
+.combatant-identity strong { min-width:0; }
+.combatant-portrait { display:block; flex:none; width:56px; height:56px; object-fit:cover; object-position:center 28%; border:1px solid #a58b58; border-radius:var(--radius-sm); background:var(--ink-900); }
+.combat-buffs { display:flex; flex-wrap:wrap; gap:.3rem; margin-top:.55rem; }
+.combat-buff { padding:.15rem .4rem; color:#234035; background:#e5f0d8; border:1px solid #72927a; border-radius:2px; font-size:.78rem; font-weight:700; }
 .paper .chip,.journey-card .chip { color:var(--paper-ink); }
 .paper .muted { color:#686149; }
 .paper .danger { color:#9e342b; }
@@ -54,6 +73,10 @@
 .loadout-slots { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; }
 .loadout-slots>div { padding:1rem; border:1px solid var(--paper-300); }
 .loadout-slots strong { display:block; }
+.skill-art-card { background-color:var(--ink-800); background-image:linear-gradient(90deg,rgb(20 30 27 / .94) 0%,rgb(20 30 27 / .84) 55%,rgb(20 30 27 / .64) 100%),var(--skill-art); background-size:cover; background-position:center; background-repeat:no-repeat; }
+.skill-art-card.panel { color:var(--paper-100); margin:.5rem 0; }
+.skill-art-card .posture-focus-label { color:#ffd39c; }
+.loadout-slots>.loadout-art-card { min-height:105px; color:var(--paper-ink); background-image:linear-gradient(90deg,rgb(250 246 235 / .94) 0%,rgb(250 246 235 / .78) 62%,rgb(250 246 235 / .56) 100%),var(--skill-art); background-size:cover; background-position:center; }
 .battle-skills { border-top:2px solid var(--cinnabar); padding-top:1rem; }
 .combat-feedback { color:var(--paper-ink); }
 .combat-feedback .chip { border-color:var(--cinnabar); }
@@ -75,16 +98,44 @@
 .starting-skill-field > p { margin:.2rem 0 .5rem; color:var(--paper-100); line-height:1.55; }
 .starting-skill-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; }
 .starting-skill-card { display:grid; align-content:start; min-width:0; gap:.75rem; padding:1rem; color:var(--paper-100); background:var(--ink-800); border:2px solid var(--ink-700); border-radius:var(--radius-sm); cursor:pointer; }
+.starting-skill-card.skill-art-card { background-image:linear-gradient(90deg,rgb(20 30 27 / .94) 0%,rgb(20 30 27 / .84) 55%,rgb(20 30 27 / .64) 100%),var(--skill-art); background-size:cover; background-position:center; }
 .starting-skill-card:has(input:checked) { border-color:var(--gold); background:#26372e; box-shadow:0 0 0 2px var(--focus); }
+.starting-skill-card.skill-art-card:has(input:checked) { background-image:linear-gradient(90deg,rgb(20 40 32 / .92) 0%,rgb(20 40 32 / .79) 55%,rgb(20 40 32 / .59) 100%),var(--skill-art); }
 .starting-skill-card:focus-within { outline:3px solid var(--focus); outline-offset:3px; }
 .starting-skill-head { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:.5rem; }
 .starting-skill-head input { width:1.15rem; height:1.15rem; margin:0; accent-color:var(--gold); }
 .starting-skill-head strong { font:700 1.1rem var(--font-display); }
 .starting-skill-type { padding:.2rem .4rem; color:var(--paper-100); background:var(--jade-dark); border-radius:2px; font-size:.8rem; }
+.starting-skill-focus { justify-self:start; padding:.2rem .55rem; color:#fff4d5; background:#7d3828; border:1px solid var(--gold); border-radius:2px; font-size:.8rem; font-weight:700; }
 .starting-skill-intro { line-height:1.55; }
 .starting-skill-metrics { display:grid; gap:.25rem; margin-top:auto; }
 .starting-skill-metrics > span { display:flex; align-items:center; justify-content:space-between; gap:.5rem; min-width:0; padding:.3rem .55rem; background:var(--ink-900); border:1px solid var(--ink-700); border-radius:2px; font-size:.9rem; line-height:1.4; }
+.starting-skill-metrics > .posture-metric { border-color:var(--gold); background:#463723; color:#fff4d5; }
 .starting-skill-metrics strong { font:700 1.1rem var(--font-data); }
+.case-file { display:grid; gap:.7rem; }
+.case-file > h3 { margin: .25rem 0 0; padding-top:.55rem; border-top:1px solid var(--ink-700); }
+.case-file-intro,.case-file-hint { margin:0; line-height:1.6; }
+.case-file-hint { font-size:.92rem; color:#ded8c6; }
+.evidence-list { display:grid; gap:.65rem; }
+.evidence-entry { min-width:0; padding:.8rem; color:var(--paper-ink); background:var(--paper-100); border:1px solid var(--paper-300); border-left:4px solid var(--jade-dark); border-radius:var(--radius-sm); }
+.evidence-entry[data-evidence-status="pending"] { border-left-color:#a86d16; }
+.evidence-entry[data-evidence-status="verified"] { border-left-color:#3b7253; }
+.evidence-entry-head { display:flex; align-items:flex-start; justify-content:space-between; gap:.65rem; }
+.evidence-entry-head h3 { margin:0; font-size:1rem; line-height:1.4; }
+.evidence-status { flex:none; padding:.15rem .45rem; color:#fff; background:#475d50; border-radius:999px; font-size:.78rem; font-weight:700; }
+.evidence-entry[data-evidence-status="pending"] .evidence-status { color:#372508; background:#efcf8e; }
+.evidence-entry[data-evidence-status="verified"] .evidence-status { color:#173722; background:#b6d2b9; }
+.evidence-purpose,.evidence-material { margin:.45rem 0 0; line-height:1.55; overflow-wrap:anywhere; }
+.evidence-material { padding-top:.4rem; border-top:1px solid var(--paper-300); font-size:.9rem; }
+.evidence-status-guide { padding:.45rem .7rem; border:1px solid var(--ink-700); border-radius:var(--radius-sm); }
+.evidence-status-guide ul { margin:.25rem 0; padding-left:1.25rem; line-height:1.6; }
+.support-list { display:grid; gap:.5rem; margin:0; padding:0; list-style:none; }
+.support-list li { display:grid; gap:.1rem; padding:.65rem .75rem; border-left:3px solid var(--gold); background:rgb(255 255 255 / .06); }
+.support-list small { color:#ded8c6; line-height:1.5; overflow-wrap:anywhere; }
+.support-empty { margin:0; padding:.7rem; background:rgb(255 255 255 / .06); line-height:1.55; }
+.case-rescue-record { padding-top:.45rem; border-top:1px solid var(--ink-700); }
+.case-rescue-record p { margin:.25rem 0; }
+@media(max-width:480px){.evidence-entry-head{flex-wrap:wrap;}.evidence-entry-head h3{flex:1 1 100%;}.case-file{padding:.8rem;}}
 @keyframes reveal { from { opacity: 0; transform: translateY(6px); } }
 @media (max-width: 720px) { .scene { min-height: 360px; } .combatants, .identity-grid, .talent-grid, .starting-skill-grid { grid-template-columns: 1fr; } .bottom-nav .btn { min-width: 0; } }
 @media (max-width: 720px) {
@@ -109,6 +160,11 @@
 .combat-basic,.combat-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.6rem; }
 .combat-command { display:flex; flex-direction:column; align-items:flex-start; text-align:left; gap:.3rem; width:100%; min-width:0; overflow-wrap:anywhere; }
 .combat-command small { font-size:.8rem; line-height:1.5; font-weight:normal; }
+.combat-posture-focus { border-left:5px solid var(--cinnabar-dark); background:#fff0d5; }
+.combat-posture-focus:hover { color:var(--paper-ink); background:#ffe3b0; }
+.combat-command.skill-art-card,.combat-command.skill-art-card:hover { color:var(--paper-100); background-image:linear-gradient(90deg,rgb(20 30 27 / .94) 0%,rgb(20 30 27 / .84) 55%,rgb(20 30 27 / .64) 100%),var(--skill-art); background-size:cover; background-position:center; }
+.combat-command.skill-art-card:hover { border-color:var(--gold); }
+.posture-focus-label { color:var(--cinnabar-dark); }
 .combat-mission { margin-top:.75rem; }
 .combat-mission .btn { border-left:4px solid var(--cinnabar); }
 .combat-categories { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.5rem; margin:1.5rem 0 1rem; border-bottom:1px solid var(--paper-300); padding-bottom:.65rem; }

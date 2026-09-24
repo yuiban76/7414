@@ -49,7 +49,7 @@
     {
       "id": "skill_003",
       "name": "八方拳",
-      "type": "posture",
+      "type": "attack",
       "grade": "basic",
       "weaponTypes": [],
       "power": {
@@ -62,12 +62,14 @@
       "sources": [
         "identity_constable"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_004",
       "name": "斷嶺開路刀",
-      "type": "posture",
+      "type": "attack",
       "grade": "basic",
       "weaponTypes": [],
       "power": {
@@ -80,7 +82,9 @@
       "sources": [
         "identity_escort"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_005",
@@ -225,7 +229,7 @@
     {
       "id": "skill_011",
       "name": "山行拳",
-      "type": "posture",
+      "type": "attack",
       "grade": "basic",
       "weaponTypes": [],
       "power": {
@@ -238,12 +242,14 @@
       "sources": [
         "identity_hunter"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_012",
       "name": "踏草步",
-      "type": "mobility",
+      "type": "support",
       "grade": "basic",
       "weaponTypes": [],
       "power": {
@@ -251,7 +257,7 @@
         "posture": 0
       },
       "innerCost": 0,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -263,7 +269,9 @@
       "sources": [
         "identity_hunter"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     },
     {
       "id": "skill_013",
@@ -286,7 +294,7 @@
     {
       "id": "skill_014",
       "name": "游身步",
-      "type": "mobility",
+      "type": "support",
       "grade": "basic",
       "weaponTypes": [],
       "power": {
@@ -294,7 +302,7 @@
         "posture": 0
       },
       "innerCost": 4,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -306,12 +314,14 @@
       "sources": [
         "identity_beggar"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     },
     {
       "id": "skill_015",
       "name": "竹杖破陣",
-      "type": "posture",
+      "type": "attack",
       "grade": "basic",
       "weaponTypes": [],
       "power": {
@@ -324,7 +334,9 @@
       "sources": [
         "identity_beggar"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_016",
@@ -365,7 +377,7 @@
     {
       "id": "skill_018",
       "name": "通背拳",
-      "type": "posture",
+      "type": "attack",
       "grade": "basic",
       "weaponTypes": [],
       "power": {
@@ -378,7 +390,9 @@
       "sources": [
         "identity_wanderer"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_019",
@@ -401,7 +415,7 @@
     {
       "id": "skill_020",
       "name": "斷岳劍",
-      "type": "posture",
+      "type": "attack",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -422,7 +436,9 @@
       "sources": [
         "faction_taiyue"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_021",
@@ -453,7 +469,7 @@
     {
       "id": "skill_022",
       "name": "回風護劍",
-      "type": "guard",
+      "type": "support",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -461,38 +477,42 @@
         "posture": 0
       },
       "innerCost": 16,
-      "target": "single_ally",
+      "target": "all_allies",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "battle_buff",
           "params": {
-            "hits": 1,
-            "reduction": 0.1
+            "stat": "damage",
+            "value": 0.16,
+            "turns": 3
           }
         }
       ],
       "sources": [
         "faction_taiyue"
       ],
-      "tags": []
+      "tags": [
+        "team_buff"
+      ]
     },
     {
       "id": "skill_023",
-      "name": "流雲步",
-      "type": "mobility",
+      "name": "流雲追擊",
+      "type": "attack",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
-        "hp": 0,
-        "posture": 0
+        "hp": 40,
+        "posture": 21
       },
-      "innerCost": 18,
+      "innerCost": 14,
       "target": "single_enemy",
       "effects": [
         {
-          "effectId": "dodge",
+          "effectId": "status",
           "params": {
-            "chance": 0.65
+            "description": "速度 -10%",
+            "turns": 1
           }
         }
       ],
@@ -503,21 +523,22 @@
     },
     {
       "id": "skill_024",
-      "name": "踏嶺身",
-      "type": "mobility",
+      "name": "踏嶺突拳",
+      "type": "attack",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
-        "hp": 0,
-        "posture": 0
+        "hp": 60,
+        "posture": 28
       },
-      "innerCost": 15,
+      "innerCost": 20,
       "target": "single_enemy",
       "effects": [
         {
-          "effectId": "dodge",
+          "effectId": "status",
           "params": {
-            "chance": 0.75
+            "description": "防禦效果 -15%",
+            "turns": 1
           }
         }
       ],
@@ -529,7 +550,7 @@
     {
       "id": "skill_025",
       "name": "飛鶴步",
-      "type": "mobility",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -537,7 +558,7 @@
         "posture": 0
       },
       "innerCost": 18,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -549,7 +570,9 @@
       "sources": [
         "faction_taiyue"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     },
     {
       "id": "skill_026",
@@ -598,7 +621,7 @@
     {
       "id": "skill_028",
       "name": "震山掌",
-      "type": "posture",
+      "type": "attack",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -619,12 +642,14 @@
       "sources": [
         "faction_jingang"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_029",
       "name": "羅漢震棍",
-      "type": "posture",
+      "type": "attack",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -645,7 +670,9 @@
       "sources": [
         "faction_jingang"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_030",
@@ -728,7 +755,7 @@
     {
       "id": "skill_033",
       "name": "護法掌",
-      "type": "guard",
+      "type": "support",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -739,22 +766,23 @@
       "target": "single_ally",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "heal_pct",
           "params": {
-            "hits": 1,
-            "reduction": 0.1
+            "value": 0.18
           }
         }
       ],
       "sources": [
         "faction_jingang"
       ],
-      "tags": []
+      "tags": [
+        "healing"
+      ]
     },
     {
       "id": "skill_034",
       "name": "捨身擋",
-      "type": "guard",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -762,20 +790,23 @@
         "posture": 0
       },
       "innerCost": 27,
-      "target": "single_ally",
+      "target": "all_allies",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "battle_buff",
           "params": {
-            "hits": 1,
-            "reduction": 0.15
+            "stat": "defense",
+            "value": 0.23,
+            "turns": 3
           }
         }
       ],
       "sources": [
         "faction_jingang"
       ],
-      "tags": []
+      "tags": [
+        "team_buff"
+      ]
     },
     {
       "id": "skill_035",
@@ -876,7 +907,7 @@
     {
       "id": "skill_039",
       "name": "雲鶴護身",
-      "type": "guard",
+      "type": "support",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -884,25 +915,28 @@
         "posture": 0
       },
       "innerCost": 14,
-      "target": "single_ally",
+      "target": "all_allies",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "battle_buff",
           "params": {
-            "hits": 1,
-            "reduction": 0.1
+            "stat": "speed",
+            "value": 0.18,
+            "turns": 3
           }
         }
       ],
       "sources": [
         "faction_qingxu"
       ],
-      "tags": []
+      "tags": [
+        "team_buff"
+      ]
     },
     {
       "id": "skill_040",
       "name": "浮雲步",
-      "type": "mobility",
+      "type": "support",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -910,7 +944,7 @@
         "posture": 0
       },
       "innerCost": 16,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -922,37 +956,42 @@
       "sources": [
         "faction_qingxu"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     },
     {
       "id": "skill_041",
-      "name": "乘風步",
-      "type": "mobility",
+      "name": "乘風破陣",
+      "type": "attack",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
-        "hp": 0,
-        "posture": 0
+        "hp": 52,
+        "posture": 72
       },
       "innerCost": 30,
       "target": "single_enemy",
       "effects": [
         {
-          "effectId": "dodge",
+          "effectId": "posture_bonus_below_ratio",
           "params": {
-            "chance": 0.75
+            "ratio": 0.5,
+            "bonus": 0.15
           }
         }
       ],
       "sources": [
         "faction_qingxu"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_042",
       "name": "無塵身",
-      "type": "mobility",
+      "type": "support",
       "grade": "ultimate",
       "weaponTypes": [],
       "power": {
@@ -960,7 +999,7 @@
         "posture": 0
       },
       "innerCost": 25,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -972,7 +1011,9 @@
       "sources": [
         "faction_qingxu"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     },
     {
       "id": "skill_043",
@@ -1021,7 +1062,7 @@
     {
       "id": "skill_045",
       "name": "震甲槍",
-      "type": "posture",
+      "type": "attack",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -1042,12 +1083,14 @@
       "sources": [
         "faction_zhenbei"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_046",
       "name": "破城槍",
-      "type": "posture",
+      "type": "attack",
       "grade": "ultimate",
       "weaponTypes": [],
       "power": {
@@ -1068,7 +1111,9 @@
       "sources": [
         "faction_zhenbei"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_047",
@@ -1099,7 +1144,7 @@
     {
       "id": "skill_048",
       "name": "橫刀護陣",
-      "type": "guard",
+      "type": "support",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -1107,25 +1152,28 @@
         "posture": 0
       },
       "innerCost": 8,
-      "target": "single_ally",
+      "target": "all_allies",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "battle_buff",
           "params": {
-            "hits": 1,
-            "reduction": 0.1
+            "stat": "posture",
+            "value": 0.18,
+            "turns": 3
           }
         }
       ],
       "sources": [
         "faction_zhenbei"
       ],
-      "tags": []
+      "tags": [
+        "team_buff"
+      ]
     },
     {
       "id": "skill_049",
       "name": "挺槍護衛",
-      "type": "guard",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -1133,25 +1181,28 @@
         "posture": 0
       },
       "innerCost": 18,
-      "target": "single_ally",
+      "target": "all_allies",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "battle_buff",
           "params": {
-            "hits": 1,
-            "reduction": 0.15
+            "stat": "damage",
+            "value": 0.23,
+            "turns": 3
           }
         }
       ],
       "sources": [
         "faction_zhenbei"
       ],
-      "tags": []
+      "tags": [
+        "team_buff"
+      ]
     },
     {
       "id": "skill_050",
       "name": "鎮前勢",
-      "type": "guard",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -1159,20 +1210,23 @@
         "posture": 0
       },
       "innerCost": 21,
-      "target": "single_ally",
+      "target": "all_allies",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "battle_buff",
           "params": {
-            "hits": 1,
-            "reduction": 0.15
+            "stat": "defense",
+            "value": 0.23,
+            "turns": 3
           }
         }
       ],
       "sources": [
         "faction_zhenbei"
       ],
-      "tags": []
+      "tags": [
+        "team_buff"
+      ]
     },
     {
       "id": "skill_051",
@@ -1307,7 +1361,7 @@
     {
       "id": "skill_056",
       "name": "護脈掌",
-      "type": "guard",
+      "type": "support",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -1318,35 +1372,37 @@
       "target": "single_ally",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "heal_pct",
           "params": {
-            "hits": 1,
-            "reduction": 0.1
+            "value": 0.2
           }
         }
       ],
       "sources": [
         "faction_baicao"
       ],
-      "tags": []
+      "tags": [
+        "healing"
+      ]
     },
     {
       "id": "skill_057",
-      "name": "踏葉步",
-      "type": "mobility",
+      "name": "踏葉封穴",
+      "type": "control",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
-        "hp": 0,
-        "posture": 0
+        "hp": 26,
+        "posture": 22
       },
       "innerCost": 14,
       "target": "single_enemy",
       "effects": [
         {
-          "effectId": "dodge",
+          "effectId": "status",
           "params": {
-            "chance": 0.65
+            "description": "內力消耗 +15%",
+            "turns": 2
           }
         }
       ],
@@ -1358,7 +1414,7 @@
     {
       "id": "skill_058",
       "name": "回燕身",
-      "type": "mobility",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -1366,7 +1422,7 @@
         "posture": 0
       },
       "innerCost": 27,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -1378,7 +1434,9 @@
       "sources": [
         "faction_baicao"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     },
     {
       "id": "skill_059",
@@ -1401,7 +1459,7 @@
     {
       "id": "skill_060",
       "name": "碎甲針",
-      "type": "posture",
+      "type": "attack",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -1422,7 +1480,9 @@
       "sources": [
         "faction_qianji"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_061",
@@ -1479,7 +1539,7 @@
     {
       "id": "skill_063",
       "name": "截擊袖",
-      "type": "guard",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -1487,38 +1547,42 @@
         "posture": 0
       },
       "innerCost": 24,
-      "target": "single_ally",
+      "target": "all_allies",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "battle_buff",
           "params": {
-            "hits": 1,
-            "reduction": 0.15
+            "stat": "speed",
+            "value": 0.24,
+            "turns": 3
           }
         }
       ],
       "sources": [
         "faction_qianji"
       ],
-      "tags": []
+      "tags": [
+        "team_buff"
+      ]
     },
     {
       "id": "skill_064",
-      "name": "流影步",
-      "type": "mobility",
+      "name": "流影鎖步",
+      "type": "control",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
-        "hp": 0,
-        "posture": 0
+        "hp": 28,
+        "posture": 27
       },
       "innerCost": 16,
       "target": "single_enemy",
       "effects": [
         {
-          "effectId": "dodge",
+          "effectId": "status",
           "params": {
-            "chance": 0.65
+            "description": "速度 -10%",
+            "turns": 2
           }
         }
       ],
@@ -1530,7 +1594,7 @@
     {
       "id": "skill_065",
       "name": "無痕步",
-      "type": "mobility",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -1538,7 +1602,7 @@
         "posture": 0
       },
       "innerCost": 30,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -1550,12 +1614,14 @@
       "sources": [
         "faction_qianji"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     },
     {
       "id": "skill_066",
       "name": "飛星步",
-      "type": "mobility",
+      "type": "support",
       "grade": "ultimate",
       "weaponTypes": [],
       "power": {
@@ -1563,7 +1629,7 @@
         "posture": 0
       },
       "innerCost": 25,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -1575,7 +1641,9 @@
       "sources": [
         "faction_qianji"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     },
     {
       "id": "skill_067",
@@ -1598,7 +1666,7 @@
     {
       "id": "skill_068",
       "name": "裂骨掌",
-      "type": "posture",
+      "type": "attack",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -1619,12 +1687,14 @@
       "sources": [
         "faction_xuehe"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_069",
       "name": "崩山肘",
-      "type": "posture",
+      "type": "attack",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -1645,7 +1715,9 @@
       "sources": [
         "faction_xuehe"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_070",
@@ -1702,7 +1774,7 @@
     {
       "id": "skill_072",
       "name": "血戰護身",
-      "type": "guard",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -1713,22 +1785,23 @@
       "target": "single_ally",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "heal_pct",
           "params": {
-            "hits": 1,
-            "reduction": 0.15
+            "value": 0.25
           }
         }
       ],
       "sources": [
         "faction_xuehe"
       ],
-      "tags": []
+      "tags": [
+        "healing"
+      ]
     },
     {
       "id": "skill_073",
       "name": "迎鋒式",
-      "type": "guard",
+      "type": "support",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -1736,25 +1809,28 @@
         "posture": 0
       },
       "innerCost": 10,
-      "target": "single_ally",
+      "target": "all_allies",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "battle_buff",
           "params": {
-            "hits": 1,
-            "reduction": 0.1
+            "stat": "defense",
+            "value": 0.16,
+            "turns": 3
           }
         }
       ],
       "sources": [
         "faction_xuehe"
       ],
-      "tags": []
+      "tags": [
+        "team_buff"
+      ]
     },
     {
       "id": "skill_074",
       "name": "鬼影步",
-      "type": "mobility",
+      "type": "support",
       "grade": "ultimate",
       "weaponTypes": [],
       "power": {
@@ -1762,7 +1838,7 @@
         "posture": 0
       },
       "innerCost": 33,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -1774,26 +1850,28 @@
       "sources": [
         "faction_xuehe"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     },
     {
       "id": "skill_075",
-      "name": "化勁手",
-      "type": "defense",
+      "name": "化勁反掌",
+      "type": "attack",
       "grade": "basic",
       "weaponTypes": [],
       "power": {
-        "hp": 0,
-        "posture": 0
+        "hp": 27,
+        "posture": 12
       },
       "innerCost": 6,
       "target": "single_enemy",
       "effects": [
         {
-          "effectId": "defend",
+          "effectId": "status",
           "params": {
-            "hpReduction": 0.45,
-            "postureReduction": 0.3
+            "description": "攻擊傷害 -10%",
+            "turns": 1
           }
         }
       ],
@@ -1909,7 +1987,7 @@
     {
       "id": "skill_080",
       "name": "守義式",
-      "type": "guard",
+      "type": "support",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -1920,36 +1998,37 @@
       "target": "single_ally",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "heal_pct",
           "params": {
-            "hits": 1,
-            "reduction": 0.1
+            "value": 0.18
           }
         }
       ],
       "sources": [
         "faction_wumen"
       ],
-      "tags": []
+      "tags": [
+        "healing"
+      ]
     },
     {
       "id": "skill_081",
       "name": "截擊劍",
-      "type": "guard",
+      "type": "attack",
       "grade": "ultimate",
       "weaponTypes": [],
       "power": {
-        "hp": 0,
-        "posture": 0
+        "hp": 100,
+        "posture": 52
       },
       "innerCost": 37,
-      "target": "single_ally",
+      "target": "single_enemy",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "status",
           "params": {
-            "hits": 1,
-            "reduction": 0.2
+            "description": "架勢恢復 -20%",
+            "turns": 1
           }
         }
       ],
@@ -1960,21 +2039,22 @@
     },
     {
       "id": "skill_082",
-      "name": "江湖步",
-      "type": "mobility",
+      "name": "江湖絆步",
+      "type": "control",
       "grade": "basic",
       "weaponTypes": [],
       "power": {
-        "hp": 0,
-        "posture": 0
+        "hp": 15,
+        "posture": 14
       },
       "innerCost": 8,
       "target": "single_enemy",
       "effects": [
         {
-          "effectId": "dodge",
+          "effectId": "status",
           "params": {
-            "chance": 0.55
+            "description": "架勢恢復 -20%",
+            "turns": 2
           }
         }
       ],
@@ -2012,7 +2092,7 @@
     {
       "id": "skill_084",
       "name": "鎮武拳",
-      "type": "posture",
+      "type": "attack",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -2033,12 +2113,14 @@
       "sources": [
         "faction_court"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_085",
       "name": "破甲棍",
-      "type": "posture",
+      "type": "attack",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -2059,7 +2141,9 @@
       "sources": [
         "faction_court"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_086",
@@ -2142,7 +2226,7 @@
     {
       "id": "skill_089",
       "name": "攔鋒式",
-      "type": "guard",
+      "type": "support",
       "grade": "normal",
       "weaponTypes": [],
       "power": {
@@ -2150,25 +2234,28 @@
         "posture": 0
       },
       "innerCost": 18,
-      "target": "single_ally",
+      "target": "all_allies",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "battle_buff",
           "params": {
-            "hits": 1,
-            "reduction": 0.1
+            "stat": "posture",
+            "value": 0.16,
+            "turns": 3
           }
         }
       ],
       "sources": [
         "faction_court"
       ],
-      "tags": []
+      "tags": [
+        "team_buff"
+      ]
     },
     {
       "id": "skill_090",
       "name": "護駕掌",
-      "type": "guard",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -2179,17 +2266,18 @@
       "target": "single_ally",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "heal_pct",
           "params": {
-            "hits": 1,
-            "reduction": 0.15
+            "value": 0.25
           }
         }
       ],
       "sources": [
         "faction_court"
       ],
-      "tags": []
+      "tags": [
+        "healing"
+      ]
     },
     {
       "id": "skill_091",
@@ -2246,7 +2334,7 @@
     {
       "id": "skill_093",
       "name": "裂石掌",
-      "type": "posture",
+      "type": "attack",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -2267,12 +2355,14 @@
       "sources": [
         "source_wanderer"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_094",
       "name": "撼地棍",
-      "type": "posture",
+      "type": "attack",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -2293,26 +2383,28 @@
       "sources": [
         "source_wanderer"
       ],
-      "tags": []
+      "tags": [
+        "posture_focus"
+      ]
     },
     {
       "id": "skill_095",
-      "name": "回風守",
-      "type": "defense",
+      "name": "回風反擊",
+      "type": "attack",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
-        "hp": 0,
-        "posture": 0
+        "hp": 66,
+        "posture": 30
       },
-      "innerCost": 30,
+      "innerCost": 24,
       "target": "single_enemy",
       "effects": [
         {
-          "effectId": "defend",
+          "effectId": "status",
           "params": {
-            "hpReduction": 0.55,
-            "postureReduction": 0.4
+            "description": "防禦效果 -15%",
+            "turns": 2
           }
         }
       ],
@@ -2402,7 +2494,7 @@
     {
       "id": "skill_099",
       "name": "義膽訣",
-      "type": "guard",
+      "type": "support",
       "grade": "advanced",
       "weaponTypes": [],
       "power": {
@@ -2413,22 +2505,23 @@
       "target": "single_ally",
       "effects": [
         {
-          "effectId": "guard",
+          "effectId": "heal_pct",
           "params": {
-            "hits": 1,
-            "reduction": 0.15
+            "value": 0.26
           }
         }
       ],
       "sources": [
         "source_wanderer"
       ],
-      "tags": []
+      "tags": [
+        "healing"
+      ]
     },
     {
       "id": "skill_100",
       "name": "驚鴻步",
-      "type": "mobility",
+      "type": "support",
       "grade": "ultimate",
       "weaponTypes": [],
       "power": {
@@ -2436,7 +2529,7 @@
         "posture": 0
       },
       "innerCost": 41,
-      "target": "single_enemy",
+      "target": "self",
       "effects": [
         {
           "effectId": "dodge",
@@ -2448,7 +2541,9 @@
       "sources": [
         "source_wanderer"
       ],
-      "tags": []
+      "tags": [
+        "evasion"
+      ]
     }
   ]
 }

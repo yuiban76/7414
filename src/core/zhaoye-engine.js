@@ -4,6 +4,13 @@ import { storyCallbacks, storyBattleModifiers, chapterHandoff } from './zhaoye-c
 import { supplementsFor } from './zhaoye-supplements.js';
 
 export function createZhaoyeState(){return {version:1,events:{},evidence:{E1:'missing',E2:'missing',E3:'missing',E4:'missing'},sources:{},support:{},losses:[],promises:{},facilities:{},publicFunds:0,preparations:[],rewards:[],scrollSecondaryLost:false,custody:{},assignments:{},chapterSafe:false,journey:{completed:[],declined:false,stage:0,notes:[]}};}
+export const EVIDENCE_GUIDE=[
+ {id:'E1',title:'軍械帳冊與運送紀錄',purpose:'查武器是誰在什麼時候運到哪裡，途中有沒有被掉包或改過帳。'},
+ {id:'E2',title:'證人與工坊資料',purpose:'查哪些工匠參與製作、證人看見了什麼，再確認兩邊說法能不能對上。'},
+ {id:'E3',title:'糧倉與軍需帳目',purpose:'查軍糧和軍用品由誰出錢、從哪裡送出，帳目有沒有被挪用。'},
+ {id:'E4',title:'密令與現場物證',purpose:'查上頭下過什麼命令，再對照現場留下的痕跡，確認命令有沒有真的執行。'}
+];
+export const SUPPORT_GUIDE={government:'官府',sects:'門派',civil:'民間',escort:'鏢盟'};
 const stateOf=w=>w.zhaoye;
 const eventOf=(w,id)=>stateOf(w).events[id]??={status:'active',choice:null,investigations:[],paid:0,actions:0,aftermathSeen:false};
 const picked=(w,id,value)=>stateOf(w).events[id]?.choice===value;
@@ -40,12 +47,17 @@ export function endingFor(w,route=stateOf(w).events['8-6']?.choice){
  const supports=Object.keys(s.support).filter(k=>s.support[k].length);
  const missing=[];let title='未竟之案';
  if(!s.oldCaseSubmitted)missing.push('舊罪尚未提交');
- if(route==='A'){for(const id of ['E1','E2','E3','E4'])if(!verified.includes(id))missing.push(`${id}尚未驗證`);if(supports.length<2||!supports.some(k=>['government','sects'].includes(k)))missing.push('需兩類實際支援，含官府或門派');if(!missing.length)title='公堂有燈';}
- if(route==='B'){for(const id of ['E1','E4'])if(!verified.includes(id))missing.push(`${id}尚未驗證`);if(!missing.length)title='江上暫平';}
- if(route==='C'){if(verified.length<2)missing.push('至少兩條已驗證據');if(!supports.includes('civil')||!supports.includes('sects'))missing.push('民間與門派均須實際支持');if(!missing.length)title='無旗之盟';}
+ if(route==='A'){for(const id of ['E1','E2','E3','E4'])if(!verified.includes(id))missing.push(`${EVIDENCE_GUIDE.find(item=>item.id===id).title}尚未核實`);if(supports.length<2||!supports.some(k=>['government','sects'].includes(k)))missing.push('還需兩方勢力實際協助，其中至少一方須為官府或門派');if(!missing.length)title='公堂有燈';}
+ if(route==='B'){for(const id of ['E1','E4'])if(!verified.includes(id))missing.push(`${EVIDENCE_GUIDE.find(item=>item.id===id).title}尚未核實`);if(!missing.length)title='江上暫平';}
+ if(route==='C'){if(verified.length<2)missing.push('至少需要兩類已核實的證據');if(!supports.includes('civil')||!supports.includes('sects'))missing.push('還需要民間和門派提供實際協助');if(!missing.length)title='無旗之盟';}
  return {title,missing,memorial:s.losses.length>=3?'名字留在渡口':'鴉渡小型追思',losses:s.losses.length};
 }
-export function evidenceSummary(w){const s=stateOf(w),labels={missing:'未取得',pending:'待核對',verified:'已驗證'},names={government:'官府',sects:'門派',civil:'民間',escort:'鏢盟'};return Object.entries(s.evidence).map(([k,v])=>`${k} ${labels[v]}：${(s.sources[k]??[]).join('、')||'尚無材料'}`).join('\n')+'\n支援：'+(Object.entries(s.support).map(([k,v])=>`${names[k]}（${v.join('、')}）`).join('；')||'尚未形成')+`\n救援損失 ${s.losses.length} 次；公共救援銀 ${s.publicFunds} 文（不屬於角色私款）`;} 
+export function evidenceSummary(w){
+ const s=stateOf(w),labels={missing:'尚未取得',pending:'待交叉核對',verified:'已核實'};
+ const rows=EVIDENCE_GUIDE.map(({id,title})=>{const status=s.evidence[id]??'missing',materials=s.sources[id]??[];const progress=status==='missing'?'尚未找到相關材料':status==='pending'?'已找到材料，仍需其他來源佐證':'不同材料已互相印證';return `${title}｜${labels[status]}：${progress}${materials.length?`；材料：${materials.join('、')}`:''}`;});
+ const supportRows=Object.entries(s.support).filter(([,items])=>items.length).map(([id,items])=>`${SUPPORT_GUIDE[id]??id}：${items.join('、')}`);
+ return `案件證據（取得材料後仍須核對）：\n${rows.join('\n')}\n各方協助：${supportRows.join('；')||'目前尚未取得勢力協助'}\n救援紀錄：未能挽回的損失 ${s.losses.length} 項；公用救援銀 ${s.publicFunds} 文（專供救援使用，與角色私款分開）。`;
+}
 
 function applyChoice(w,id,choice){
  const s=stateOf(w);const promised=PROMISES[id]?.[choice];if(promised)s.promises[id]={who:promised[0],what:promised[1],where:promised[2],due:promised[3],status:'pending'};
@@ -93,7 +105,7 @@ export class ZhaoyeEngine {
   if(scene.id==='1-3')text+=`\n本場救援期限：${this.battleLimit(scene.id)} 回合。`;
   if(scene.id==='7-1')text+=`\n可準備 ${s.preparationLimit??2} 項，已做 ${done.length} 項。無現實時間倒數。`;
   if(scene.id==='7-4')text+='\n\n'+evidenceSummary(w)+`\n疏散：${s.preparations.includes('A')?'已準備':'未準備'}；騎隊查驗：${s.preparations.includes('B')?'已準備':'未準備'}`;
-  if(scene.id==='8-6')text+='\n\n'+evidenceSummary(w)+'\n'+['A','B','C'].map(k=>{const result=endingFor(w,k);return `${k}：${result.title}${result.missing.length?'（'+result.missing.join('、')+'）':''}`;}).join('\n');
+  if(scene.id==='8-6')text+='\n\n'+evidenceSummary(w)+'\n'+['A','B','C'].map((key,index)=>{const result=endingFor(w,key);return `${MAJOR['8-6'][index]}：${result.title}${result.missing.length?'（仍缺：'+result.missing.join('、')+'）':''}`;}).join('\n');
   text=this.conditionText(text);
   const choices=[];
   for(const c of scene.choices){if(done.includes(c.id))continue;if(scene.id==='7-1'&&done.length>=(s.preparationLimit??2))continue;if(scene.id==='8-2B'&&c.id==='B'&&!s.events['4-2C']?.choice&&!s.events['7-2B']?.choice)continue;

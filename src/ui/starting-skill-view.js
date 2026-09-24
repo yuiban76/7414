@@ -1,3 +1,6 @@
+import { postureFocus, skillTypeLabel, skillEffectLabel } from './skill-display.js';
+import { skillArtName } from './skill-art.js';
+
 const INTRODUCTIONS = Object.freeze({
   skill_001: '低內耗的穩定攻擊，適合長戰與保留內力。',
   skill_002: '控制對手內息；命中時額外耗其內力，並短暫提高其招式消耗。',
@@ -19,12 +22,10 @@ const INTRODUCTIONS = Object.freeze({
   skill_018: '不耗內力的破勢招式，長戰也能持續使用。'
 });
 
-const TYPE_LABELS = Object.freeze({attack:'攻擊',posture:'破勢',defense:'防禦',control:'控制',mobility:'身法'});
-
 export function startingSkillOptions(identity, skills) {
   return identity.skills.map(name => {
     const skill=skills.find(entry=>entry.name===name);
     if(!skill||!INTRODUCTIONS[skill.id])throw new Error(`起始武功資料不完整：${name}`);
-    return {name:skill.name,type:TYPE_LABELS[skill.type]??skill.type,hp:skill.power.hp,posture:skill.power.posture,innerCost:skill.innerCost,introduction:INTRODUCTIONS[skill.id]};
+    return {name:skill.name,type:skillTypeLabel(skill),hp:skill.power.hp,posture:skill.power.posture,innerCost:skill.innerCost,introduction:INTRODUCTIONS[skill.id],postureFocus:postureFocus(skill),effect:skillEffectLabel(skill),art:skillArtName(skill)};
   });
 }

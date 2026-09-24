@@ -1,7 +1,7 @@
 export const EFFECT_HANDLERS = Object.freeze({
   damage_bonus_below_hp: true, posture_bonus_below_ratio: true, defend: true,
   dodge: true, guard: true, status: true, restore_inner_on_dodge: true,
-  next_attack_bonus: true, heal_flat: true, restore_inner_flat: true,
+  next_attack_bonus: true, heal_flat: true, heal_pct: true, battle_buff: true, restore_inner_flat: true,
   restore_posture_flat: true, cleanse: true, proficiency: true, cultivation: true,
   event_tool: true, max_hp_pct: true, max_inner_pct: true, max_posture_pct: true,
   damage_pct: true, posture_damage_pct: true, speed_pct: true, control_resist_pct: true,
@@ -19,6 +19,8 @@ export function assertKnownEffect(effect) {
   if(effect.effectId==="dodge"&&(!Number.isFinite(params.chance)||params.chance<0||params.chance>1))throw new Error("dodge.chance 必須介於 0～1");
   if(effect.effectId==="defend"&&(!validRatio(params.hpReduction)||!validRatio(params.postureReduction)))throw new Error("defend 減傷必須介於 0～1");
   if(effect.effectId==="guard"&&(!Number.isInteger(params.hits)||params.hits<1||!validRatio(params.reduction)))throw new Error("guard 參數無效");
+  if(effect.effectId==="heal_pct"&&(!Number.isFinite(params.value)||params.value<=0||params.value>.5))throw new Error("heal_pct.value 必須介於 0～0.5");
+  if(effect.effectId==="battle_buff"&&(!["damage","posture","defense","speed"].includes(params.stat)||!Number.isFinite(params.value)||params.value<=0||params.value>.5||!Number.isInteger(params.turns)||params.turns<1||params.turns>5))throw new Error("battle_buff 參數無效");
   if(effect.effectId==="status"&&(!String(params.description??"").trim()||!Number.isInteger(params.turns)||params.turns<1))throw new Error("status 需要敘述與正整數回合");
   if(effect.effectId==="set_flag"&&!String(params.key??"").trim())throw new Error("set_flag.key 不可空白");
   if(effect.effectId==="add_clue"&&!String(params.clueId??"").trim())throw new Error("add_clue.clueId 不可空白");

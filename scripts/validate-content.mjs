@@ -9,7 +9,7 @@ const errors=[]; const content={};
 for(const [name,count] of Object.entries(expected)){const set=read(name);content[name]=set.data;if(set.schemaVersion!==1)errors.push(`${name}: schemaVersion`);if(set.data.length!==count)errors.push(`${name}: expected ${count}, got ${set.data.length}`);const ids=new Set();for(const row of set.data){if(!row.id)errors.push(`${name}: missing id`);if(ids.has(row.id))errors.push(`${name}: duplicate ${row.id}`);ids.add(row.id);walkEffects(row,effect=>{try{assertKnownEffect(effect);}catch(error){errors.push(`${name}/${row.id}: ${error.message}`);}});}}
 const countBy=(rows,key)=>rows.reduce((a,r)=>((a[r[key]]=(a[r[key]]??0)+1),a),{});
 const expectMap=(actual,expectedMap,label)=>{for(const [key,value] of Object.entries(expectedMap))if(actual[key]!==value)errors.push(`${label}/${key}: expected ${value}, got ${actual[key]??0}`);};
-expectMap(countBy(content.skills,"type"),{attack:17,posture:17,defense:17,control:17,guard:16,mobility:16},"skill-type");
+expectMap(countBy(content.skills,"type"),{attack:40,defense:15,control:20,support:25},"skill-type");
 expectMap(countBy(content.skills,"grade"),{basic:35,normal:30,advanced:25,ultimate:10},"skill-grade");
 expectMap(countBy(content.equipment,"slot"),{weapon:120,armor:75,bracer:45,accessory:60},"equipment-slot");
 expectMap(countBy(content.equipment,"rarity"),{common:125,fine:90,famed:62,legendary:23},"equipment-rarity");

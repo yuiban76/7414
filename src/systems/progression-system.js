@@ -51,9 +51,11 @@ export function formatStats(stats) { return Object.entries(stats).map(([key,valu
 export function addProficiency(character, skillId, baseAmount, usesThisBattle = 1) {
   const skill = character.skills[skillId];
   if (!skill) return character;
+  if (skill.realm >= 5) { skill.proficiency = 100; return character; }
   const repeat = [1,.8,.6,.3][Math.min(3, usesThisBattle - 1)];
   const comprehension = 1 + character.stats.comprehension / 500;
   skill.proficiency += Math.round(baseAmount * repeat * comprehension);
   while (skill.proficiency >= 100 && skill.realm < 5) { skill.proficiency -= 100; skill.realm += 1; }
+  if (skill.realm >= 5) skill.proficiency = 100;
   return character;
 }

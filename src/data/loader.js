@@ -25,7 +25,7 @@ function compare(actual, expected, label, errors) {
   for (const [key, value] of Object.entries(expected)) if (actual[key] !== value) errors.push(`${label} ${key} 應為 ${value}，目前為 ${actual[key] ?? 0}`);
 }
 function validateDistributions(content, errors) {
-  compare(countBy(content.skills, "type"), { attack:17, posture:17, defense:17, control:17, guard:16, mobility:16 }, "武功類型", errors);
+  compare(countBy(content.skills, "type"), { attack:40, defense:15, control:20, support:25 }, "武功類型", errors);
   compare(countBy(content.skills, "grade"), { basic:35, normal:30, advanced:25, ultimate:10 }, "武功品級", errors);
   compare(countBy(content.equipment, "slot"), { weapon:120, armor:75, bracer:45, accessory:60 }, "裝備欄位", errors);
   compare(countBy(content.equipment, "rarity"), { common:125, fine:90, famed:62, legendary:23 }, "裝備品質", errors);
