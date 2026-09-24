@@ -1,5 +1,5 @@
 const PREFIX=`jianghu-rpg:${self.registration.scope}:`;
-const CACHE=PREFIX+'0.4.15';
+const CACHE=PREFIX+'0.4.16';
 const MODULES={
  config:['constants','balance','skill-archetypes'],
  core:['effects','game-engine','migrations','rng','story','validators','zhaoye-catalog','zhaoye-engine','zhaoye-story','zhaoye-reactions','zhaoye-callbacks','zhaoye-supplements'],
