@@ -1,5 +1,5 @@
 const PREFIX=`jianghu-rpg:${self.registration.scope}:`;
-const CACHE=PREFIX+'0.4.18';
+const CACHE=PREFIX+'0.4.20';
 const MODULES={
  config:['constants','balance','skill-archetypes'],
  core:['effects','game-engine','migrations','rng','story','validators','zhaoye-catalog','zhaoye-engine','zhaoye-story','zhaoye-reactions','zhaoye-callbacks','zhaoye-supplements'],
@@ -14,7 +14,7 @@ const COMPANION_ART=['ye','shen','yin','ashina','su'].map(name=>`./assets/compan
 const SKILL_ART=['blade','sword','spear','staff','fist','needlecast','pressurepoint','grappling','defense','healing','rally','footwork','qi','posture'].map(name=>`./assets/skills/${name}.jpg`);
 const SHELL=['./','./index.html','./404.html','./manifest.webmanifest','./styles/tokens.css','./styles/base.css','./styles/layout.css','./styles/components.css','./src/app.js','./src/app.js?v=road-20260924','./src/systems/travel-system.js?v=road-20260924','./src/ui/journey-view.js?v=road-20260924',...Object.entries(MODULES).flatMap(([folder,names])=>names.map(name=>`./src/${folder}/${name}.js`)),...['skills','talents','inner-arts','meridians','equipment','items','npcs','enemies','factions','locations','quests','chapters'].map(name=>`./src/data/${name}.json`),...LOCATION_ART,...COMPANION_ART,...SKILL_ART];
 const IDENTITY_ART=['constable','escort','healer','hunter','beggar','wanderer'].map(name=>`./assets/identities/${name}.jpg`);
-self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll([...SHELL,...IDENTITY_ART])).then(()=>self.skipWaiting())));
+self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll([...SHELL,...IDENTITY_ART].map(url=>new Request(url,{cache:'reload'})))).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith(PREFIX)&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
  if(event.request.method!=='GET'||new URL(event.request.url).origin!==self.location.origin)return;

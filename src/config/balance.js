@@ -2,6 +2,7 @@ export const BALANCE = Object.freeze({
   statMin: 5,
   statCreationMax: 50,
   statFinalMax: 100,
+  innerPerWillpower: 1,
   postureBreakDamageMultiplier: 1.5,
   postureRecoveryAfterBreak: 0.3,
   defendHpReduction: 0.5,
@@ -26,6 +27,6 @@ export function deriveResources(stats, equipment = {}, modifiers = {}) {
   return {
     maxHp: Math.round((100 + stats.constitution * 5 + flatHp) * (1 + (modifiers.hpPct ?? 0))),
     maxPosture: Math.round((50 + stats.constitution * 2 + flatPosture) * (1 + (modifiers.posturePct ?? 0))),
-    maxInner: Math.round((50 + flatInner + (modifiers.innerFlat ?? 0)) * (1 + (modifiers.innerPct ?? 0)))
+    maxInner: Math.round((50 + (stats.willpower ?? 0) * BALANCE.innerPerWillpower + flatInner + (modifiers.innerFlat ?? 0)) * (1 + (modifiers.innerPct ?? 0)))
   };
 }

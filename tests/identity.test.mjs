@@ -13,7 +13,7 @@ test("all six identities have unique bundled portrait assets",()=>{
   assert.equal(IDENTITIES.length,6);
   assert.equal(new Set(IDENTITIES.map(identity=>identity.portrait)).size,6);
   const worker=fs.readFileSync(new URL("../sw.js",import.meta.url),"utf8");
-  assert.match(worker,/cache\.addAll\(\[\.\.\.SHELL,\.\.\.IDENTITY_ART\]\)/);
+  assert.match(worker,/cache\.addAll\(\[\.\.\.SHELL,\.\.\.IDENTITY_ART\]/);
   for(const identity of IDENTITIES){
     assert.match(identity.portrait,/^\.\/assets\/identities\/[a-z]+\.jpg$/);
     assert.ok(fs.existsSync(new URL(`../${identity.portrait.slice(2)}`,import.meta.url)),`missing portrait for ${identity.name}`);

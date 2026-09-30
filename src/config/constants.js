@@ -30,6 +30,6 @@ export const STAT_DESCRIPTIONS = {
   constitution: "每點增加 5 氣血上限、2 架勢上限。",
   agility: "影響行動先後；身法越高，越容易先出手。",
   comprehension: "提升武學熟練度成長速度（20 點約增加 4%）。",
-  willpower: "目前尚未接入效果，不增加戰鬥或修練數值。"
+  willpower: "每點增加 1 內力上限，讓你能施展更多武功（20 點增加 20 內力）。"
 };
 export const DEFAULT_STATS = { strength: 20, constitution: 20, agility: 20, comprehension: 20, willpower: 20 };
