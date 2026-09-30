@@ -1,4 +1,5 @@
 import { ZHAOYE_SCRIPT } from '../data/zhaoye-script.js';
+import { NARRATIVE_REWRITE } from '../data/zhaoye-narrative.js';
 
 export const ZHAOYE_CHAPTERS = ['斷鏢','血衣無罪？','朔風借糧','江燈照骨','名門夜雨','京華有價','三關烽火','照夜而行'];
 export const ZHAOYE_PLACES = ['鴉渡','赤水埠','雁回城','汀州','青衡山','承京','鎖雲關','照夜臺'];
@@ -83,7 +84,7 @@ const alphabet = 'ABCD';
 export const ZHAOYE_SCENES = Object.fromEntries(ZHAOYE_SCRIPT.map(source=>{
  const main=MAIN[source.id];
  const choices=(MAJOR[source.id]??main?.[1])?.map((label,index)=>({id:alphabet[index],label}))??source.options.map(({id,label})=>({id,label}));
- return [source.id,{id:source.id,chapter:source.chapter,title:source.title,text:main?.[0]??source.text,choices,optional:source.optional,investigate:INVESTIGATIONS.has(source.id),major:!!MAJOR[source.id]}];
+ return [source.id,{id:source.id,chapter:source.chapter,title:source.title,text:NARRATIVE_REWRITE[source.id]??main?.[0]??source.text,choices,optional:source.optional,investigate:INVESTIGATIONS.has(source.id),major:!!MAJOR[source.id]}];
 }));
 export const ZHAOYE_ORDER=ZHAOYE_SCRIPT.map(s=>s.id);
 export const SCRIPT_BY_ID=Object.fromEntries(ZHAOYE_SCRIPT.map(s=>[s.id,s]));

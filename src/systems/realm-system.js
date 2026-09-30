@@ -1,4 +1,5 @@
 // Composite training milestone: spare money, chapter and unused cultivation never grant a realm or level.
+import { INNER_REFINEMENTS, INNER_REFINEMENT_CAP } from "../config/inner-refinement.js";
 export const REALM_THRESHOLDS=[0,80,160,260,380,520];
 export const CHARACTER_LEVEL_CAP=100;
 export const TRAINING_SCORE_CAP=1020;
@@ -24,10 +25,10 @@ export function calculateRealm(character){
  const skill=topSix(skillMasteries.map(value=>value.realmScore));
  const skillTraining=topSix(skillMasteries.map(value=>value.trainingScore));
  const innerArts=Object.values(character.innerArts??{});
- const innerRealm=innerArts.map(v=>Math.max(0,Math.min(5,v.realm??0))*10).sort((a,b)=>b-a).slice(0,6).reduce((a,b)=>a+b,0);
- const innerStudy=Math.min(6,innerArts.length)*50;
- const meridians=Object.values(character.meridians??{}).reduce((sum,v)=>sum+Math.max(0,Math.min(10,v))*2,0);
- const score=skill+innerRealm+meridians;
- const trainingScore=skillTraining+innerStudy+meridians;
+ const innerRealm=Math.min(300,innerArts.map(v=>Math.max(0,Math.min(5,v.realm??0))*10).sort((a,b)=>b-a).slice(0,6).reduce((a,b)=>a+b,0)+Math.max(0,character.legacyInnerRealmCredit??0));
+ const innerStudy=Math.min(300,Math.min(6,innerArts.filter(value=>!value.legacyMeridianOnly).length)*50+Math.max(0,character.legacyInnerStudyCredit??0));
+ const innerRefinement=Object.entries(character.innerArts??{}).reduce((sum,[id,value])=>sum+(INNER_REFINEMENTS[id]?Math.max(0,Math.min(INNER_REFINEMENT_CAP,Math.floor(Number(value.refinement)||0)))*2:0),0);
+ const score=skill+innerRealm+innerRefinement;
+ const trainingScore=skillTraining+innerStudy+innerRefinement;
  return {score,realm:REALM_THRESHOLDS.findLastIndex(n=>score>=n),...levelProgressFromTrainingScore(trainingScore)};
 }

@@ -1,10 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import { EFFECT_HANDLERS, assertKnownEffect } from "../src/core/effects.js";
+import { SIDEQUESTS, SIDEQUEST_CLUES } from '../src/data/zhaoye-sidequests.js';
+import { NARRATIVE_REWRITE } from '../src/data/zhaoye-narrative.js';
+import { ZHAOYE_SCENES } from '../src/core/zhaoye-story.js';
 
 const root=path.resolve(import.meta.dirname,"..");
 const read=name=>JSON.parse(fs.readFileSync(path.join(root,"src","data",`${name}.json`),"utf8"));
-const expected={skills:100,talents:50,"inner-arts":20,meridians:6,equipment:300,items:50,npcs:24,enemies:70,factions:12,locations:18,quests:8,chapters:8};
+const expected={skills:100,talents:50,"inner-arts":17,equipment:300,items:50,npcs:24,enemies:70,factions:12,locations:18,quests:8,chapters:8};
 const errors=[]; const content={};
 for(const [name,count] of Object.entries(expected)){const set=read(name);content[name]=set.data;if(set.schemaVersion!==1)errors.push(`${name}: schemaVersion`);if(set.data.length!==count)errors.push(`${name}: expected ${count}, got ${set.data.length}`);const ids=new Set();for(const row of set.data){if(!row.id)errors.push(`${name}: missing id`);if(ids.has(row.id))errors.push(`${name}: duplicate ${row.id}`);ids.add(row.id);walkEffects(row,effect=>{try{assertKnownEffect(effect);}catch(error){errors.push(`${name}/${row.id}: ${error.message}`);}});}}
 const countBy=(rows,key)=>rows.reduce((a,r)=>((a[r[key]]=(a[r[key]]??0)+1),a),{});
@@ -25,5 +28,9 @@ for(const location of content.locations)for(const id of location.adjacentIds??[]
 for(const chapter of content.chapters){if(!questIds.has(chapter.mainQuestId))errors.push(`chapter/${chapter.id}: invalid quest ${chapter.mainQuestId}`);if(chapter.nextChapterId&&!chapterIds.has(chapter.nextChapterId))errors.push(`chapter/${chapter.id}: invalid next chapter ${chapter.nextChapterId}`);for(const id of chapter.keyEnemyIds??[])if(!enemyIds.has(id))errors.push(`chapter/${chapter.id}: invalid enemy ${id}`);for(const choice of chapter.majorChoices)for(const effect of choice.effects??[])if(effect.effectId==="faction_change"&&!factionIds.has(effect.params.factionId))errors.push(`chapter/${chapter.id}: invalid faction ${effect.params.factionId}`);}
 const written=[];for(const chapter of content.chapters)for(const choice of chapter.majorChoices)for(const effect of choice.effects??[])if(effect.effectId==="set_flag")written.push({chapter:chapter.chapter,key:effect.params.key});
 for(const flag of written.filter(f=>f.chapter<8)){const consumed=content.chapters.some(ch=>ch.chapter>flag.chapter&&ch.consumesFlags?.includes(flag.key));if(!consumed)errors.push(`major flag never consumed: ${flag.key}`);}
-if(errors.length){console.error(errors.join("\n"));process.exit(1);}console.log(`Content valid: ${Object.entries(expected).map(([k,v])=>`${k}=${v}`).join(", ")}`);
+if(SIDEQUESTS.length!==12||new Set(SIDEQUESTS.map(q=>q.id)).size!==12)errors.push('Expected twelve unique side quests');
+if(SIDEQUESTS.filter(q=>q.scenes.length===5).length!==4)errors.push('Expected four cross-chapter side quests');
+for(const q of SIDEQUESTS){const cross=q.endChapter>q.startChapter;if(q.scenes.length!==(cross?5:3)||q.scenes.filter(s=>s.battle).length!==(cross?2:1))errors.push(`${q.id}: invalid scene/encounter count`);if((SIDEQUEST_CLUES[q.id]?.length??0)!==(cross?2:1))errors.push(`${q.id}: missing revealed clues`);if(q.places.some(id=>!locationIds.has(id)))errors.push(`${q.id}: invalid place`);if(!ZHAOYE_SCENES[q.callback.scene]&&q.callback.scene!=='ending')errors.push(`${q.id}: invalid callback scene`);for(const outcome of q.scenes.at(-1).outcomes){if(!q.callback[outcome.id])errors.push(`${q.id}: missing outcome callback`);if(outcome.fate&&(!outcome.danger||!content.npcs.some(n=>n.id===outcome.fate.npcId)||!['dead','departed'].includes(outcome.fate.status)))errors.push(`${q.id}: invalid or unannounced permanent fate`);}}
+for(const id of Object.keys(NARRATIVE_REWRITE))if(!ZHAOYE_SCENES[id])errors.push(`Unknown rewritten scene: ${id}`);
+if(errors.length){console.error(errors.join("\n"));process.exit(1);}console.log(`Content valid: ${Object.entries(expected).map(([k,v])=>`${k}=${v}`).join(", ")}; sidequests=12; narrative revision=2`);
 function walkEffects(value,visit){if(!value||typeof value!=="object")return;if(typeof value.effectId==="string")visit(value);for(const child of Object.values(value))walkEffects(child,visit);}

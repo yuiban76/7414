@@ -1,3 +1,4 @@
+import { roomCombatFrame } from '../core/combat-presentation.js';
 import { castVote, createVote, resolveVote } from "../systems/vote-system.js";
 
 const MAX_PLAYERS = 4;
@@ -183,7 +184,7 @@ export class RoomController {
     if(playerId!==this.state.hostPlayerId)throw new Error("只有房主可以開始同步戰鬥");
     if(this.state.status!=="playing")throw new Error("房間尚未開始遊戲");
     const eligible=Object.values(this.state.players).filter(item=>item.connected).map(item=>item.id);
-    this.state.battle={id,enemyName:String(enemyName).slice(0,50),enemyHp,maxEnemyHp:enemyHp,round:1,status:"active",eligiblePlayerIds:eligible,partyHp:Object.fromEntries(eligible.map(id=>[id,100])),submissions:{},log:["眾人同時拔出兵刃。"]};
+    this.state.battle={id,instanceId:`${this.state.roomId}:${this.state.revision+1}`,presentationSequence:0,enemyName:String(enemyName).slice(0,50),enemyHp,maxEnemyHp:enemyHp,round:1,status:"active",eligiblePlayerIds:eligible,partyHp:Object.fromEntries(eligible.map(id=>[id,100])),submissions:{},log:["眾人同時拔出兵刃。"]};
   }
 
   submitBattleAction(playerId,action){
@@ -197,11 +198,29 @@ export class RoomController {
     if(playerId!==this.state.hostPlayerId)throw new Error("只有房主可以結算同步戰鬥");
     const battle=this.state.battle;if(!battle||battle.status!=="active")throw new Error("目前沒有同步戰鬥");
     const living=battle.eligiblePlayerIds.filter(id=>battle.partyHp[id]>0);if(living.some(id=>!battle.submissions[id]))throw new Error("仍有玩家尚未提交行動");
+    const before=roomCombatFrame(this.state),events=[],round=battle.round;
+    const visual=structuredClone(before),foe=visual.find(actor=>actor.id==='room-enemy');
+    const record=event=>events.push({...event,actors:structuredClone(visual)});
+    const complete=()=>{battle.presentation={instanceId:battle.instanceId,sequence:++battle.presentationSequence,
+      round,before,after:roomCombatFrame(this.state),events,finished:battle.status==='active'?null:battle.status,
+      summary:battle.log.slice(-2).join(' ')};};
     const damageByAction={attack:20,skill:30,defend:0,observe:8};const damage=living.reduce((sum,id)=>sum+damageByAction[battle.submissions[id]],0);battle.enemyHp=Math.max(0,battle.enemyHp-damage);battle.log.push(`第 ${battle.round} 回合，隊伍造成 ${damage} 點傷害。`);
-    if(battle.enemyHp===0){battle.status="victory";battle.log.push(`${battle.enemyName}敗退。`);return;}
-    for(const id of living){const incoming=battle.submissions[id]==="defend"?8:16;battle.partyHp[id]=Math.max(0,battle.partyHp[id]-incoming);}
-    if(living.every(id=>battle.partyHp[id]===0)){battle.status="defeat";battle.log.push("隊伍暫時撤退，保留本次所得情報。");return;}
-    battle.round++;battle.submissions={};
+    for(const id of living){
+      const action=battle.submissions[id];
+      record({type:'action',actorId:id,targetId:foe.id,label:({attack:'普通攻擊',skill:'合力武功',defend:'沉身守勢',observe:'觀察牽制'})[action],attack:action!=='defend',art:action==='skill'?'qi':'sword'});
+      const loss=Math.min(foe.hp,damageByAction[action]);foe.hp-=loss;
+      if(action==='defend')record({type:'defend',actorId:id,targetId:id});
+      else record({type:'hit',actorId:id,targetId:foe.id,hpDamage:loss});
+    }
+    if(battle.enemyHp===0){battle.status="victory";battle.log.push(`${battle.enemyName}敗退。`);record({type:'kill',targetId:foe.id});complete();return;}
+    for(const id of living){const incoming=battle.submissions[id]==="defend"?8:16;
+      const target=visual.find(actor=>actor.id===id);record({type:'action',actorId:foe.id,targetId:id,label:'迎面反擊',attack:true,art:'fist'});
+      const loss=Math.min(target.hp,incoming);battle.partyHp[id]=Math.max(0,battle.partyHp[id]-incoming);target.hp=battle.partyHp[id];
+      record({type:'hit',actorId:foe.id,targetId:id,hpDamage:loss,blocked:battle.submissions[id]==='defend'});
+      if(target.hp===0)record({type:'kill',actorId:foe.id,targetId:id});
+    }
+    if(living.every(id=>battle.partyHp[id]===0)){battle.status="defeat";battle.log.push("隊伍暫時撤退，保留本次所得情報。");complete();return;}
+    battle.round++;battle.submissions={};complete();
   }
 
   async broadcastState(){

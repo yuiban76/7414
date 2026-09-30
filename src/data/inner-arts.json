@@ -4,42 +4,18 @@
   "data": [
     {
       "id": "inner_001",
-      "name": "養氣訣",
+      "name": "養氣悟武訣",
       "grade": "basic",
       "maxInner": 20,
-      "description": "內功熟練 +5%",
-      "effects": []
-    },
-    {
-      "id": "inner_002",
-      "name": "長息功",
-      "grade": "basic",
-      "maxInner": 25,
-      "description": "每回合內力恢復 +0.3%",
+      "description": "運行時武功熟練取得 +5%",
       "effects": []
     },
     {
       "id": "inner_003",
-      "name": "固元功",
+      "name": "養元護心功",
       "grade": "basic",
       "maxInner": 20,
-      "description": "氣血 +5%",
-      "effects": []
-    },
-    {
-      "id": "inner_004",
-      "name": "靜心訣",
-      "grade": "basic",
-      "maxInner": 20,
-      "description": "控制抗性 +5%",
-      "effects": []
-    },
-    {
-      "id": "inner_005",
-      "name": "強身功",
-      "grade": "basic",
-      "maxInner": 15,
-      "description": "架勢 +8%",
+      "description": "運行時氣血上限 +5%；每級精修再增加 +1%",
       "effects": []
     },
     {
@@ -68,10 +44,10 @@
     },
     {
       "id": "inner_009",
-      "name": "百川訣",
+      "name": "納海歸元訣",
       "grade": "normal",
       "maxInner": 45,
-      "description": "無額外被動，純內力池",
+      "description": "擴大內力池；每級精修再增加內力上限 +1%",
       "effects": []
     },
     {
@@ -84,18 +60,18 @@
     },
     {
       "id": "inner_011",
-      "name": "磐石心法",
+      "name": "磐石凝罡功",
       "grade": "normal",
       "maxInner": 30,
-      "description": "架勢上限 +12%",
+      "description": "運行時架勢上限 +12%；每級精修再增加 +1%",
       "effects": []
     },
     {
       "id": "inner_012",
-      "name": "行雲訣",
+      "name": "行雲御氣訣",
       "grade": "normal",
       "maxInner": 35,
-      "description": "行動速度 +5%",
+      "description": "運行時行動速度 +5%；每級精修再增加 +1%",
       "effects": []
     },
     {
@@ -116,18 +92,18 @@
     },
     {
       "id": "inner_015",
-      "name": "血河功",
+      "name": "血河煉勁功",
       "grade": "advanced",
       "maxInner": 60,
-      "description": "氣血低於 50% 時傷害 +8%；血河門",
+      "description": "氣血低於 50% 時傷害 +8%；每級精修增加造成傷害 +0.5%；血河門",
       "effects": []
     },
     {
       "id": "inner_016",
-      "name": "鎮軍功",
+      "name": "鎮軍破陣功",
       "grade": "advanced",
       "maxInner": 55,
-      "description": "護衛時承傷 -10%；鎮北武府",
+      "description": "每級精修增加削減架勢 +0.5%；鎮北武府",
       "effects": []
     },
     {

@@ -1,7 +1,7 @@
 import { DATASETS } from "./manifest.js";
 import { validateDataset } from "../core/validators.js";
 
-const EXPECTED_COUNTS = { skills: 100, talents: 50, "inner-arts": 20, meridians: 6, equipment: 300, items: 50, npcs: 24, enemies: 70, factions: 12, locations: 18, quests: 8, chapters: 8 };
+const EXPECTED_COUNTS = { skills: 100, talents: 50, "inner-arts": 17, equipment: 300, items: 50, npcs: 24, enemies: 70, factions: 12, locations: 18, quests: 8, chapters: 8 };
 
 export async function loadContent() {
   const content = {};

@@ -1,0 +1,52 @@
+/* Ink, cinnabar and jade carry the existing paper battlefield into motion. */
+.combat-cinema { position:relative; display:flex; align-items:center; gap:.8rem; min-height:88px; margin:0 0 1rem; padding:.8rem 1rem; background:var(--ink-900); color:var(--paper-100); border:1px solid var(--gold); overflow:hidden; }
+.combat-cinema::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 15% 100%,rgb(183 71 50 / .2),transparent 65%); pointer-events:none; }
+.combat-cinema-mark { position:relative; padding:.3rem .4rem; border:1px solid var(--cinnabar); color:#f0b29c; font:700 1rem var(--font-display); writing-mode:vertical-rl; letter-spacing:.2em; }
+.combat-cue { position:relative; margin:0; padding-right:3rem; font-family:var(--font-display); font-size:clamp(1rem,2vw,1.25rem); line-height:1.5; overflow-wrap:anywhere; }
+.combat-seal { position:absolute; right:1rem; top:1rem; width:48px; height:48px; display:grid; place-items:center; opacity:0; font:700 1.8rem var(--font-display); transform:rotate(-8deg); }
+.combat-seal.seal-victory,.combat-seal.seal-defeat { opacity:1; color:#f0b29c; border:3px double var(--cinnabar); }
+.combat-seal.seal-defeat { color:var(--paper-300); border-color:var(--paper-300); }
+.combat-playback { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem; margin:0 0 1rem; }
+.combat-playback .btn { padding:.5rem .65rem; min-height:44px; font-size:.85rem; color:var(--paper-ink); background:var(--paper-100); border-color:#aa9d7c; }
+.combat-playback label { display:flex; align-items:center; gap:.4rem; font-size:.85rem; }
+.combat-playback input { width:80px; min-height:44px; padding:0; accent-color:var(--cinnabar); }
+.battle-layout .combatant,.room-combat .combatant { position:relative; isolation:isolate; overflow:visible; transition:border-color .2s,background-color .2s,opacity .25s,filter .25s; }
+.combatant.is-striking { z-index:2; border-color:var(--gold); background:rgb(210 173 86 / .16); box-shadow:0 0 0 1px var(--gold); }
+.combatant.is-guarding { border-color:var(--jade-dark); }
+.combatant.is-defeated { opacity:.55; filter:grayscale(.65); }
+.combat-condition { margin-left:.3rem; color:var(--cinnabar-dark); font-weight:700; font-size:.85rem; }
+.combatant .meter { position:relative; }
+.combatant .meter > .meter-fill,.combatant .meter > .meter-ghost { position:absolute; inset:0; width:100%; transform-origin:left; transition:none; }
+.combatant .meter > .meter-ghost { background:#d9bfa0; opacity:.75; }
+.combatant .meter > .meter-fill { z-index:1; }
+.combatant .combat-buffs { font-size:.8rem; line-height:1.6; margin-top:.4rem; }
+.battle-allies-visible { display:grid; gap:.5rem; }
+.battle-allies-visible .combatant { margin:0; }
+.battle-allies-visible .combatant-portrait { width:40px; height:40px; }
+.battle-allies-visible .resource { margin-top:.3rem; }
+.combat-effect { position:absolute; pointer-events:none; left:50%; top:50%; z-index:6; opacity:0; transform:translate(-50%,-50%); }
+.effect-number { top:28%; white-space:normal; width:max-content; max-width:96%; text-align:center; font:700 .95rem var(--font-data); padding:.25rem .4rem; color:#fff4de; background:var(--cinnabar-dark); box-shadow:0 2px 8px rgb(17 21 18 / .3); }
+.effect-strike { width:115%; max-width:230px; height:100px; background:radial-gradient(ellipse,rgb(234 197 119 / .6),transparent 65%); }
+.effect-strike::after { content:''; position:absolute; inset:15% 5%; border-top:5px solid #f9e4ad; border-radius:50%; box-shadow:0 -3px 0 rgb(183 71 50 / .65); transform:rotate(-30deg); }
+.effect-strike.art-blade::after,.effect-strike.art-sword::after { border-top-width:4px; transform:rotate(-40deg); }
+.effect-strike.art-spear::after,.effect-strike.art-staff::after { border-radius:0; top:50%; height:0; transform:rotate(-12deg); }
+.effect-strike.art-fist::after,.effect-strike.art-grappling::after { inset:10% 25%; border:5px double #f9e4ad; border-radius:50%; box-shadow:0 0 18px var(--gold); transform:rotate(0); }
+.effect-strike.art-needlecast::after,.effect-strike.art-pressurepoint::after { inset:20% 10%; border-radius:0; border-top:3px dotted #f9e4ad; border-bottom:3px dotted #f9e4ad; }
+.effect-strike.art-qi::after,.effect-strike.art-posture::after { inset:0 25%; border:3px solid #f9e4ad; border-radius:50%; box-shadow:0 0 20px var(--gold),inset 0 0 15px var(--gold); }
+.effect-break,.effect-kill,.effect-follow,.effect-chase { min-width:5rem; text-align:center; font:700 clamp(1.2rem,2.5vw,1.7rem) var(--font-display); letter-spacing:.1em; color:#fff4de; padding:.35rem .55rem; background:var(--cinnabar-dark); border:3px double #e2b8a0; box-shadow:0 4px 14px rgb(17 21 18 / .25); }
+.effect-follow,.effect-chase { background:#58472c; border-color:var(--gold); }
+.effect-heal,.effect-refund,.effect-buff,.effect-defend,.effect-guard,.effect-dodge,.effect-evade,.effect-observe,.effect-objective { min-width:4rem; text-align:center; color:#fff4de; background:var(--jade-dark); padding:.4rem .6rem; font-weight:700; border:1px solid var(--jade); }
+.effect-crack { width:90%; height:110%; background:linear-gradient(112deg,transparent 48%,var(--cinnabar) 49%,var(--cinnabar) 50%,transparent 51%),linear-gradient(40deg,transparent 48%,rgb(183 71 50 / .65) 49%,transparent 51%); }
+.combat-mote { position:absolute; z-index:5; left:50%; top:50%; width:5px; height:10px; background:var(--cinnabar); pointer-events:none; }
+.room-combat { margin-top:1rem; padding:1rem; background:var(--paper-100); color:var(--paper-ink); border:1px solid var(--paper-300); }
+.room-combat .combatants { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:.75rem; }
+.room-combat .combatant { margin-bottom:.5rem; }
+.room-combat .btn { color:var(--paper-ink); background:var(--paper-200); border-color:#aa9d7c; }
+.room-combat .btn-primary { color:var(--paper-100); background:var(--cinnabar-dark); }
+.combat-playback .btn:hover { background:var(--paper-200); }
+.combatant-heading { display:flex; align-items:center; justify-content:space-between; gap:.3rem; margin-bottom:.35rem; }
+.combatant-heading .combatant-identity { margin-bottom:0; }
+.combat-round-note { font-size:.9rem; line-height:1.6; }
+.combat-visually-hidden { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+@media(max-width:480px) { .combat-cinema{padding:.65rem;}.combat-cue{font-size:1rem;}.combat-playback{gap:.35rem;}.combat-playback input{width:64px;}.room-combat{padding:.65rem;}.effect-number{font-size:.8rem;}.room-combat .combatants{gap:.5rem;} }
+@media(prefers-reduced-motion:reduce) { .combat-effect,.combat-mote{display:none;}.combatant{transition:none!important;}.combat-seal{transform:none;} }

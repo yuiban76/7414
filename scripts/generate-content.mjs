@@ -45,10 +45,16 @@ const talentRows = tableAfter("### 5.2 50 種天賦 V1");
 const talents = talentRows.map((r, i) => ({ id: slug("talent", i + 1), name: r[1], rarity: r[2].split("／")[0], type: r[2].includes("優缺點") ? "tradeoff" : r[2].includes("負面") ? "negative" : "positive", description: r[3], effects: [] }));
 
 const innerRows = tableAfter("### 9.2 V1 表");
-const innerArts = innerRows.map((r, i) => ({ id: slug("inner", i + 1), name: r[1], grade: mapGrade[r[2]], maxInner: num(r[3]), description: r[4], effects: [] }));
-const meridianNames = ["任脈", "督脈", "手陽脈", "手陰脈", "足陽脈", "足陰脈"];
-const meridianEffects = ["max_hp_pct", "max_inner_pct", "damage_pct", "posture_damage_pct", "speed_pct", "max_posture_pct"];
-const meridians = meridianNames.map((name, i) => ({ id: slug("meridian", i + 1), name, maxLevel: 10, perLevel: [{ effectId: meridianEffects[i], params: { value: i === 2 || i === 3 ? .005 : .01 } }], costs: [100,150,220,300,400,520,660,820,1000,1200] }));
+const innerArtOverrides = {
+  inner_001: {name:"養氣悟武訣",description:"運行時武功熟練取得 +5%"},
+  inner_003: {name:"養元護心功",description:"運行時氣血上限 +5%；每級精修再增加 +1%"},
+  inner_009: {name:"納海歸元訣",description:"擴大內力池；每級精修再增加內力上限 +1%"},
+  inner_011: {name:"磐石凝罡功",description:"運行時架勢上限 +12%；每級精修再增加 +1%"},
+  inner_012: {name:"行雲御氣訣",description:"運行時行動速度 +5%；每級精修再增加 +1%"},
+  inner_015: {name:"血河煉勁功",description:"氣血低於 50% 時傷害 +8%；每級精修增加造成傷害 +0.5%；血河門"},
+  inner_016: {name:"鎮軍破陣功",description:"每級精修增加削減架勢 +0.5%；鎮北武府"}
+};
+const innerArts = innerRows.map((r, i) => ({ id: slug("inner", i + 1), name: r[1], grade: mapGrade[r[2]], maxInner: num(r[3]), description: r[4], effects: [] })).filter(row=>!["inner_002","inner_004","inner_005"].includes(row.id)).map(row=>({...row,...innerArtOverrides[row.id]}));
 
 const itemRows = tableAfter("### 12.3 50 種 V1");
 const items = itemRows.map((r, i) => ({ id: slug("item", i + 1), name: r[1], category: r[2], stackLimit: 99, battleUsable: i < 28 || i === 46, perBattleLimit: [8,9,17].includes(i) ? 1 : null, description: r[3], effects: [{ effectId: i < 10 ? "heal_flat" : i < 18 ? "restore_inner_flat" : i < 28 ? "cleanse" : i < 40 ? (i < 32 ? "proficiency" : "cultivation") : "event_tool", params: { value: 30 + i * 3 } }], priceWen: 40 + i * 20 }));
@@ -107,8 +113,8 @@ equipment[215].effects = [];
 equipment[277].rarity = "common";
 equipment[277].effects = [];
 
-for (const [name, data] of Object.entries({ skills, talents, "inner-arts": innerArts, meridians, equipment, items, npcs, enemies, factions, locations, quests, chapters })) {
+for (const [name, data] of Object.entries({ skills, talents, "inner-arts": innerArts, equipment, items, npcs, enemies, factions, locations, quests, chapters })) {
   fs.writeFileSync(path.join(dataDir, `${name}.json`), JSON.stringify(dataset(data), null, 2) + "\n");
 }
-fs.writeFileSync(path.join(dataDir, "manifest.js"), `export const DATASETS = ${JSON.stringify(["skills","talents","inner-arts","meridians","equipment","items","npcs","enemies","factions","locations","quests","chapters"])};\n`);
+fs.writeFileSync(path.join(dataDir, "manifest.js"), `export const DATASETS = ${JSON.stringify(["skills","talents","inner-arts","equipment","items","npcs","enemies","factions","locations","quests","chapters"])};\n`);
 console.log(`Generated content: skills=${skills.length}, equipment=${equipment.length}, items=${items.length}, npcs=${npcs.length}, enemies=${enemies.length}`);

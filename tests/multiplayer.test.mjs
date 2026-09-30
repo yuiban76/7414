@@ -78,3 +78,25 @@ test("room capacity never exceeds four players",async()=>{
   assert.equal(host.state.players.p5,undefined);
 });
 test("host resolves one submitted action per living player",async()=>{const hub=new MemoryHub();const host=controller(hub,"host",true);const room=await host.create({worldId:"world_1"});const guest=controller(hub,"guest");await guest.join(room.roomId);await host.command("ready",{ready:true});await guest.command("ready",{ready:true});await host.command("start");await host.command("battle-open",{enemyName:"嚴震",enemyHp:70});await host.command("battle-action",{action:"skill"});await assert.rejects(()=>host.command("battle-resolve"),/尚未提交/);await guest.command("battle-action",{action:"attack"});await host.command("battle-resolve");assert.equal(host.state.battle.enemyHp,20);assert.equal(guest.state.battle.round,2);await host.command("battle-action",{action:"attack"});await guest.command("battle-action",{action:"attack"});await host.command("battle-resolve");assert.equal(host.state.battle.status,"victory");assert.equal(guest.state.battle.enemyHp,0);});
+
+test('four-player presentation batches preserve simultaneous damage and publish identical ordered frames',async()=>{
+  const hub=new MemoryHub(),host=controller(hub,'host',true),room=await host.create({worldId:'visual'});
+  const peers=[host];for(const id of ['a','b','c']){const guest=controller(hub,id);await guest.join(room.roomId);peers.push(guest);}
+  for(const peer of peers)await peer.command('ready',{ready:true});await host.command('start');
+  await host.command('battle-open',{enemyName:'測試敵手',enemyHp:120});
+  const instance=host.state.battle.instanceId;
+  for(const [i,peer]of peers.entries())await peer.command('battle-action',{action:['skill','attack','observe','defend'][i]});
+  await host.command('battle-resolve');
+  const batch=host.state.battle.presentation;
+  assert.equal(batch.sequence,1);assert.equal(batch.before.at(-1).hp,120);assert.equal(batch.after.at(-1).hp,62);
+  assert.equal(batch.after.find(actor=>actor.id==='c').hp,92);
+  assert.equal(batch.after.find(actor=>actor.id==='host').hp,84);
+  assert.deepEqual(batch.events.filter(event=>event.type==='action').slice(0,4).map(event=>event.actorId),['host','a','b','c']);
+  for(const peer of peers)assert.deepEqual(peer.state.battle.presentation,batch);
+  await peers[1].command('chat',{text:'不重播'});assert.equal(host.state.battle.presentation.sequence,1);
+  for(const peer of peers)await peer.command('battle-action',{action:'skill'});await host.command('battle-resolve');
+  assert.equal(host.state.battle.presentation.sequence,2);assert.equal(host.state.battle.presentation.finished,'victory');
+  assert.equal(host.state.battle.presentation.after.at(-1).hp,0);
+  assert.equal(host.state.battle.presentation.events.some(event=>event.actorId==='room-enemy'&&event.type==='hit'),false);
+  await host.command('battle-open');assert.notEqual(host.state.battle.instanceId,instance);
+});

@@ -2,8 +2,11 @@ import { ZHAOYE_SCENES, ZHAOYE_ORDER, ZHAOYE_CHAPTERS, ZHAOYE_PLACES, BATTLES, O
 import { REACTIONS } from './zhaoye-reactions.js';
 import { storyCallbacks, storyBattleModifiers, chapterHandoff } from './zhaoye-callbacks.js';
 import { supplementsFor } from './zhaoye-supplements.js';
+import { OPENING_REWRITE } from '../data/zhaoye-narrative.js';
+import { companionAvailable, presentCastText } from './zhaoye-fates.js';
+import { closeChapterSidequests, sidequestCallbacks, sidequestEpilogue } from '../systems/sidequest-system.js';
 
-export function createZhaoyeState(){return {version:1,events:{},evidence:{E1:'missing',E2:'missing',E3:'missing',E4:'missing'},sources:{},support:{},losses:[],promises:{},facilities:{},publicFunds:0,preparations:[],rewards:[],scrollSecondaryLost:false,custody:{},assignments:{},chapterSafe:false,journey:{completed:[],declined:false,stage:0,notes:[]}};}
+export function createZhaoyeState(){return {version:2,storyRevision:2,sidequests:{},sidequestRewards:[],sidequestNotes:[],fates:{},events:{},evidence:{E1:'missing',E2:'missing',E3:'missing',E4:'missing'},sources:{},support:{},losses:[],promises:{},facilities:{},publicFunds:0,preparations:[],rewards:[],scrollSecondaryLost:false,custody:{},assignments:{},chapterSafe:false,journey:{completed:[],declined:false,stage:0,notes:[]}};}
 export const EVIDENCE_GUIDE=[
  {id:'E1',title:'軍械帳冊與運送紀錄',purpose:'查武器是誰在什麼時候運到哪裡，途中有沒有被掉包或改過帳。'},
  {id:'E2',title:'證人與工坊資料',purpose:'查哪些工匠參與製作、證人看見了什麼，再確認兩邊說法能不能對上。'},
@@ -61,6 +64,7 @@ export function evidenceSummary(w){
 
 function applyChoice(w,id,choice){
  const s=stateOf(w);const promised=PROMISES[id]?.[choice];if(promised)s.promises[id]={who:promised[0],what:promised[1],where:promised[2],due:promised[3],status:'pending'};
+ if(id==='6-2B'&&choice==='C'&&!companionAvailable(w,'npc_002'))s.promises[id]={who:'清查書吏方璧與聯署人',what:'核對沈離隊前留下的封條落款與外部材料',where:'承京',due:6,status:'pending'};
  if(id==='1-4'){s.ledger=['government','escort','self']['ABC'.indexOf(choice)];evidence(w,'E1','pending','鴉渡原帳與交接收條');if(choice==='A')support(w,'government','依法交帳留案號');if(choice==='B')s.publicFunds+=120;}
  if(id==='2-3') {evidence(w,'E1','pending','鄒平指認改印銅模');evidence(w,'E2','pending','鄒平自願口供');s.zouAlive=true;}
  if(id==='2-4'){s.oldCaseSubmitted=choice==='A';s.oldCaseStrategy=choice==='A'?'submitted':'deferred';if(choice==='B')s.promises.oldCase={who:'赤水受害者',what:'提交血河舊案與殷紅袖口供',where:'青衡公議',due:5,status:'pending'};else support(w,'civil','受理外堂舊案');}
@@ -94,28 +98,40 @@ export class ZhaoyeEngine {
   const w=this.world,s=stateOf(w);
   const pendingScene=ZHAOYE_SCENES[w.currentSceneId];
   if(!s.chapterSafe&&pendingScene?.chapter===1&&pendingScene.id!=='1-0'&&w.currentLocationId!==ZHAOYE_LOCATION_IDS[0])return {title:`主線現場：${ZHAOYE_PLACES[0]}`,text:`你已離開${ZHAOYE_PLACES[0]}。目前待辦是「${pendingScene.title}」；請從地圖直接返回，抵達前無法繼續調查、交接或交鋒。`,choices:[{id:'open-map',label:`查看地圖，前往${ZHAOYE_PLACES[0]}`}],locationLocked:true};
-  if(s.aftermath)return {title:s.aftermath.title,text:this.conditionText(s.aftermath.text),choices:[{id:'continue',label:'收起這一頁，繼續'}]};
+  if(s.aftermath)return {title:s.aftermath.title,text:presentCastText(w,this.conditionText(s.aftermath.text)),choices:[{id:'continue',label:'收起這一頁，繼續'}]};
   if(s.supplement){const pending=s.supplement,[title,options]=pending.steps[pending.index];const previous=s.events[pending.eventId].supplements??[];return {title,text:'主要決定已保留。這一段補問與個人回話不替其他人改票，也不抹去先前結果。',choices:options.map((label,index)=>({id:`supplement:${index}`,label})).filter(c=>!['4-1B','6-2C'].includes(pending.eventId)||!previous.some(p=>p.label===c.label))};}
   if(s.chapterSafe){const pending=Object.entries(s.promises).filter(([,p])=>p.status==='pending'&&p.due<=w.chapter);const end=w.flags.game_complete;const ending=end?endingFor(w):null;const sections=[end?this.endingText(ending):`《${ZHAOYE_CHAPTERS[w.chapter-1]}》已告一段落。可以自由整備，再主動啟程；離線不推進危機。`,this.callbacks(),chapterHandoff(w),evidenceSummary(w),`未竟事項：\n${pending.map(([,p])=>`${p.who}：${p.what}（${p.where}）`).join('\n')||'本章沒有到期未履行承諾。'}`];return {title:end?ending.title:`${ZHAOYE_PLACES[w.chapter-1]} · 章後安全據點`,text:sections.filter(Boolean).join('\n\n'),choices:[...pending.map(([id,p])=>({id:`fulfil:${id}`,label:`返回${p.where}：${p.what}（完成一次交接）`})),...(end?[]:[{id:'next-chapter',label:'結束休整，啟程下一章'}])]};}
   const scene=ZHAOYE_SCENES[w.currentSceneId];if(!scene)throw new Error('照夜行場景不存在，請載入備份存檔');
   const e=s.events[scene.id],done=e?.investigations??[];
   let text=scene.text;const callback=storyCallbacks(w,scene.id);if(callback)text+='\n\n'+callback;
   if(BATTLES[scene.id]){const modifiers=storyBattleModifiers(w);if(modifiers.reasons.length)text+='\n\n已知準備影響：\n'+modifiers.reasons.join('\n');}
-  if(scene.id==='1-0')text=PROLOGUES[w.startingCountry]+'\n\n'+(IDENTITY_OBSERVATIONS[this.character.identityId]??'');
+  if(scene.id==='1-0')text=PROLOGUES[w.startingCountry]+'\n\n'+OPENING_REWRITE+'\n\n'+(IDENTITY_OBSERVATIONS[this.character.identityId]??'');
   if(scene.id==='1-3')text+=`\n本場救援期限：${this.battleLimit(scene.id)} 回合。`;
   if(scene.id==='7-1')text+=`\n可準備 ${s.preparationLimit??2} 項，已做 ${done.length} 項。無現實時間倒數。`;
   if(scene.id==='7-4')text+='\n\n'+evidenceSummary(w)+`\n疏散：${s.preparations.includes('A')?'已準備':'未準備'}；騎隊查驗：${s.preparations.includes('B')?'已準備':'未準備'}`;
   if(scene.id==='8-6')text+='\n\n'+evidenceSummary(w)+'\n'+['A','B','C'].map((key,index)=>{const result=endingFor(w,key);return `${MAJOR['8-6'][index]}：${result.title}${result.missing.length?'（仍缺：'+result.missing.join('、')+'）':''}`;}).join('\n');
-  text=this.conditionText(text);
+  text=presentCastText(w,this.conditionText(text));
+  const sideCallback=sidequestCallbacks(w,scene.id);if(sideCallback)text+='\n\n'+sideCallback;
+  let title=scene.title, absenceLabels=null;
+  if(scene.id==='5-2C'&&!companionAvailable(w,'npc_001')){
+    title='鏢旗留下的記事：相信過的人';
+    text+='\n\n程野帶來葉離隊前留下的舊信。你可以重讀其中救援的日期，也可以追查被抹掉的姓名；這不是與葉本人對話，也不會替他改口。';
+    absenceLabels={A:'把真實救援與拘禁責任分別記下。',B:'留住舊信，繼續核對顧的卷宗。',C:'記下自己今後願意守住的鏢路規矩。'};
+  }
+  if(scene.id==='6-2B'&&!companionAvailable(w,'npc_002')){
+    title='離隊者的封條記事';
+    text+='\n\n方璧將沈離隊前可查的落款與經手紀錄另列一卷。她仍在別處自行追案，你能核對留下的材料，不能在此請她現身作答。';
+    absenceLabels={A:'把封條處理經過附入新案，由獨立承辦者核對。',B:'尋找當年的撤告人，另取外部陳述。',C:'封存離隊前留下的記錄，交方璧與外部材料比對。'};
+  }
   const choices=[];
   for(const c of scene.choices){if(done.includes(c.id))continue;if(scene.id==='7-1'&&done.length>=(s.preparationLimit??2))continue;if(scene.id==='8-2B'&&c.id==='B'&&!s.events['4-2C']?.choice&&!s.events['7-2B']?.choice)continue;
    const cost=COSTS[scene.id]?.[c.id]??0;const operationCount=scene.id==='8-2A'?(c.id==='A'?3:2):scene.id==='8-2B'?2:0;
-   choices.push({...c,id:c.id,major:scene.major,label:c.label+(cost?`（${cost} 文）`:operationCount?`（${operationCount} 次場景操作）`:''),disabled:cost>this.character.moneyWen});if(cost)choices.push({...c,id:`labour:${c.id}`,label:`${c.label}（以勞務代付，多一段當地時間）`,major:scene.major});
+   choices.push({...c,id:c.id,major:scene.major,label:(absenceLabels?.[c.id]??c.label)+(cost?`（${cost} 文）`:operationCount?`（${operationCount} 次場景操作）`:''),disabled:cost>this.character.moneyWen});if(cost)choices.push({...c,id:`labour:${c.id}`,label:`${c.label}（以勞務代付，多一段當地時間）`,major:scene.major});
   }
   if(scene.investigate){const required=scene.id==='1-1A'?2:scene.id==='7-1'?(s.preparationLimit??2):scene.choices.length;if(done.length>=required)choices.push({id:'conclude',label:'完成逐項核對，繼續前行'});text+=`\n已調查 ${done.length}／${scene.choices.length} 項；每項只能結算一次。`;}
   if(scene.optional)choices.push({id:'skip',label:'暫不參與，交由當地接手（不取得本次支援）'});
   if(e?.operation){return {title:scene.title,text:`${text}\n\n已選：${e.operation.label}\n操作 ${e.actions}／${e.operation.required}；每次操作推進一個場景回合。`,choices:[{id:'operate',label:'完成下一步現場操作'}]};}
-  return {...scene,text,choices};
+  return {...scene,title,text,choices};
  }
  conditionText(text){const s=stateOf(this.world);
 text=text.replace(/若陶安生還，他隔著屏風說：「有些不是人名，是船名。有些不是貨價，是贖人的錢。最後那頁不是我撕的。」若陶安死亡，改由帳頁邊緣的裝訂孔與連續頁碼證明缺頁，沒有人替他給出解釋。/g,s.taoAlive?'陶安隔著屏風說：「有些不是人名，是船名。有些不是貨價，是贖人的錢。最後那頁不是我撕的。」':'帳頁邊緣的裝訂孔與連續頁碼證明缺頁，陶安已無法再說明。');
@@ -129,7 +145,7 @@ text=text.replace(/若第四章曾協助船工履約，他會先認出你們：�
    if(pending.eventId==='7-4'&&id==='supplement:1'&&title==='斷軸老人與工具箱')s.promises.tools={who:'斷軸老人',what:'依標記回取工具箱',where:'鎖雲鎮',due:7,status:'pending'};
    pending.index++;if(pending.index<pending.steps.length)return {id};if(pending.eventId==='6-4'&&s.escortOutcome?.backup==='pending')s.escortOutcome.backup='delivered';s.supplement=null;e.supplementsComplete=true;return this.advance();}
   if(id.startsWith('fulfil:')){const key=id.slice(7),p=s.promises[key];p.status='fulfilled';if(key==='oldCase'){s.oldCaseSubmitted=true;s.oldCaseStrategy='submitted';}if(key==='4-2C'||key==='7-2B')support(w,'civil',`${p.who}履約完成`);s.aftermath={title:'承諾已實際交接',text:`你返回${p.where}，與${p.who}核對：${p.what}。交接人將結果寫回卷末。`};return {id};}
-  if(id==='next-chapter'){s.assignments={};s.chapterSafe=false;w.chapter++;w.currentSceneId=ZHAOYE_ORDER.find(k=>k.startsWith(`${w.chapter}-`));w.quests[`quest_chapter_${w.chapter}`]='active';w.currentLocationId=ZHAOYE_LOCATION_IDS[w.chapter-1];if(!w.visitedLocations.includes(w.currentLocationId))w.visitedLocations.push(w.currentLocationId);return {id};}
+  if(id==='next-chapter'){closeChapterSidequests(w,w.chapter);s.assignments={};s.chapterSafe=false;w.chapter++;w.currentSceneId=ZHAOYE_ORDER.find(k=>k.startsWith(`${w.chapter}-`));w.quests[`quest_chapter_${w.chapter}`]='active';w.currentLocationId=ZHAOYE_LOCATION_IDS[w.chapter-1];if(!w.visitedLocations.includes(w.currentLocationId))w.visitedLocations.push(w.currentLocationId);return {id};}
   const eventId=w.currentSceneId,scene=ZHAOYE_SCENES[eventId],e=eventOf(w,eventId);
   if(id==='skip'){e.status='skipped';return this.advance();}
   if(id==='conclude'){e.status='completed';applyChoice(w,eventId,e.choice);return this.advance();}
@@ -143,11 +159,11 @@ text=text.replace(/若第四章曾協助船工履約，他會先認出你們：�
   return this.resolve(eventId,key);
  }
  resolve(id,key,extraSteps=[]){const w=this.world,s=stateOf(w),e=eventOf(w,id);e.status='completed';e.choice=key;applyChoice(w,id,key);if(MAJOR[id]){w.flags[`chapter_${w.chapter}_choice`]=`zhaoye_${id}_${key}`;w.flags[`chapter_${w.chapter}_path`]='ABC'.indexOf(key)+1;}
-  const steps=[...supplementsFor(id,key),...extraSteps];if(id==='5-5'&&!s.oldCaseSubmitted&&s.promises.oldCase)steps.push(['舊案到期：如何處理？',['現在提交舊案與口供','記明補救方式後延後，仍可返回提交','拒絕提交，承擔持續隱瞞的後果']]);
+  const steps=[...supplementsFor(id,key),...extraSteps].filter(([title])=>Object.entries({npc_001:'葉停舟',npc_002:'沈照微',npc_003:'殷紅袖',npc_004:'阿史那衡',npc_005:'蘇問棠'}).every(([npc,name])=>companionAvailable(w,npc)||!title.includes(name)));if(id==='5-5'&&!s.oldCaseSubmitted&&s.promises.oldCase)steps.push(['舊案到期：如何處理？',['現在提交舊案與口供','記明補救方式後延後，仍可返回提交','拒絕提交，承擔持續隱瞞的後果']]);
   if(steps.length)s.supplement={eventId:id,index:0,steps};
   const result=steps.length?{}:this.advance();s.aftermath={title:ZHAOYE_SCENES[id].title+' · 選後',text:AFTER[id]?.[key]??REACTIONS[id]?.['ABC'.indexOf(key)]??`你選擇「${ZHAOYE_SCENES[id].choices.find(c=>c.id===key)?.label??'完成現場處理'}」。這一段經過與參與者的說法已記入旅途案卷。${s.promises[id]?'\n承諾尚未履行，已列入章末返回清單。':''}`};if(s.promises[id])s.aftermath.text+='\n\n待履約：'+s.promises[id].what+'（'+s.promises[id].where+'）。';if(id==='3-4'&&s.losses.includes('grain_wait'))s.aftermath.text+='\n備糧到達前，一位老人因失溫死亡。家屬確認後，損失列入問責，不以保住點驗安慰他們。';return result;
  }
- advance(){const w=this.world,s=stateOf(w),current=w.currentSceneId,next=ZHAOYE_ORDER[ZHAOYE_ORDER.indexOf(current)+1];if(!next||Number(next[0])!==w.chapter){s.chapterSafe=true;w.flags[`chapter_${w.chapter}_complete`]=true;w.quests[`quest_chapter_${w.chapter}`]='completed';if(!next)w.flags.game_complete=true;if(!s.rewards.includes(w.chapter)){s.rewards.push(w.chapter);return {complete:true};}}else w.currentSceneId=next;return {};}
+ advance(){const w=this.world,s=stateOf(w),current=w.currentSceneId,next=ZHAOYE_ORDER[ZHAOYE_ORDER.indexOf(current)+1];if(!next||Number(next[0])!==w.chapter){s.chapterSafe=true;w.flags[`chapter_${w.chapter}_complete`]=true;w.quests[`quest_chapter_${w.chapter}`]='completed';if(!next){closeChapterSidequests(w,8);w.flags.game_complete=true;}if(!s.rewards.includes(w.chapter)){s.rewards.push(w.chapter);return {complete:true};}}else w.currentSceneId=next;return {};}
  battleDefinition(id=this.world.currentSceneId){return BATTLES[id]??OPTIONAL_BATTLES[`${id}:${stateOf(this.world).events[id]?.choice}`];}
  battleLimit(id){return (this.battleDefinition(id)?.limit??Infinity)+storyBattleModifiers(this.world).grace;}
  battleProgress(){const id=this.world.currentSceneId,b=this.battleDefinition(id);if(!b)return null;const e=eventOf(this.world,id);return {...b,done:e.actions??0,limit:this.battleLimit(id)};}
@@ -175,6 +191,7 @@ text=text.replace(/若第四章曾協助船工履約，他會先認出你們：�
   if(id==='8-4'&&(result!=='victory'||!complete)){recordLoss(w,'forced_gate');s.facilities.mainLock=2;}
   const reward=this.resolve(id,e.choice??'A');s.aftermath.text=(result==='victory'?'交鋒結束，重要涉案者非致命制伏。':'接應者將你帶回最近安全據點，核心人證與副證仍在；改走救援與補查路線。')+`\n場景目標：${e.actions}／${meta.objectives.length}。`+(id==='1-3'?(s.taoAlive?'\n陶安生還，由醫者接手。':'\n陶安未能逃出火場。家屬收到確認，帳冊由接應者保全。'):'')+(id==='5-4'?(s.scrollSecondaryLost?'\n火場中副卷被焚毀，核心卷宗仍由接應者封存。':'\n卷宗出口與證人通道均已保住，副卷與人證一併封存。'):'')+(id==='8-3'?(s.messengerAlive?'\n信使獲救。':'\n信使未能救回，命令封袋交由見證人保全。'):'');return reward;
  }
- callbacks(){const w=this.world,s=stateOf(w),selected=Object.entries(s.events).filter(([id,e])=>Number(id[0])===w.chapter&&e.choice).map(([id,e])=>`${ZHAOYE_SCENES[id].title}：${ZHAOYE_SCENES[id].choices.find(c=>c.id===e.choice)?.label??e.choice}`);const specific=[`原帳：${{government:'官府封存，案號可追查',escort:'鏢盟保管，收條在卷',self:'世界共管卷箱'}[s.ledger]??'尚未取得'}`,s.taoAlive===undefined?'':s.taoAlive?'陶安在安全處養傷，不隨隊赴險。':'陶安的證言位置留給遺物與家屬，不再出現在同行名單。',s.oldCaseSubmitted?'血河舊案已提交，殷紅袖接受追責。':''];return [...specific,...selected].filter(Boolean).join('\n');}
- endingText(result){const prose={ '公堂有燈':'第一次聽證開了六個時辰。顧長纓聽見謝意，也聽見有人問兒子的屍骨。沈照微在卷末寫「續查」，沒有寫「結」。那盞燈不很亮，坐在門外的人也看得見。','江上暫平':'第一個過橋的是賣菜人。三國答應交換囚工、限期開倉，三十日後檢視第一次履約。江上暫時沒有戰船，這個「暫時」仍要有人守。','無旗之盟':'新據點沒有盟主椅子。葉停舟掛起白木牌：「運人回家，運糧過關。其餘的，先問清楚。」沒有替天下起新名字，只替下一個求助的人留門。','未竟之案':'告示把許多名字寫成「另案調查」。主要陰謀已止，部分高位人物仍以證據待補拖延。沈照微留下缺頁的位置：路沒有斷，只是比出發時更長。'};return `${prose[result.title]}\n\n顧長纓固定在押，供述不換赦免。${stateOf(this.world).oldCaseSubmitted?'殷紅袖接受舊案處置，繼續護送受害者。':'殷紅袖離隊自行補交口供，不替未交舊案簽結。'}\n${result.memorial}：家屬先讀死者名字，不以低損失忘記序章死者。\n\n再過鴉渡，許三更端出湯：「不急。吃完再走。」一隊沒有掛大旗的車馬慢慢過橋。\n第一部・完。江湖繼續。`;}
-}
+ callbacks(){const w=this.world,s=stateOf(w),selected=Object.entries(s.events).filter(([id,e])=>Number(id[0])===w.chapter&&e.choice).map(([id,e])=>`${ZHAOYE_SCENES[id].title}：${ZHAOYE_SCENES[id].choices.find(c=>c.id===e.choice)?.label??e.choice}`);const specific=[`原帳：${{government:'官府封存，案號可追查',escort:'鏢盟保管，收條在卷',self:'世界共管卷箱'}[s.ledger]??'尚未取得'}`,s.taoAlive===undefined?'':s.taoAlive?'陶安在安全處養傷，不隨隊赴險。':'陶安的證言位置留給遺物與家屬，不再出現在同行名單。',s.oldCaseSubmitted?(s.fates?.npc_003?.status==='dead'?'血河舊案已提交，殷紅袖生前的口供與受害者材料仍待核對。':'血河舊案已提交，殷紅袖接受追責。'):''];return [...specific,...selected].filter(Boolean).join('\n');}
+ endingText(result){const prose={ '公堂有燈':'第一次聽證開了六個時辰。顧長纓聽見謝意，也聽見有人問兒子的屍骨。沈照微在卷末寫「續查」，沒有寫「結」。那盞燈不很亮，坐在門外的人也看得見。','江上暫平':'第一個過橋的是賣菜人。三國答應交換囚工、限期開倉，三十日後檢視第一次履約。江上暫時沒有戰船，這個「暫時」仍要有人守。','無旗之盟':'新據點沒有盟主椅子。葉停舟掛起白木牌：「運人回家，運糧過關。其餘的，先問清楚。」沒有替天下起新名字，只替下一個求助的人留門。','未竟之案':'告示把許多名字寫成「另案調查」。主要陰謀已止，部分高位人物仍以證據待補拖延。沈照微留下缺頁的位置：路沒有斷，只是比出發時更長。'};const yin=stateOf(this.world).fates?.npc_003?.status==='dead'?'殷紅袖已死，生前口供交由受害者代理林嫂保管，舊案不因死亡簽結。':stateOf(this.world).oldCaseSubmitted?'殷紅袖接受舊案處置，繼續護送受害者。':'殷紅袖自行補交口供，不替未交舊案簽結。';
+const political=presentCastText(this.world,prose[result.title]);
+return `${political}\n\n顧長纓固定在押，供述不換赦免。\n${yin}\n${result.memorial}：家屬先讀死者名字，不以低損失忘記序章死者。\n\n${sidequestEpilogue(this.world)}\n\n再過鴉渡，許三更端出湯：「不急。吃完再走。」你將一路的回執放在碗旁。斷旗、空鞍、新鞋與家信各有去處，沒有回來的人也有自己的名字。\n第一部・完。江湖繼續。`; }}

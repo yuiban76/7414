@@ -1,4 +1,5 @@
 // Optional, deterministic journeys. Main-story flags are deliberately not used here.
+import { companionAvailable } from '../core/zhaoye-fates.js';
 export const FLOW = Object.freeze({skillId:'skill_003',postureMultiplier:1.8,followPower:44,followPosture:24,innerRefund:12});
 export const JOURNEY_PLACES=['location_005','location_006','location_004'];
 export function journey(world){return world.zhaoye?.journey??{completed:[],declined:false,stage:0,notes:[]};}
@@ -14,7 +15,7 @@ const events=[
  {id:'flow_fame',place:'location_004',title:'成名之戰',text:'葉停舟在山門外收起戰帖，以木劍相邀。這是一場與案卷無關的較量；若敗，可整備後再來。',label:'迎戰葉停舟',requires:['flow_return'],battle:true},
  {id:'flow_recognition',place:'location_005',title:'江湖記得這一拳',text:'你回到茶棚，鏢客讓出一席：「破陣客，請。」昔日攔路的練武人也拱手退讓。葉停舟將你的戰績寫進鏢路記事——這套本事有了自己的來處。',label:'記下這段江湖路',requires:['flow_fame']}
 ];
-export function availableJourneyEvents(world,place=world.currentLocationId){if(!world.zhaoye)return [];const j=journey(world);return events.filter(e=>e.place===place&&!j.completed.includes(e.id)&&e.requires.every(id=>j.completed.includes(id))&&(e.id!=='flow_fragment'||!j.declined)&&(e.id!=='flow_alternative'||j.declined&&!j.completed.includes('flow_fragment')));}
+export function availableJourneyEvents(world,place=world.currentLocationId){if(!world.zhaoye)return [];const j=journey(world);return events.filter(e=>e.place===place&&!j.completed.includes(e.id)&&e.requires.every(id=>j.completed.includes(id))&&(e.id!=='flow_fragment'||!j.declined)&&(e.id!=='flow_alternative'||j.declined&&!j.completed.includes('flow_fragment'))).map(e=>companionAvailable(world,'npc_001')?e:{...e,title:e.title.replaceAll('葉停舟','鏢路教習程野'),text:e.text.replaceAll('葉停舟','鏢路教習程野'),label:e.label.replaceAll('葉停舟','鏢路教習程野')});}
 export function journeyStatus(world,place){const j=journey(world);if(world.zhaoye&&!j.completed.includes('flow_rumor')&&place==='location_005')return '新傳聞';if(availableJourneyEvents(world,place).length)return j.completed.some(id=>events.find(e=>e.id===id)?.place===place)?'待返回':'可進行事件';return world.visitedLocations.includes(place)?'已探索':'未到訪';}
 export function journeyAction(world,character,id,{victory=false,decline=false}={}){const e=availableJourneyEvents(world).find(e=>e.id===id);if(!e)throw new Error('此事件目前不可進行');const j=writable(world);if(decline){if(id!=='flow_fragment')throw new Error('此事件不可拒絕教學');j.declined=true;j.notes.push('你選擇以交手自行參悟，未接受練武人的教學。');return {message:'你選擇以拳問路，替代挑戰已開啟。'};}if(e.battle&&!victory)return {battle:true,id:e.id,title:e.title};j.completed.push(e.id);j.notes.push(e.title);if(id==='flow_fragment'||id==='flow_alternative'){if(id==='flow_alternative')j.completed.push('flow_fragment');character.skills[FLOW.skillId]??={realm:0,proficiency:0,completeness:1};j.stage=1;}if(id==='flow_trial')j.stage=2;if(id==='flow_complete')j.stage=3;return {message:id==='flow_fame'?'獲得稱號：破陣客。返回柳津，讓故人見證。':e.title+'：已記入江湖記事。'};}
 export function flowSummary(world,character){
@@ -31,7 +32,7 @@ export function settleJourneyBattle(world,character,choice,battle){
  return journeyAction(world,character,choice.journeyId,{victory:true});
 }
 export function applyJourneyToCombatant(actor,world){actor.flowStage=journey(world).stage;return actor;}
-export function journeyEnemyDefinitions(id,base){const boss=id==='flow_fame';return Array.from({length:boss?1:3},(_,i)=>({...base,id:`enemy_${901+i}`,name:boss?'葉停舟 · 木劍試武':`練武木器 ${i+1}`,tier:'elite',aiProfile:boss?base.aiProfile:'training',damageMultiplier:boss?1:.15,stats:boss?{strength:25,constitution:28,agility:20,comprehension:20,willpower:20}:{strength:8,constitution:8,agility:8,comprehension:8,willpower:8},skillIds:[],phases:[],observeInfo:['木器強度固定，不隨修為成長。','八方拳能迅速削減架勢。','先完成試招，再回青衡山補全。']}));}
+export function journeyEnemyDefinitions(id,base,world){const boss=id==='flow_fame';const name=world&&!companionAvailable(world,'npc_001')?'鏢路教習程野':'葉停舟';return Array.from({length:boss?1:3},(_,i)=>({...base,id:`enemy_${901+i}`,name:boss?`${name} · 木劍試武`:`練武木器 ${i+1}`,tier:'elite',aiProfile:boss?base.aiProfile:'training',damageMultiplier:boss?1:.15,stats:boss?{strength:25,constitution:28,agility:20,comprehension:20,willpower:20}:{strength:8,constitution:8,agility:8,comprehension:8,willpower:8},skillIds:[],phases:[],observeInfo:['木器強度固定，不隨修為成長。','八方拳能迅速削減架勢。','先完成試招，再回青衡山補全。']}));}
 export function validateJourney(world){
  const j=world.zhaoye?.journey;if(j==null)return;
  if(![0,1,2,3].includes(j.stage)||typeof j.declined!=='boolean'||!Array.isArray(j.completed)||new Set(j.completed).size!==j.completed.length||j.completed.some(id=>!events.some(e=>e.id===id))||!Array.isArray(j.notes)||j.notes.length>20||j.notes.some(n=>typeof n!=='string'||n.length>500))throw new Error('奇遇存檔無效');

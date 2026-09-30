@@ -1,3 +1,4 @@
+import { combatFrame } from '../core/combat-presentation.js';
 import { FLOW } from "./exploration-system.js";
 import { escortIntent, escortObjective, escortHit, resolveEscortAction } from "./zhaoye-escort-battle.js";
 import { flagIntent, flagObjective, flagHit, resolveFlagAction } from "./zhaoye-flag-battle.js";
@@ -58,8 +59,10 @@ export class BattleSystem {
   }
   submit(playerAction) {
     if (this.finished) return this.snapshot();
+    this.lastPresentation={round:this.round,before:combatFrame(this.all),after:null,events:[]};
     this.lastActionResults=[];
     this.events=[];
+    this.presentationLogStart=this.log.length;
     const actions=[];
     const hero=this.living("party")[0];
     if (hero) actions.push({actor:hero, action:playerAction});
@@ -68,10 +71,36 @@ export class BattleSystem {
     actions.sort((a,b)=>(effectiveAgility(b.actor)-effectiveAgility(a.actor))||(a.actor.stableKey-b.actor.stableKey));
     for (const [index,entry] of actions.entries()) if (entry.actor.hp>0 && !this.finished){entry.actor.actedAfterEnemy=actions.slice(0,index).some(previous=>previous.actor.side!==entry.actor.side);this.resolve(entry.actor,entry.action);}
     this.endRound();
+    this.recordPresentation({type:"state",label:"回合調息"});
+    this.lastPresentation.after=combatFrame(this.all);
+    this.lastPresentation.finished=this.finished;
+    this.lastPresentation.summary=this.log.slice(this.presentationLogStart).join(" ");
     return this.snapshot();
   }
   chooseAllyAction(actor) { const target=this.living("enemy").toSorted((a,b)=>a.hp-b.hp)[0];const allies=this.living(actor.side);const wounded=allies.toSorted((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];const heal=actor.skills.find(s=>s.innerCost<=actor.inner&&s.effects.some(e=>e.effectId==='heal_pct'));if(heal&&wounded?.hp/wounded?.maxHp<.6)return {type:'skill',skillId:heal.id,targetId:wounded.id};const buff=actor.skills.find(s=>s.innerCost<=actor.inner&&s.effects.some(e=>e.effectId==='battle_buff'&&!allies.every(a=>a.buffs?.some(b=>b.stat===e.params.stat&&b.remaining>1&&b.value>=e.params.value))));if(buff)return {type:'skill',skillId:buff.id,targetId:actor.id};if(actor.hp/actor.maxHp<.5&&this.living('enemy').some(enemy=>enemy.intent?.type==='skill')){const evasive=actor.skills.find(s=>s.innerCost<=actor.inner&&s.effects.some(e=>e.effectId==='dodge'||e.effectId==='defend'));if(evasive)return {type:'skill',skillId:evasive.id,targetId:actor.id};}const skill=actor.skills.find(s=>s.innerCost<=actor.inner&&s.type==='attack');return skill?{type:'skill',skillId:skill.id,targetId:target?.id}:{type:'attack',targetId:target?.id}; }
+  recordPresentation(event) {
+    if(!this.lastPresentation?.after && this.lastPresentation)this.lastPresentation.events.push({...event,actors:combatFrame(this.all)});
+  }
   resolve(actor, action) {
+    const index=this.lastPresentation?.events.length;
+    this.recordPresentation({type:'action',actorId:actor.id,targetId:action.targetId,label:action.label??({attack:'普通攻擊',defend:'沉身守勢',observe:'審勢觀察',item:'金創散',objective:'場景行動'})[action.type]??'出招',art:'qi'});
+    const marker=this.lastPresentation?.events[index];
+    this.presentationAction=marker;
+    this.resolveAction(actor,action);
+    const result=this.lastActionResults.at(-1);
+    if(marker&&!marker.attack){
+      const skill=result?.usedSkill?actor.skills.find(s=>s.id===action.skillId):null;
+      if(skill){marker.label=skill.name;marker.skill=structuredClone(skill);}
+      if(result?.executed===false)marker.label='未能出手';
+      const type=action.type==='defend'||skill?.effects.some(e=>e.effectId==='defend')?'defend':
+        action.type==='observe'?'observe':action.type==='objective'?'objective':
+        skill?.effects.some(e=>e.effectId==='guard')?'guard':skill?.effects.some(e=>e.effectId==='dodge')?'evade':null;
+      if(type)this.recordPresentation({type,actorId:actor.id,targetId:action.targetId,label:marker.label});
+    }
+    this.recordPresentation({type:'state'});
+    this.presentationAction=null;
+  }
+  resolveAction(actor, action) {
     const actionResult={actorId:actor.id,requestedType:action.type,skillId:action.skillId??null,executed:true,usedSkill:false};
     this.lastActionResults.push(actionResult);
     actor.defended=false; actor.defenseHpReduction=0;actor.defensePostureReduction=0; actor.guard=null; actor.dodge=0;
@@ -80,7 +109,7 @@ export class BattleSystem {
     if (action.type === "defend") { actor.defended=true;actor.defenseHpReduction=BALANCE.defendHpReduction;actor.defensePostureReduction=BALANCE.defendPostureReduction; this.log.push(`${actor.name}沉身守勢。`); return; }
     if (action.type === "observe") { const target=this.find(action.targetId)??this.living("enemy")[0]; if(target){target.observationProgress=(target.observationProgress??target.observed)+1+(actor.observationPct??0);target.observed=Math.min(3,Math.floor(target.observationProgress)); this.log.push(`${actor.name}觀察${target.name}：${target.observeInfo?.[Math.max(0,target.observed-1)]??target.observeInfo?.[0]??"呼吸與步法露出些許端倪"}。`);} return; }
     if (action.type === "guard") { actionResult.executed=false;this.log.push("基本護衛指令已移除；仍可使用護衛型武功，或選擇防禦。");return; }
-    if (action.type === "item") { if(actor.consumablesUsed>=BALANCE.consumablesPerBattle){this.log.push(`${actor.name}本戰已無法再用消耗品。`);return;} actor.consumablesUsed++; const amount=Math.round(actor.maxHp*.28*(1+(actor.healingPct??0))); actor.hp=clamp(actor.hp+amount,0,actor.maxHp); this.log.push(`${actor.name}服下金創散，恢復 ${amount} 氣血。`); return; }
+    if (action.type === "item") { if(actor.consumablesUsed>=BALANCE.consumablesPerBattle){this.log.push(`${actor.name}本戰已無法再用消耗品。`);return;} const hpBefore=actor.hp; actor.consumablesUsed++; const amount=Math.round(actor.maxHp*.28*(1+(actor.healingPct??0))); actor.hp=clamp(actor.hp+amount,0,actor.maxHp); this.log.push(`${actor.name}服下金創散，恢復 ${amount} 氣血。`); this.recordPresentation({type:"heal",actorId:actor.id,targetId:actor.id,amount:actor.hp-hpBefore}); return; }
     if(action.type==='skill'){const support=actor.skills.find(skill=>skill.id===action.skillId&&skill.type==='support');if(support){this.resolveSupport(actor,action,support,actionResult);return;}}
     const target=this.find(action.targetId)??this.living(actor.side==="party"?"enemy":"party")[0]; if(!target){actionResult.executed=false;return;}
     if(action.type==="skill") { const skill=actor.skills.find(s=>s.id===action.skillId);const guard=skill?.effects.find(e=>e.effectId==="guard");if(guard&&target.side!==actor.side){actionResult.executed=false;this.log.push(`${skill.name}只能用來保護同伴。`);return;}const actualCost=skill?Math.max(0,Math.round(skill.innerCost*(1+statusValue(actor,"innerCost")))):0;if(!skill||actualCost>actor.inner){this.log.push(`${actor.name}內力不足，改以普通攻擊。`);const fallbackTarget=target.side===actor.side?this.living(actor.side==="party"?"enemy":"party")[0]:target;if(fallbackTarget)this.attack(actor,fallbackTarget,null);else actionResult.executed=false;return;} actor.inner-=actualCost; actionResult.usedSkill=true; const dodge=skill.effects.find(e=>e.effectId==="dodge"); const defend=skill.effects.find(e=>e.effectId==="defend"); if(dodge){actor.dodge=dodge.params.chance;const follow=skill.effects.find(effect=>effect.effectId==="next_attack_bonus");if(follow)actor.nextAttackBonus=follow.params.bonus??0;this.log.push(`${actor.name}施展${skill.name}，身影倏忽。`);return;} if(defend){actor.defended=true;actor.defenseHpReduction=defend.params.hpReduction??BALANCE.defendHpReduction;actor.defensePostureReduction=defend.params.postureReduction??BALANCE.defendPostureReduction;this.log.push(`${actor.name}施展${skill.name}，穩住門戶。`);return;} if(guard){if(actor.vulnerableTurns>0){this.log.push(`${actor.name}正露破綻，無法護衛。`);return;}actor.guard={targetId:action.targetId,hits:guard.params.hits??1,reduction:guard.params.reduction??.1};this.log.push(`${actor.name}施展${skill.name}護住同伴。`);return;} this.attack(actor,target,skill); }
@@ -95,8 +124,8 @@ export class BattleSystem {
     if(cost>actor.inner){this.log.push(`${actor.name}內力不足，改以普通攻擊。`);const enemy=this.living(actor.side==='party'?'enemy':'party')[0];if(enemy)this.attack(actor,enemy,null);else actionResult.executed=false;return;}
     actor.inner-=cost;actionResult.usedSkill=true;this.events??=[];
     for(const effect of skill.effects){
-      if(effect.effectId==='heal_pct')for(const target of targets){const amount=Math.max(1,Math.round(target.maxHp*effect.params.value*(1+(actor.healingPct??0))));const restored=Math.min(amount,target.maxHp-target.hp);target.hp+=restored;this.events.push({type:'heal',actorId:actor.id,targetId:target.id,amount:restored});this.log.push(`${actor.name}施展${skill.name}，為${target.name}回復 ${restored} 氣血。`);}
-      if(effect.effectId==='battle_buff'){for(const target of targets){target.buffs??=[];const existing=target.buffs.find(buff=>buff.stat===effect.params.stat);if(existing){existing.value=Math.max(existing.value,effect.params.value);existing.remaining=Math.max(existing.remaining,effect.params.turns);}else target.buffs.push({stat:effect.params.stat,value:effect.params.value,remaining:effect.params.turns});}this.events.push({type:'buff',actorId:actor.id,stat:effect.params.stat,value:effect.params.value});}
+      if(effect.effectId==='heal_pct')for(const target of targets){const amount=Math.max(1,Math.round(target.maxHp*effect.params.value*(1+(actor.healingPct??0))));const restored=Math.min(amount,target.maxHp-target.hp);target.hp+=restored;this.events.push({type:'heal',actorId:actor.id,targetId:target.id,amount:restored});this.recordPresentation({type:'heal',actorId:actor.id,targetId:target.id,amount:restored});this.log.push(`${actor.name}施展${skill.name}，為${target.name}回復 ${restored} 氣血。`);}
+      if(effect.effectId==='battle_buff'){for(const target of targets){target.buffs??=[];const existing=target.buffs.find(buff=>buff.stat===effect.params.stat);if(existing){existing.value=Math.max(existing.value,effect.params.value);existing.remaining=Math.max(existing.remaining,effect.params.turns);}else target.buffs.push({stat:effect.params.stat,value:effect.params.value,remaining:effect.params.turns});}this.events.push({type:'buff',actorId:actor.id,stat:effect.params.stat,value:effect.params.value});for(const target of targets)this.recordPresentation({type:'buff',actorId:actor.id,targetId:target.id,stat:effect.params.stat,value:effect.params.value});}
       if(effect.effectId==='dodge'){actor.dodge=effect.params.chance;this.log.push(`${actor.name}施展${skill.name}，本回合閃避機率提高至 ${Math.round(actor.dodge*100)}%。`);}
       if(effect.effectId==='next_attack_bonus')actor.nextAttackBonus=effect.params.bonus??0;
     }
@@ -107,8 +136,11 @@ export class BattleSystem {
     this.events??=[];
     if(actor.flowRound!==this.round){actor.flowRound=this.round;actor.flowTriggers={break:false,refund:false,chase:false};}
     const flow=actor.flowStage??0;
+    const action={type:'action',actorId:actor.id,targetId:originalTarget.id,label:skill?.name??'普通攻擊',skill:skill?structuredClone(skill):null,art:skill?'qi':'fist',attack:true};
+    if(this.presentationAction&&!this.presentationAction.attack&&!triggered)Object.assign(this.presentationAction,action);
+    else this.recordPresentation(action);
     let target=this.redirectGuard(originalTarget);
-    if(target.dodge>0&&this.rng.next()<target.dodge){this.log.push(`${target.name}避開了${actor.name}的攻勢。`);target.dodge=0;return;}
+    if(target.dodge>0&&this.rng.next()<target.dodge){this.log.push(`${target.name}避開了${actor.name}的攻勢。`);target.dodge=0;this.recordPresentation({type:"dodge",actorId:actor.id,targetId:target.id});return;}
     let hpPower=skill?.power.hp??20, posturePower=skill?.power.posture??11;const postureBonus=skill?.effects?.find(effect=>effect.effectId==="posture_bonus_below_ratio");if(postureBonus&&target.posture/target.maxPosture<=(postureBonus.params.ratio??0)){posturePower*=1+(postureBonus.params.bonus??0);}const brokenBonus=skill?.effects?.find(effect=>effect.effectId==="damage_bonus_below_hp");if(brokenBonus&&target.vulnerableTurns>0)hpPower*=1+(brokenBonus.params.bonus??0);
     const defenseEffect=target.defended?(target.defenseHpReduction??BALANCE.defendHpReduction)*(1+statusValue(target,"defense")):BALANCE.playerDefense;const defense=Math.min(.75,defenseEffect+(target.damageReduction??0)+buffValue(target,'defense')+(!skill?(target.normalAttackReductionPct??0):0)+(target.guardReductionOnce??0)+finalDamageReduction(this,target)+scrollDamageReduction(this,target));
     const vulnerable=target.vulnerableTurns>0?BALANCE.postureBreakDamageMultiplier:1;
@@ -116,27 +148,30 @@ export class BattleSystem {
     const hpDamage=Math.max(1,Math.round((hpPower+actor.stats.strength*.5+(actor.weaponDamageFlat??0))*(1-defense)*vulnerable*outgoing*(1+buffValue(actor,'damage'))*(.94+this.rng.next()*.12)));
     const postureReduction=target.defended?(target.defensePostureReduction??BALANCE.defendPostureReduction)*(1+statusValue(target,"defense")):0;
     const postureDamage=Math.max(1,Math.round((posturePower+actor.stats.strength*.5+(actor.weaponPostureFlat??0))*(1-postureReduction)*outgoing*(actor.postureDamageMultiplier??1)*(1+buffValue(actor,'posture'))*(1+(target.postureDamageTakenPct??0))*(flow&&skill?.id===FLOW.skillId?FLOW.postureMultiplier:1)));
-    target.hp=clamp(target.hp-hpDamage,0,target.maxHp); target.posture=clamp(target.posture-postureDamage,0,target.maxPosture);target.guardReductionOnce=0;if(target.hp>0&&target.hp/target.maxHp<.2&&target.survivalHealPct&&!target.survivalTriggered){const restored=Math.round(target.maxHp*target.survivalHealPct);target.hp=clamp(target.hp+restored,0,target.maxHp);target.survivalTriggered=true;this.log.push(`${target.name}在絕境中回復 ${restored} 氣血。`);}
+    const hpBefore=target.hp,postureBefore=target.posture;
+    target.hp=clamp(target.hp-hpDamage,0,target.maxHp); target.posture=clamp(target.posture-postureDamage,0,target.maxPosture);target.guardReductionOnce=0;this.recordPresentation({type:"hit",actorId:actor.id,targetId:target.id,hpDamage:Math.min(hpBefore,hpDamage),postureDamage:Math.min(postureBefore,postureDamage),blocked:target.defended});if(target.hp>0&&target.hp/target.maxHp<.2&&target.survivalHealPct&&!target.survivalTriggered){const restored=Math.round(target.maxHp*target.survivalHealPct);target.hp=clamp(target.hp+restored,0,target.maxHp);target.survivalTriggered=true;this.recordPresentation({type:"heal",actorId:target.id,targetId:target.id,amount:target.hp-Math.max(0,hpBefore-hpDamage)});this.log.push(`${target.name}在絕境中回復 ${restored} 氣血。`);}
     this.log.push(`${actor.name}${skill?`施展${skill.name}`:"出手"}，對${target.name}造成 ${hpDamage} 氣血、${postureDamage} 架勢傷害。`);
     if(skill?.type==="control"){const resistance=Math.max(0,Math.min(.9,(target.controlResist??0)+statusValue(target,"controlResist")));const drained=Math.min(target.inner,Math.max(1,Math.round(Math.max(5,skill.innerCost)*(1-resistance))));target.inner-=drained;this.log.push(`${target.name}的內息受制，額外流失 ${drained} 內力。`);}
     for(const effect of skill?.effects??[])if(effect.effectId==="status")target.statuses.push({description:effect.params.description,remaining:(effect.params.turns??1)+1});
     const newBreak=target.posture===0&&target.vulnerableTurns===0;
     if(newBreak){target.vulnerableTurns=2;this.log.push(`${target.name}架勢崩解，下一回合將持續露出破綻！`);}
     this.events.push({type:'hit',actorId:actor.id,targetId:target.id,hpDamage,postureDamage,triggered});
-    if(newBreak)this.events.push({type:'break',actorId:actor.id,targetId:target.id});
+    if(newBreak){this.events.push({type:'break',actorId:actor.id,targetId:target.id});this.recordPresentation({type:'break',actorId:actor.id,targetId:target.id});}
     if(target.hp===0)this.events.push({type:'kill',actorId:actor.id,targetId:target.id});
     finalHit(this,actor,target,skill,newBreak); escortHit(this,actor,target,skill,newBreak); flagHit(this,actor,target,skill,newBreak); messengerHit(this,actor,target,skill,newBreak); scrollHit(this,actor,target,skill,newBreak); this.triggerPhases(target);
+    if(target.hp===0)this.recordPresentation({type:"kill",actorId:actor.id,targetId:target.id});
+    this.recordPresentation({type:"state"});
     const directKill=target.hp===0;
     const activeFlow=!triggered&&flow>0&&actor.skills.some(s=>s.id===FLOW.skillId);
-    if(activeFlow&&flow>=3&&target.hp===0&&!actor.flowTriggers.refund){actor.flowTriggers.refund=true;const amount=Math.min(FLOW.innerRefund,actor.maxInner-actor.inner);actor.inner+=amount;this.events.push({type:'refund',actorId:actor.id,amount});this.log.push(`${actor.name}擊倒回氣，回復 ${amount} 內力。`);}
+    if(activeFlow&&flow>=3&&target.hp===0&&!actor.flowTriggers.refund){actor.flowTriggers.refund=true;const amount=Math.min(FLOW.innerRefund,actor.maxInner-actor.inner);actor.inner+=amount;this.events.push({type:'refund',actorId:actor.id,amount});this.recordPresentation({type:'refund',actorId:actor.id,targetId:actor.id,amount});this.log.push(`${actor.name}擊倒回氣，回復 ${amount} 內力。`);}
     this.checkFinished();
     if(this.finished||!activeFlow)return;
     const follow={id:'flow_follow',name:'破勢連攻',type:'attack',power:{hp:FLOW.followPower,posture:FLOW.followPosture},effects:[]};
-    if(flow>=2&&skill?.id===FLOW.skillId&&newBreak&&target.hp>0&&!actor.flowTriggers.break){actor.flowTriggers.break=true;this.events.push({type:'follow',actorId:actor.id,targetId:target.id});this.attack(actor,target,follow,true);}
+    if(flow>=2&&skill?.id===FLOW.skillId&&newBreak&&target.hp>0&&!actor.flowTriggers.break){actor.flowTriggers.break=true;this.events.push({type:'follow',actorId:actor.id,targetId:target.id});this.recordPresentation({type:'follow',actorId:actor.id,targetId:target.id});this.attack(actor,target,follow,true);}
     // A kill made by the bonus strike cannot trigger another bonus.
-    if(flow>=3&&directKill&&!this.finished&&!actor.flowTriggers.chase){actor.flowTriggers.chase=true;const next=this.living(actor.side==='party'?'enemy':'party')[0];if(next){this.events.push({type:'chase',actorId:actor.id,targetId:next.id});this.attack(actor,next,follow,true);}}
+    if(flow>=3&&directKill&&!this.finished&&!actor.flowTriggers.chase){actor.flowTriggers.chase=true;const next=this.living(actor.side==='party'?'enemy':'party')[0];if(next){this.events.push({type:'chase',actorId:actor.id,targetId:next.id});this.recordPresentation({type:'chase',actorId:actor.id,targetId:next.id});this.attack(actor,next,follow,true);}}
   }
-  redirectGuard(target) { const guardian=this.living(target.side).find(c=>c.guard?.targetId===target.id&&c.guard.hits>0); if(!guardian)return target; guardian.guard.hits--;guardian.guardReductionOnce=(guardian.guard.reduction??0)+(guardian.guardReductionPct??0); this.log.push(`${guardian.name}替${target.name}擋下攻擊。`); return guardian; }
+  redirectGuard(target) { const guardian=this.living(target.side).find(c=>c.guard?.targetId===target.id&&c.guard.hits>0); if(!guardian)return target; guardian.guard.hits--;guardian.guardReductionOnce=(guardian.guard.reduction??0)+(guardian.guardReductionPct??0);this.recordPresentation({type:"guard",actorId:guardian.id,targetId:target.id,label:"替同伴擋下攻擊"}); this.log.push(`${guardian.name}替${target.name}擋下攻擊。`); return guardian; }
   triggerPhases(target) { for(const phase of target.phases??[]){if(target.triggeredPhases.includes(phase.effect))continue;if(phase.trigger.type==="hp_below"&&target.hp/target.maxHp<=phase.trigger.value){target.triggeredPhases.push(phase.effect);target.stats.strength+=phase.effect==="desperate"?8:4;target.stats.agility+=3;this.log.push(`${target.name}氣機驟變，進入新的戰鬥階段。`);}} }
   endRound() { if(this.finished)return; for(const actor of this.living("party").concat(this.living("enemy"))){actor.inner=clamp(actor.inner+Math.max(1,Math.round(actor.maxInner*(actor.innerRegenRate??.03))),0,actor.maxInner); if(actor.vulnerableTurns>0){actor.vulnerableTurns--; if(actor.vulnerableTurns===0)actor.posture=Math.round(actor.maxPosture*BALANCE.postureRecoveryAfterBreak);} else actor.posture=clamp(actor.posture+Math.round(actor.maxPosture*.08*(1+statusValue(actor,"postureRecovery"))),0,actor.maxPosture); actor.dodge=0;for(const status of actor.statuses)status.remaining--;actor.statuses=actor.statuses.filter(status=>status.remaining>0);for(const buff of actor.buffs??[])buff.remaining--;actor.buffs=(actor.buffs??[]).filter(buff=>buff.remaining>0);} finalRoundEnd(this); scrollRoundEnd(this); this.round++; if(this.scenario?.id==="8-3"&&this.scenario.phase===1)this.scenario.phase=2; this.prepareIntents(); this.checkFinished(); }
   find(id){return this.all.find(c=>c.id===id&&c.hp>0);}

@@ -16,8 +16,7 @@ export const BALANCE = Object.freeze({
   playerDefense: 0.1,
   stableTurnKeyBase: 1000,
   autosaveSlots: 3,
-  manualSaveSlots: 5,
-  meridianCosts: [100, 150, 220, 300, 400, 520, 660, 820, 1000, 1200]
+  manualSaveSlots: 5
 });
 
 export function deriveResources(stats, equipment = {}, modifiers = {}) {

@@ -31,7 +31,7 @@ export async function get(storeName, key) {
   return transactionRequest(db,storeName,"readonly",store=>store.get(key));
 }
 export async function getAll(storeName) {
-  const db=await openDatabase(); if(!db)return [...memoryDb[storeName].values()].map(structuredClone);
+  const db=await openDatabase(); if(!db)return [...memoryDb[storeName].values()].map(value=>structuredClone(value));
   return transactionRequest(db,storeName,"readonly",store=>store.getAll());
 }
 export async function remove(storeName,key) {
