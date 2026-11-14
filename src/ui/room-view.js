@@ -1,0 +1,15 @@
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export function roomSetupView({draft,busy,error,connectionMessage,canResume}) {
+  return `<p>邀請朋友以房號加入，最多四人。可一起聊天、投票、分隊及進行同步演武；房間活動獨立保存，不覆寫單人主線。</p>
+  <div class="field"><label for="room-mode">連線方式</label><select id="room-mode" ${busy?'disabled':''}><option value="online" ${draft.mode==='online'?'selected':''}>不同裝置連線</option><option value="local" ${draft.mode==='local'?'selected':''}>同機多分頁測試</option></select></div>
+  <div class="field" ${draft.mode==='local'?'hidden':''}><label for="room-server">連線服務網址</label><input id="room-server" type="url" value="${esc(draft.server)}" placeholder="https://rooms.example.com" autocomplete="off" spellcheck="false" ${busy?'disabled':''}><small>輸入已部署的服務網址；房主與朋友須使用同一個服務。</small></div>
+  <div class="field"><label for="room-name">你的名字</label><input id="room-name" value="${esc(draft.name)}" maxlength="30" autocomplete="nickname" ${busy?'disabled':''}></div>
+  <div class="field"><label for="room-code">房間代碼</label><input id="room-code" value="${esc(draft.code)}" maxlength="6" autocapitalize="characters" autocomplete="off" spellcheck="false" ${busy?'disabled':''}></div>
+  <div class="choices"><button class="btn btn-primary" data-action="create-room" ${busy?'disabled':''}>${busy?'連線處理中…':'建立房間'}</button><button class="btn" data-action="join-room" ${busy?'disabled':''}>加入房間</button>${canResume&&!busy?'<button class="btn" data-action="resume-room">重連上次房間</button>':''}${busy?'<button class="btn" data-action="leave-room">取消連線</button>':''}</div>
+  <p id="room-status" role="${error?'alert':'status'}" class="${error?'danger':'muted'}">${esc(error||connectionMessage||(draft.mode==='local'?'此方式只連接同一瀏覽器的分頁。':'服務部署完成後，即可在這裡建立或加入房間。'))}</p>`;
+}
+export function roomConnectionHeader(client) {
+  const online=client.mode==='online',room=client.state,connected=!online||client.connectionStatus==='connected';
+  const label=room.status==='closed'?(room.closedReason||'房間已結束'):connected?(room.status==='paused'?'房主斷線，等待重連':'已連線'):client.connectionMessage||'正在重新連線';
+  return `<p role="status" data-room-connection class="${connected&&room.status!=='closed'?'success':'danger'}">${esc(label)}</p><p>${online?'跨裝置連線':'同機多分頁測試'} · 房間代碼 <strong class="room-code">${esc(room.roomId)}</strong></p><div class="choices">${online&&room.status!=='closed'?'<button class="btn" data-action="room-invite">複製邀請連結</button>':''}<button class="btn" data-action="leave-room">${room.status==='closed'?'返回連線設定':client.isHost?'結束房間':'離開房間'}</button></div><p class="muted">${room.status==='closed'?'返回連線設定後，可重新建立或加入其他房間。':`關閉這個視窗仍保持連線；${client.isHost?'結束房間會通知所有成員離房。':'離房後可在大廳階段重新加入。'}`}</p>`;
+}

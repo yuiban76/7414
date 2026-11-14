@@ -1,13 +1,13 @@
 const PREFIX=`jianghu-rpg:${self.registration.scope}:`;
-const CACHE=PREFIX+'0.5.1-story-combat';
+const CACHE=PREFIX+'0.6.0-online-rooms-release';
 const MODULES={
- config:['constants','balance','inner-refinement','skill-archetypes'],
+ config:['network','constants','balance','inner-refinement','skill-archetypes'],
  core:['combat-presentation','effects','game-engine','migrations','rng','story','validators','zhaoye-catalog','zhaoye-engine','zhaoye-story','zhaoye-reactions','zhaoye-callbacks','zhaoye-supplements','zhaoye-fates'],
  data:['loader','manifest','zhaoye-script','zhaoye-narrative','zhaoye-sidequests'],
- ui:['sidequest-view','combat-director','journey-view','starting-skill-view','skill-display','skill-art','shop-labels','level-view'],
+ ui:['room-view','sidequest-view','combat-director','journey-view','starting-skill-view','skill-display','skill-art','shop-labels','level-view'],
  systems:['exploration-system','battle-system','zhaoye-final-battle','zhaoye-escort-battle','zhaoye-flag-battle','zhaoye-messenger-battle','zhaoye-scroll-battle','economy-system','faction-system','identity-system','inventory-system','npc-system','office-system','progression-system','quest-system','realm-system','road-encounter','talent-system','training-system','travel-system','vote-system','sidequest-system'],
  persistence:['checksum','import-export','indexeddb','save-service','battle-snapshot'],
- multiplayer:['local-transport','room-controller','room-transport']
+ multiplayer:['local-transport','room-controller','room-transport','websocket-transport','remote-room-client','network-config']
 };
 const LOCATION_ART=Array.from({length:18},(_,i)=>`./assets/locations/location_${String(i+1).padStart(3,'0')}.jpg`);
 const COMPANION_ART=['ye','shen','yin','ashina','su'].map(name=>`./assets/companions/${name}.png`);

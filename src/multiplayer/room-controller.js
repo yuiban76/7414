@@ -70,7 +70,8 @@ export class RoomController {
 
   acceptReconnect(command){
     const player=this.state.players[command.playerId];
-    if(!player)return;
+    if(!player||this.state.status==='closed')throw new Error('房間已結束，請重新建立或加入房間');
+    if(!player.connected&&player.reconnectDeadline<=this.now())throw new Error('重連時限已過，請重新加入房間');
     player.connected=true;
     player.reconnectDeadline=null;
     player.lastSeenAt=this.now();
@@ -88,8 +89,9 @@ export class RoomController {
     if(!player)throw new Error("玩家不在房間中");
     if(command.type==="reconnect"){this.acceptReconnect(command);return;}
     if(!player.connected)throw new Error("玩家已斷線，請先重連");
-    if(this.state.status==="paused"&&!["chat","disconnect"].includes(command.type))throw new Error("房主斷線，世界操作暫停");
-    if(command.type==="ready")player.ready=Boolean(command.payload.ready);
+    if(this.state.status==="paused"&&!["chat","disconnect","leave"].includes(command.type))throw new Error("房主斷線，世界操作暫停");
+    if(command.type==='leave'){this.leave(command.playerId);return;}
+    if(command.type==="ready"){if(this.state.status!=='lobby')throw new Error('出發後不能修改準備狀態');player.ready=Boolean(command.payload.ready);}
     else if(command.type==="start")this.start(command.playerId);
     else if(command.type==="chat")this.addChat(command.playerId,command.payload.text);
     else if(command.type==="disconnect")this.disconnect(command.playerId);
@@ -108,6 +110,7 @@ export class RoomController {
 
   start(playerId){
     if(playerId!==this.state.hostPlayerId)throw new Error("只有房主可以開始");
+    if(this.state.status!=='lobby')throw new Error('房間已經出發');
     const players=Object.values(this.state.players);
     if(players.some(item=>!item.connected||!item.ready))throw new Error("所有在線玩家都必須準備");
     this.state.status="playing";
@@ -122,6 +125,7 @@ export class RoomController {
 
   disconnect(playerId){
     const player=this.state.players[playerId];
+    if(!player?.connected)return;
     player.connected=false;
     player.ready=false;
     player.reconnectDeadline=this.now()+RECONNECT_WINDOW_MS;
@@ -135,12 +139,13 @@ export class RoomController {
   split(playerId,lineId){
     if(this.state.status!=="playing")throw new Error("遊戲開始後才能分頭");
     const clean=String(lineId??"").trim();
-    if(!clean||clean==="together")throw new Error("行動線無效");
+    if(!/^[a-zA-Z0-9_-]{1,32}$/.test(clean)||['together','__proto__','prototype','constructor'].includes(clean))throw new Error("行動線無效");
     removeFromLines(this.state.actionLines,playerId);
     (this.state.actionLines[clean]??=[]).push(playerId);
   }
 
   reunite(playerId){
+    if(this.state.status!=='playing')throw new Error('遊戲開始後才能集合');
     removeFromLines(this.state.actionLines,playerId);
     (this.state.actionLines.together??=[]).push(playerId);
   }
@@ -183,6 +188,7 @@ export class RoomController {
   openBattle(playerId,{id="room_battle",enemyName="攔路高手",enemyHp=120}={}){
     if(playerId!==this.state.hostPlayerId)throw new Error("只有房主可以開始同步戰鬥");
     if(this.state.status!=="playing")throw new Error("房間尚未開始遊戲");
+    if(this.state.battle?.status==='active')throw new Error('請先完成目前的同步戰鬥');
     const eligible=Object.values(this.state.players).filter(item=>item.connected).map(item=>item.id);
     this.state.battle={id,instanceId:`${this.state.roomId}:${this.state.revision+1}`,presentationSequence:0,enemyName:String(enemyName).slice(0,50),enemyHp,maxEnemyHp:enemyHp,round:1,status:"active",eligiblePlayerIds:eligible,partyHp:Object.fromEntries(eligible.map(id=>[id,100])),submissions:{},log:["眾人同時拔出兵刃。"]};
   }
@@ -191,13 +197,16 @@ export class RoomController {
     const battle=this.state.battle;if(!battle||battle.status!=="active")throw new Error("目前沒有同步戰鬥");
     if(!battle.eligiblePlayerIds.includes(playerId)||battle.partyHp[playerId]<=0)throw new Error("玩家目前不能提交行動");
     if(!["attack","skill","defend","observe"].includes(action))throw new Error("戰鬥行動無效");
+    if(battle.submissions[playerId])throw new Error('本回合已提交行動');
     battle.submissions[playerId]=action;
   }
 
   resolveBattleRound(playerId){
     if(playerId!==this.state.hostPlayerId)throw new Error("只有房主可以結算同步戰鬥");
     const battle=this.state.battle;if(!battle||battle.status!=="active")throw new Error("目前沒有同步戰鬥");
-    const living=battle.eligiblePlayerIds.filter(id=>battle.partyHp[id]>0);if(living.some(id=>!battle.submissions[id]))throw new Error("仍有玩家尚未提交行動");
+    const living=battle.eligiblePlayerIds.filter(id=>battle.partyHp[id]>0);
+    for(const id of living){const player=this.state.players[id];if(!player.connected&&!battle.submissions[id]){if(player.reconnectDeadline>this.now())throw new Error('等待斷線玩家重連，最長 60 秒');battle.submissions[id]='defend';}}
+    if(living.some(id=>!battle.submissions[id]))throw new Error("仍有玩家尚未提交行動");
     const before=roomCombatFrame(this.state),events=[],round=battle.round;
     const visual=structuredClone(before),foe=visual.find(actor=>actor.id==='room-enemy');
     const record=event=>events.push({...event,actors:structuredClone(visual)});
@@ -226,6 +235,22 @@ export class RoomController {
   async broadcastState(){
     await this.transport.send({type:"state",playerId:this.playerId,payload:structuredClone(this.state)});
     this.emit();
+  }
+
+  leave(playerId){
+    if(playerId===this.state.hostPlayerId){this.state.status='closed';this.state.closedReason='房主已結束房間';}
+    else{
+      removeFromLines(this.state.actionLines,playerId);delete this.state.players[playerId];
+      if(this.state.vote?.status==='open'){this.state.vote.eligiblePlayerIds=this.state.vote.eligiblePlayerIds.filter(id=>id!==playerId);delete this.state.vote.ballots[playerId];}
+      if(this.state.battle){this.state.battle.eligiblePlayerIds=this.state.battle.eligiblePlayerIds.filter(id=>id!==playerId);delete this.state.battle.submissions[playerId];delete this.state.battle.partyHp[playerId];}
+    }
+    this.bump('leave',playerId);
+  }
+
+  expireConnections(){
+    const host=this.state.players[this.state.hostPlayerId];
+    if(this.state.status==='paused'&&host.reconnectDeadline<=this.now()){this.state.status='closed';this.state.closedReason='房主重連逾時，房間已結束';this.bump('expired',host.id);return;}
+    if(this.state.status==='lobby')for(const player of Object.values(this.state.players))if(!player.connected&&player.reconnectDeadline<=this.now())this.leave(player.id);
   }
 
   bump(type,playerId){

@@ -1,0 +1,9 @@
+.git
+node_modules
+docs
+tests
+assets
+.env*
+.room-data
+coverage
+*.log

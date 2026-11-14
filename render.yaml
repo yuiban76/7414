@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: zhaoye-rooms
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev --ignore-scripts
+    startCommand: node server/main.mjs
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: ALLOWED_ORIGINS
+        value: https://yuiban76.github.io
+      - key: MAX_ROOMS
+        value: "100"

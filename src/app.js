@@ -32,6 +32,9 @@ import { saveGame, loadSlot, getAllSaves, importSaves, listSlots, clearAllSaves 
 import { createExportBundle, downloadJson, parseImport } from "./persistence/import-export.js";
 import { LocalRoomTransport } from "./multiplayer/local-transport.js";
 import { RoomController } from "./multiplayer/room-controller.js";
+import { RemoteRoomClient } from './multiplayer/remote-room-client.js';
+import { defaultRoomServer, normalizeRoomServer, invitationSettings, roomInvitation } from './multiplayer/network-config.js';
+import { roomSetupView, roomConnectionHeader } from './ui/room-view.js';
 import { addItem, equipItem, recalculateEquipment, removeItem, useConsumable } from "./systems/inventory-system.js";
 import { equipSkill, innerLoad, learnInnerArt, learnSkill, refineInnerArt, studyLegacyInnerArt, toggleInnerArt, unequipSkill } from "./systems/training-system.js";
 import { advanceClock, availableDestinations, travel } from "./systems/travel-system.js?v=road-20260924";
@@ -46,6 +49,9 @@ const state = { page:"jianghu", screen:"boot", content:null, character:null, wor
 
 const combatDirector=new CombatDirector(),roomDirector=new CombatDirector(),roomCursor=new PresentationCursor();
 let renderedBattle=null,roomViewInstance=null,roomRefreshQueued=false,roomRefreshPromise=null;
+let roomBusy=false,roomError='',roomAttempt=0;
+const roomInvite=invitationSettings(location.href);
+const roomDraft={mode:'online',server:roomInvite?.server??defaultRoomServer(),code:roomInvite?.code??'',name:''};
 
 boot();
 
@@ -214,12 +220,17 @@ async function renderModal(){
     mountRoomCombat();
   }
   bindContentActions();
+  if(modalType==='room')lockRoomControls();
   if(sameRoom&&playbackFocused)roomArena.querySelector(`[data-playback="${playbackFocused}"]`)?.focus({preventScroll:true});
   else if(chatFocused)document.querySelector("#room-chat")?.focus({preventScroll:true});
 }
 function bindContentActions(root=document.querySelector(".modal")??app){
   const bind=(selector,event,handler)=>(selector==="[data-action='backdrop']"?root.closest(".modal-backdrop"):root.querySelector(selector))?.addEventListener(event,handler);
   bind("[data-action='close']","click",closeModal);bind("[data-action='backdrop']","click",e=>{if(e.target===e.currentTarget)closeModal();});bind("[data-action='export']","click",exportAll);bind("[data-action='import-modal']","change",handleImportFile);bind("[data-action='clear-saves']","click",clearSavesFromUi);bind("[data-action='create-room']","click",createRoom);bind("[data-action='join-room']","click",joinRoom);bind("[data-action='room-ready']","click",toggleRoomReady);bind("[data-action='room-start']","click",startRoom);bind("[data-action='room-chat']","click",sendRoomChat);bind("[data-action='open-save']","click",()=>openModal("save"));
+  bind("[data-action='leave-room']","click",leaveRoom);bind("[data-action='resume-room']","click",resumeRoom);bind("[data-action='room-invite']","click",copyRoomInvite);
+  bind("#room-mode","change",()=>{readRoomDraft();renderModal();});
+  root.querySelectorAll('#room-server,#room-code,#room-name').forEach(input=>input.addEventListener('input',readRoomDraft));
+  bind("#room-chat","keydown",event=>{if(event.key==='Enter'&&!event.isComposing){event.preventDefault();sendRoomChat();}});
   bind("[data-action='room-reunite']","click",()=>roomCommand("reunite"));bind("[data-action='room-vote-start']","click",startRoomVote);bind("[data-action='room-vote-resolve']","click",()=>roomCommand("vote-resolve"));bind("[data-action='room-battle-open']","click",openRoomBattle);
   root.querySelectorAll("[data-room-split]").forEach(button=>button.addEventListener("click",()=>roomCommand("split",{lineId:button.dataset.roomSplit})));
   root.querySelectorAll("[data-room-vote]").forEach(button=>button.addEventListener("click",()=>roomCommand("vote",{choiceId:button.dataset.roomVote})));
@@ -257,7 +268,7 @@ async function modalContent(type){
   if(type==="shop")return {title:"城市商店與客棧",body:shopModalBody()};
   if(type==="office")return {title:"官職與官府任務",body:officeModalBody()};
   if(type==="quests")return {title:"任務與旗標",body:`${state.content.chapters.map(ch=>`<p><strong>第${ch.chapter}章 ${escapeHtml(ch.name)}</strong>　${escapeHtml(state.world?.quests[ch.mainQuestId]??(state.world?.flags[`chapter_${ch.chapter}_complete`]?"completed":"locked"))}</p>`).join("")}`};
-  if(type==="menu")return {title:"選單",body:`<div class="choices"><button class="btn" data-section="settings">設定</button><button class="btn" data-section="room">多人示範</button><button class="btn" data-action="open-save">存檔與備份</button><p>勢力：${state.content.factions.map(f=>`${f.name} ${state.world?factionLabel(state.world.factionRelations[f.id]??0):"中立"}`).join("／")}</p><p>三國通緝：大晟 ${state.world?.wantedLevels.dasheng??0}、北朔 ${state.world?.wantedLevels.beishuo??0}、南黎 ${state.world?.wantedLevels.nanli??0}</p></div>`};
+  if(type==="menu")return {title:"選單",body:`<div class="choices"><button class="btn" data-section="settings">設定</button><button class="btn" data-section="room">多人房間</button><button class="btn" data-action="open-save">存檔與備份</button><p>勢力：${state.content.factions.map(f=>`${f.name} ${state.world?factionLabel(state.world.factionRelations[f.id]??0):"中立"}`).join("／")}</p><p>三國通緝：大晟 ${state.world?.wantedLevels.dasheng??0}、北朔 ${state.world?.wantedLevels.beishuo??0}、南黎 ${state.world?.wantedLevels.nanli??0}</p></div>`};
   if(type==="save"){const slots=await listSlots();const byId=new Map(slots.map(slot=>[slot.slotId,slot]));const slotCard=(type,index)=>{const id=`v2_${type}_${index}`;const slot=byId.get(id);return `<section class="panel panel-body"><strong>${type==="auto"?"自動":"手動"} ${index+1}</strong><p>${slot?new Date(slot.savedAt).toLocaleString("zh-TW"):"空槽"}</p><div class="choices">${type==="manual"?`<button class="btn" data-manual-slot="${index}">${slot?"覆寫":"存入"}</button>`:""}${slot?`<button class="btn" data-load-slot="${id}">載入</button>`:""}</div></section>`;};return {title:"存檔與備份",body:`<p class="muted">瀏覽器資料遭清除時，本地存檔也會消失。請定期匯出。</p><div class="choices"><button class="btn" data-action="export">匯出全部 JSON</button><label class="btn">匯入 JSON<input class="sr-only" type="file" accept="application/json" data-action="import-modal"></label><button class="btn" data-action="clear-saves">清空本機存檔</button></div><h3>3 個自動槽</h3>${Array.from({length:3},(_,index)=>slotCard("auto",index)).join("")}<h3>5 個手動槽</h3>${Array.from({length:5},(_,index)=>slotCard("manual",index)).join("")}`};}
   if(type==="room")return {title:"多人房間",body:roomModalBody()};
   const textSize=localStorage.getItem("jianghu:textSize")??"standard";return {title:"設定",body:`<div class="field"><label for="text-size">文字大小</label><select id="text-size"><option value="standard" ${textSize==="standard"?"selected":""}>標準</option><option value="large" ${textSize==="large"?"selected":""}>較大</option></select></div><p>系統會自動遵循「減少動態效果」偏好。所有關鍵資訊同時提供文字與數值。</p>`};
@@ -298,15 +309,17 @@ function officeModalBody(){const location=state.content.locations.find(item=>ite
 
 function roomModalBody(){
   const room=state.room?.state;
-  if(!room)return `<p>本機版使用瀏覽器 BroadcastChannel，可在同一裝置的多個分頁測試 1～4 人；房主負責權威結算。</p><div class="field"><label for="room-code">房間代碼</label><input id="room-code" maxlength="5" autocomplete="off"></div><div class="choices"><button class="btn btn-primary" data-action="create-room">建立房間</button><button class="btn" data-action="join-room">加入房間</button></div><div id="room-status" role="status"></div>`;
-  const me=room.players[state.room.playerId];const players=Object.values(room.players);const slots=Array.from({length:4},(_,index)=>{const player=players[index];return `<section class="panel panel-body"><strong>槽位 ${index+1}</strong>　${player?`${escapeHtml(player.name)}${player.id===room.hostPlayerId?" · 房主":""} · ${player.connected?(player.ready?"已準備":"未準備"):"重連等待"}`:"空位"}</section>`;}).join("");
+  if(!room)return roomSetupView({draft:{...roomDraft,name:roomDraft.name||state.character?.name||''},busy:roomBusy,error:roomError,connectionMessage:state.room?.connectionMessage,canResume:!!RemoteRoomClient.savedSession()});
+  const connected=state.room.mode!=='online'||state.room.connectionStatus==='connected';
+  if(room.status==='closed')return roomConnectionHeader(state.room);
+  const me=room.players[state.room.playerId];const players=Object.values(room.players);const slots=Array.from({length:4},(_,index)=>{const player=players[index];return `<section class="panel panel-body"><strong>槽位 ${index+1}</strong>　${player?`${escapeHtml(player.name)}${player.id===room.hostPlayerId?" · 房主":""} · ${player.connected?(room.status!=="lobby"?"在線":player.ready?"已準備":"未準備"):player.reconnectDeadline>Date.now()?"重連等待":"已離線"}`:"空位"}</section>`;}).join("");
   const chat=room.chat.length?room.chat.map(entry=>`<p><strong>${escapeHtml(room.players[entry.playerId]?.name??entry.playerId)}</strong>：${escapeHtml(entry.text)}</p>`).join(""):`<p class="muted">尚無隊伍訊息。</p>`;
   const lines=Object.entries(room.actionLines).map(([id,members])=>`<p>${id==="together"?"集合":"行動線 "+escapeHtml(id)}：${members.map(member=>escapeHtml(room.players[member]?.name??member)).join("、")||"無"}</p>`).join("");
-  return `<p><strong>${escapeHtml(room.worldSummary.worldName)}</strong> · ${COUNTRIES[room.worldSummary.country]?.name??room.worldSummary.country} · 第 ${room.worldSummary.chapter} 章</p><p>房間代碼：<strong>${room.roomId}</strong>　狀態：${room.status}</p>${slots}${room.status==="lobby"?`<div class="choices"><button class="btn btn-primary" data-action="room-ready">${me?.ready?"取消準備":"準備"}</button>${state.room.isHost?`<button class="btn" data-action="room-start">開始遊戲</button>`:""}</div>`:"<p class='success'>隊伍已出發；斷線玩家可在一分鐘內重連。</p>"}<h3>隊伍聊天</h3><div class="field"><label for="room-chat">訊息</label><input id="room-chat" maxlength="300"></div><button class="btn" data-action="room-chat">傳送</button><div aria-live="polite">${chat}</div><h3>行動線</h3>${lines}${room.status==="playing"?roomPlayControls(room,me):""}`;
+  return `${roomConnectionHeader(state.room)}<p><strong>${escapeHtml(room.worldSummary.worldName)}</strong> · ${COUNTRIES[room.worldSummary.country]?.name??room.worldSummary.country} · 第 ${room.worldSummary.chapter} 章</p><p>房間狀態：${({lobby:"整備中",playing:"隊伍已出發",paused:"等待房主重連"})[room.status]??room.status}</p>${slots}${room.status==="lobby"?`<div class="choices"><button class="btn btn-primary" data-action="room-ready" ${!connected||roomBusy?"disabled":""}>${me?.ready?"取消準備":"準備"}</button>${state.room.isHost?`<button class="btn" data-action="room-start" ${!connected||roomBusy||players.some(p=>!p.connected||!p.ready)?"disabled":""}>開始遊戲</button>`:""}</div>`:`<p class="${room.status==='paused'?'danger':'success'}">${room.status==='paused'?'房主斷線，操作暫停；一分鐘內可恢復。':'隊伍已出發；斷線玩家可在一分鐘內重連。'}</p>`}<h3>隊伍聊天</h3><div class="field"><label for="room-chat">訊息</label><input id="room-chat" maxlength="300" ${!connected?"disabled":""}></div><button class="btn" data-action="room-chat" ${!connected||roomBusy?"disabled":""}>傳送</button><div aria-live="polite">${chat}</div><h3>行動線</h3>${lines}${room.status==="playing"&&connected?roomPlayControls(room,me):""}<p role="alert" class="danger">${escapeHtml(roomError)}</p>`;
 }
 
 function roomPlayControls(room,me){const chapter=state.content.chapters.find(item=>item.chapter===room.worldSummary.chapter);const choiceLabel=id=>chapter?.majorChoices.find(choice=>choice.id===id)?.label??id;let vote="";if(room.vote){const counts=Object.fromEntries(room.vote.choices.map(choice=>[choice,Object.values(room.vote.ballots).filter(value=>value===choice).length]));const max=Math.max(...Object.values(counts));const leaders=room.vote.choices.filter(choice=>counts[choice]===max);vote=`<h3>重大投票</h3>${room.vote.notice?`<p role="status">${escapeHtml(room.vote.notice)}</p>`:""}<p>${room.vote.status==="open"?"投票中":"已結算"} · 尚未投票 ${room.vote.eligiblePlayerIds.filter(id=>!room.vote.ballots[id]).length} 人 · 第 ${room.vote.round??1} 輪 · 結算前可改票；全員到票後須過半，首次平票重投，再平票由房主裁決</p>${room.vote.choices.map(choice=>`<button class="btn" data-room-vote="${choice}" ${room.vote.status!=="open"||!me.connected||room.status==="paused"?"disabled":""}>${escapeHtml(choiceLabel(choice))} · ${counts[choice]} 票${room.vote.ballots[state.room.playerId]===choice?"（目前選擇）":""}</button>`).join("")}${state.room.isHost&&room.vote.status==="open"?(room.vote.round??1)>1&&leaders.length>1&&room.vote.eligiblePlayerIds.every(id=>room.vote.ballots[id])&&room.vote.eligiblePlayerIds.every(id=>room.players[id]?.connected)?`<p>平票，請房主選擇：</p>${leaders.map(choice=>`<button class="btn" data-room-tie="${choice}">${escapeHtml(choiceLabel(choice))}</button>`).join("")}`:`<button class="btn" data-action="room-vote-resolve">結算投票</button>`:""}${room.vote.status==="resolved"?`<p class="success">結果：${escapeHtml(choiceLabel(room.vote.result))}</p>`:""}`;}else if(state.room.isHost)vote=`<button class="btn" data-action="room-vote-start">發起本章重大投票</button>`;
-  const battle=room.battle;const battleUi=battle?renderRoomCombat(room):state.room.isHost?`<button class="btn" data-action="room-battle-open">開始本章同步戰鬥</button>`:'';
+  const battle=room.battle;const battleUi=battle?renderRoomCombat(room):state.room.isHost?`<button class="btn" data-action="room-battle-open">開始本章同步演武</button>`:'';
   return `<div class="choices"><button class="btn" data-room-split="magistrate">前往官府線</button><button class="btn" data-room-split="escort">前往鏢盟線</button><button class="btn" data-action="room-reunite">重新集合</button></div>${vote}${battleUi}`;}
 
 function renderRoomCombat(room){
@@ -318,8 +331,8 @@ function updateRoomCombat(){
  const room=state.room?.state,battle=room?.battle,root=document.querySelector('.room-combat');if(!root||!battle)return;
  const me=state.room.playerId,submitted=Boolean(battle.submissions[me]);
  root.querySelector('[data-room-round]').textContent=`同步戰鬥 · 第 ${battle.round} 回合`;
- root.querySelectorAll('[data-room-battle-action]').forEach(button=>button.disabled=roomDirector.busy||submitted||battle.status!=='active'||battle.partyHp[me]<=0||!room.players[me]?.connected||room.status!=='playing');
- const resolve=root.querySelector('[data-action="room-battle-resolve"]');if(resolve)resolve.disabled=roomDirector.busy||battle.status!=='active'||room.status!=='playing';
+ root.querySelectorAll('[data-room-battle-action]').forEach(button=>button.disabled=roomBusy||roomDirector.busy||submitted||battle.status!=='active'||battle.partyHp[me]<=0||!room.players[me]?.connected||room.status!=='playing');
+ const resolve=root.querySelector('[data-action="room-battle-resolve"]');if(resolve)resolve.disabled=roomBusy||roomDirector.busy||battle.status!=='active'||room.status!=='playing';
  root.querySelector('[data-room-note]').textContent=battle.status==='active'?(submitted?'已提交行動，等待房主結算。':'選擇本回合行動。'):(battle.status==='victory'?'戰鬥勝利。':'隊伍撤退，情報保留。');
  if(!roomDirector.busy)roomDirector.update(roomCombatFrame(room),true);
 }
@@ -387,13 +400,54 @@ async function clearSavesFromUi(){if(!confirm("這會刪除本瀏覽器中的所
 async function continueGame(){try{const currentSlot=localStorage.getItem("zhaoye:lastSlot:v2");if(!currentSlot&&localStorage.getItem("jianghu:lastSlot"))throw new Error("故事版本已更新，舊旅程無法繼續。請重新創角開局；原資料仍保留。");const slot=currentSlot??"v2_auto_0";const snap=await loadSlot(slot);state.world=snap.world;state.character=snap.character;normalizeLoadedState();state.engine=new GameEngine({world:state.world,character:state.character,content:state.content});restoreActiveBattle();state.screen="game";render();}catch(error){toast(`無法繼續：${error.message}`);}}
 async function exportAll(){const saves=await getAllSaves();if(state.world&&!saves.worlds.some(w=>w.id===state.world.id)){saves.worlds.push(state.world);saves.characters.push(state.character);}const bundle=await createExportBundle({...saves,settings:{textSize:localStorage.getItem("jianghu:textSize")??"standard"}});downloadJson(bundle,`jianghu-${new Date().toISOString().slice(0,10)}.json`);toast("已匯出完整江湖錄。");}
 async function handleImportFile(event){const file=event.target.files?.[0];if(!file)return;try{const parsed=await parseImport(await file.text());if(!confirm(`將匯入 ${parsed.summary.worlds} 個世界、${parsed.summary.characters} 名角色。是否繼續？`))return;const result=await importSaves(parsed.bundle);if(parsed.bundle.settings?.textSize)localStorage.setItem("jianghu:textSize",parsed.bundle.settings.textSize);applySettings();toast(`存檔已通過校驗並匯入，建立 ${result.restoredSlots} 個可載入槽位。`);closeModal();}catch(error){toast(`匯入失敗：${error.message}`);}}
-async function createRoom(){const transport=new LocalRoomTransport();setRoomController(new RoomController({transport,isHost:true,playerId:state.character?.id??`player_${Date.now()}`}));await state.room.create({worldId:state.world?.id??"new_world",worldName:state.world?.name??"新江湖",country:state.world?.startingCountry??"dasheng",chapter:state.world?.chapter??1,profile:{name:state.character?.name??"房主",characterId:state.character?.id??null}});await renderModal();}
-async function joinRoom(){const code=document.querySelector("#room-code").value.trim().toUpperCase();if(!code)return;const transport=new LocalRoomTransport();setRoomController(new RoomController({transport,isHost:false,playerId:state.character?.id??`guest_${Date.now()}`}));await state.room.join(code,{name:state.character?.name??"訪客",characterId:state.character?.id??null});if(!state.room.state)document.querySelector("#room-status").textContent=`已送出加入房間 ${code} 的請求；若代碼有效，大廳會自動出現。`;else await renderModal();}
+function readRoomDraft(){for(const [key,id]of [['mode','room-mode'],['server','room-server'],['code','room-code'],['name','room-name']]){const input=document.getElementById(id);if(input)roomDraft[key]=input.value;}}
+async function createRoom(){await connectRoom(true);}
+async function joinRoom(){await connectRoom(false);}
+async function connectRoom(isHost){
+  if(roomBusy)return;readRoomDraft();roomError='';const attempt=++roomAttempt;
+  try{
+    const online=roomDraft.mode==='online',code=roomDraft.code.trim().toUpperCase();
+    if(!isHost&&!(online?/^[A-Z2-9]{6}$/:/^[A-Z0-9]{5}$/).test(code))throw new Error(online?'請輸入六碼房號':'同機房號為五碼英數字');
+    const url=online?normalizeRoomServer(roomDraft.server):null;
+    if(online&&location.protocol==='https:'&&url.startsWith('ws:'))throw new Error('目前網頁使用 HTTPS，請填入 wss:// 或 https:// 的連線服務');
+    roomBusy=true;await state.room?.transport?.close();
+    const controller=online?new RemoteRoomClient({url}):new RoomController({transport:new LocalRoomTransport(),isHost,playerId:crypto.randomUUID()});
+    controller.mode=online?'online':'local';setRoomController(controller);await renderModal();
+    const profile={name:roomDraft.name.trim()||state.character?.name||(isHost?'房主':'訪客'),characterId:state.character?.id??null};
+    if(isHost)await controller.create({worldId:state.world?.id??'new_world',worldName:state.world?.name??'連線江湖',country:state.world?.startingCountry??'dasheng',chapter:state.world?.chapter??1,profile});
+    else{await controller.join(code,profile);if(!online&&!controller.state)await waitForLocalRoom(controller);}
+    if(online)try{localStorage.setItem('zhaoye:room-server:v2',url);}catch{}
+  }catch(error){if(attempt===roomAttempt){roomError=error.message;await state.room?.transport?.close();}}
+  finally{if(attempt===roomAttempt){roomBusy=false;if(state.modal==='room')await refreshRoomView();}}
+}
+function waitForLocalRoom(controller){return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{unsubscribe();reject(new Error('未找到同機房間，請確認房主分頁仍開啟及房號是否正確'));},8000);const unsubscribe=controller.subscribe(()=>{if(controller.state?.players[controller.playerId]){clearTimeout(timer);unsubscribe();resolve();}});});}
+async function resumeRoom(){
+  if(roomBusy)return;const saved=RemoteRoomClient.savedSession();if(!saved)return;
+  roomBusy=true;roomError='';const attempt=++roomAttempt;
+  try{await state.room?.transport?.close();const controller=new RemoteRoomClient({url:saved.serverUrl});setRoomController(controller);await controller.resume(saved);}
+  catch(error){if(attempt===roomAttempt)roomError=error.message;}finally{if(attempt===roomAttempt){roomBusy=false;if(state.modal==='room')await refreshRoomView();}}
+}
+async function leaveRoom(){
+  roomAttempt++;const controller=state.room;state.roomUnsubscribe?.();state.roomUnsubscribe=null;state.room=null;roomBusy=false;roomError='';
+  try{if(controller?.mode==='online')await controller.leave();else if(controller?.state){await controller.command('leave');await controller.transport.close();}else await controller?.transport?.close();}
+  catch(error){roomError=error.message;}finally{if(state.modal==='room')await refreshRoomView();}
+}
+async function copyRoomInvite(){try{const link=roomInvitation(location.href,state.room.transport.url,state.room.state.roomId);if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(link);toast('邀請連結已複製，朋友開啟後輸入名字即可加入。');}else{roomError='無法使用剪貼簿；請把服務網址與房號告訴朋友。';await refreshRoomView();}}catch(error){roomError=error.message;await refreshRoomView();}}
 function setRoomController(controller){roomDirector.cancel();roomCursor.reset(null);roomViewInstance=null;state.roomUnsubscribe?.();state.room=controller;state.roomUnsubscribe=controller.subscribe(()=>{if(state.modal==="room")refreshRoomView();});}
-async function toggleRoomReady(){try{const me=state.room.state.players[state.room.playerId];await state.room.command("ready",{ready:!me.ready});}catch(error){toast(error.message,"error");}}
-async function startRoom(){try{await state.room.command("start");toast("所有玩家已準備，房主已開始遊戲。");}catch(error){toast(error.message,"error");}}
-async function sendRoomChat(){const input=document.querySelector("#room-chat");try{await state.room.command("chat",{text:input.value});}catch(error){toast(error.message,"error");}}
-async function roomCommand(type,payload={}){try{await state.room.command(type,payload);}catch(error){toast(error.message,"error");}}
+async function toggleRoomReady(){const me=state.room.state.players[state.room.playerId];await roomCommand('ready',{ready:!me.ready});}
+async function startRoom(){await roomCommand('start');}
+async function sendRoomChat(){const input=document.querySelector('#room-chat');if(!input)return;const draft=input.value;if(await roomCommand('chat',{text:draft})){const current=document.querySelector('#room-chat');if(current&&current.value===draft)current.value='';}}
+function lockRoomControls(){
+  if(!roomBusy)return;
+  document.querySelectorAll('.modal [data-room-vote],.modal [data-room-tie],.modal [data-room-split],.modal [data-room-battle-action],.modal [data-action^="room-"]').forEach(button=>{if(button.tagName==='BUTTON'&&button.dataset.action!=='room-invite')button.disabled=true;});
+  const notice=document.querySelector('[data-room-connection]');if(notice)notice.textContent='正在確認操作…';
+}
+async function roomCommand(type,payload={}){
+  if(roomBusy)return false;roomBusy=true;roomError='';lockRoomControls();
+  try{await state.room.command(type,payload);return true;}
+  catch(error){roomError=error.message;return false;}
+  finally{roomBusy=false;if(state.modal==='room')await refreshRoomView();}
+}
 async function startRoomVote(){const chapter=state.content.chapters.find(item=>item.chapter===state.room.state.worldSummary.chapter);await roomCommand("vote-start",{id:`chapter_${chapter.chapter}_major`,choices:chapter.majorChoices.map(choice=>choice.id),flagKey:`chapter_${chapter.chapter}_room_choice`});}
 async function openRoomBattle(){const chapter=state.content.chapters.find(item=>item.chapter===state.room.state.worldSummary.chapter);const enemy=selectChapterEnemy(chapter);await roomCommand("battle-open",{id:`chapter_${chapter.chapter}_room_battle`,enemyName:enemy.name,enemyHp:100+chapter.chapter*20});}
 

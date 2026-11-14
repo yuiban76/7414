@@ -77,6 +77,13 @@ test("room capacity never exceeds four players",async()=>{
   assert.equal(Object.keys(host.state.players).length,4);
   assert.equal(host.state.players.p5,undefined);
 });
+
+test('local-mode leave is applied by the host and host closure reaches the remaining guests',async()=>{
+  const hub=new MemoryHub(),host=controller(hub,'host',true),room=await host.create({worldId:'leave'}),guest=controller(hub,'guest'),other=controller(hub,'other');
+  await guest.join(room.roomId);await other.join(room.roomId);await guest.command('leave');
+  assert.equal(host.state.players.guest,undefined);assert.equal(other.state.players.guest,undefined);
+  assert.ok(!host.state.actionLines.together.includes('guest'));await host.command('leave');assert.equal(other.state.status,'closed');
+});
 test("host resolves one submitted action per living player",async()=>{const hub=new MemoryHub();const host=controller(hub,"host",true);const room=await host.create({worldId:"world_1"});const guest=controller(hub,"guest");await guest.join(room.roomId);await host.command("ready",{ready:true});await guest.command("ready",{ready:true});await host.command("start");await host.command("battle-open",{enemyName:"嚴震",enemyHp:70});await host.command("battle-action",{action:"skill"});await assert.rejects(()=>host.command("battle-resolve"),/尚未提交/);await guest.command("battle-action",{action:"attack"});await host.command("battle-resolve");assert.equal(host.state.battle.enemyHp,20);assert.equal(guest.state.battle.round,2);await host.command("battle-action",{action:"attack"});await guest.command("battle-action",{action:"attack"});await host.command("battle-resolve");assert.equal(host.state.battle.status,"victory");assert.equal(guest.state.battle.enemyHp,0);});
 
 test('four-player presentation batches preserve simultaneous damage and publish identical ordered frames',async()=>{
