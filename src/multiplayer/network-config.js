@@ -18,9 +18,10 @@ export function defaultRoomServer(storage = globalThis.localStorage, location = 
   return '';
 }
 
-export function roomInvitation(href, serverUrl, roomId) {
+export function roomInvitation(href, serverUrl, roomId, mode='online') {
   const url = new URL(href); url.search = ''; url.hash = '';
-  url.searchParams.set('room', roomId); url.searchParams.set('server', normalizeRoomServer(serverUrl));
+  url.searchParams.set('room', roomId);
+  if(mode==='peer')url.searchParams.set('mode','peer');else url.searchParams.set('server', normalizeRoomServer(serverUrl));
   return url.href;
 }
 
@@ -28,7 +29,8 @@ export function invitationSettings(href) {
   try {
     const url = new URL(href), code = url.searchParams.get('room') ?? '', server = url.searchParams.get('server') ?? '';
     if (!/^[A-Z2-9]{6}$/.test(code.toUpperCase())) return null;
-    return {code: code.toUpperCase(), server: normalizeRoomServer(server)};
+    if(url.searchParams.get('mode')==='peer')return {code:code.toUpperCase(),mode:'peer'};
+    return {code: code.toUpperCase(), server: normalizeRoomServer(server), mode:'online'};
   } catch { return null; }
 }
 

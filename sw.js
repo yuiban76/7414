@@ -1,5 +1,5 @@
 const PREFIX=`jianghu-rpg:${self.registration.scope}:`;
-const CACHE=PREFIX+'0.6.0-online-rooms-release';
+const CACHE=PREFIX+'0.6.1-peerjs-rooms';
 const MODULES={
  config:['network','constants','balance','inner-refinement','skill-archetypes'],
  core:['combat-presentation','effects','game-engine','migrations','rng','story','validators','zhaoye-catalog','zhaoye-engine','zhaoye-story','zhaoye-reactions','zhaoye-callbacks','zhaoye-supplements','zhaoye-fates'],
@@ -7,12 +7,12 @@ const MODULES={
  ui:['room-view','sidequest-view','combat-director','journey-view','starting-skill-view','skill-display','skill-art','shop-labels','level-view'],
  systems:['exploration-system','battle-system','zhaoye-final-battle','zhaoye-escort-battle','zhaoye-flag-battle','zhaoye-messenger-battle','zhaoye-scroll-battle','economy-system','faction-system','identity-system','inventory-system','npc-system','office-system','progression-system','quest-system','realm-system','road-encounter','talent-system','training-system','travel-system','vote-system','sidequest-system'],
  persistence:['checksum','import-export','indexeddb','save-service','battle-snapshot'],
- multiplayer:['local-transport','room-controller','room-transport','websocket-transport','remote-room-client','network-config']
+ multiplayer:['local-transport','room-controller','room-transport','websocket-transport','remote-room-client','network-config','room-protocol','peer-room-client']
 };
 const LOCATION_ART=Array.from({length:18},(_,i)=>`./assets/locations/location_${String(i+1).padStart(3,'0')}.jpg`);
 const COMPANION_ART=['ye','shen','yin','ashina','su'].map(name=>`./assets/companions/${name}.png`);
 const SKILL_ART=['blade','sword','spear','staff','fist','needlecast','pressurepoint','grappling','defense','healing','rally','footwork','qi','posture'].map(name=>`./assets/skills/${name}.jpg`);
-const SHELL=['./','./index.html','./404.html','./manifest.webmanifest','./styles/tokens.css','./styles/base.css','./styles/layout.css','./styles/layout.css?v=map-20260924','./styles/components.css','./styles/combat.css','./src/app.js','./src/app.js?v=road-20260924','./src/systems/travel-system.js?v=road-20260924','./src/ui/journey-view.js?v=road-20260924',...Object.entries(MODULES).flatMap(([folder,names])=>names.map(name=>`./src/${folder}/${name}.js`)),...['skills','talents','inner-arts','equipment','items','npcs','enemies','factions','locations','quests','chapters'].map(name=>`./src/data/${name}.json`),...LOCATION_ART,...COMPANION_ART,...SKILL_ART];
+const SHELL=['./assets/vendor/peerjs-1.5.5.min.js','./','./index.html','./404.html','./manifest.webmanifest','./styles/tokens.css','./styles/base.css','./styles/layout.css','./styles/layout.css?v=map-20260924','./styles/components.css','./styles/combat.css','./src/app.js','./src/app.js?v=road-20260924','./src/systems/travel-system.js?v=road-20260924','./src/ui/journey-view.js?v=road-20260924',...Object.entries(MODULES).flatMap(([folder,names])=>names.map(name=>`./src/${folder}/${name}.js`)),...['skills','talents','inner-arts','equipment','items','npcs','enemies','factions','locations','quests','chapters'].map(name=>`./src/data/${name}.json`),...LOCATION_ART,...COMPANION_ART,...SKILL_ART];
 const IDENTITY_ART=['constable','escort','healer','hunter','beggar','wanderer'].map(name=>`./assets/identities/${name}.jpg`);
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll([...SHELL,...IDENTITY_ART].map(url=>new Request(url,{cache:'reload'})))).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith(PREFIX)&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));

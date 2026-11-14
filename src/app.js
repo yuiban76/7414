@@ -33,6 +33,7 @@ import { createExportBundle, downloadJson, parseImport } from "./persistence/imp
 import { LocalRoomTransport } from "./multiplayer/local-transport.js";
 import { RoomController } from "./multiplayer/room-controller.js";
 import { RemoteRoomClient } from './multiplayer/remote-room-client.js';
+import { PeerRoomClient } from './multiplayer/peer-room-client.js';
 import { defaultRoomServer, normalizeRoomServer, invitationSettings, roomInvitation } from './multiplayer/network-config.js';
 import { roomSetupView, roomConnectionHeader } from './ui/room-view.js';
 import { addItem, equipItem, recalculateEquipment, removeItem, useConsumable } from "./systems/inventory-system.js";
@@ -51,7 +52,7 @@ const combatDirector=new CombatDirector(),roomDirector=new CombatDirector(),room
 let renderedBattle=null,roomViewInstance=null,roomRefreshQueued=false,roomRefreshPromise=null;
 let roomBusy=false,roomError='',roomAttempt=0;
 const roomInvite=invitationSettings(location.href);
-const roomDraft={mode:'online',server:roomInvite?.server??defaultRoomServer(),code:roomInvite?.code??'',name:''};
+const roomDraft={mode:roomInvite?.mode??'peer',server:roomInvite?.server??defaultRoomServer(),code:roomInvite?.code??'',name:''};
 
 boot();
 
@@ -309,8 +310,8 @@ function officeModalBody(){const location=state.content.locations.find(item=>ite
 
 function roomModalBody(){
   const room=state.room?.state;
-  if(!room)return roomSetupView({draft:{...roomDraft,name:roomDraft.name||state.character?.name||''},busy:roomBusy,error:roomError,connectionMessage:state.room?.connectionMessage,canResume:!!RemoteRoomClient.savedSession()});
-  const connected=state.room.mode!=='online'||state.room.connectionStatus==='connected';
+  if(!room)return roomSetupView({draft:{...roomDraft,name:roomDraft.name||state.character?.name||''},busy:roomBusy,error:roomError,connectionMessage:state.room?.connectionMessage,canResume:roomDraft.mode==='peer'?!!PeerRoomClient.savedSession():roomDraft.mode==='online'?!!RemoteRoomClient.savedSession():false});
+  const connected=state.room.mode==='local'||state.room.connectionStatus==='connected';
   if(room.status==='closed')return roomConnectionHeader(state.room);
   const me=room.players[state.room.playerId];const players=Object.values(room.players);const slots=Array.from({length:4},(_,index)=>{const player=players[index];return `<section class="panel panel-body"><strong>槽位 ${index+1}</strong>　${player?`${escapeHtml(player.name)}${player.id===room.hostPlayerId?" · 房主":""} · ${player.connected?(room.status!=="lobby"?"在線":player.ready?"已準備":"未準備"):player.reconnectDeadline>Date.now()?"重連等待":"已離線"}`:"空位"}</section>`;}).join("");
   const chat=room.chat.length?room.chat.map(entry=>`<p><strong>${escapeHtml(room.players[entry.playerId]?.name??entry.playerId)}</strong>：${escapeHtml(entry.text)}</p>`).join(""):`<p class="muted">尚無隊伍訊息。</p>`;
@@ -406,33 +407,33 @@ async function joinRoom(){await connectRoom(false);}
 async function connectRoom(isHost){
   if(roomBusy)return;readRoomDraft();roomError='';const attempt=++roomAttempt;
   try{
-    const online=roomDraft.mode==='online',code=roomDraft.code.trim().toUpperCase();
-    if(!isHost&&!(online?/^[A-Z2-9]{6}$/:/^[A-Z0-9]{5}$/).test(code))throw new Error(online?'請輸入六碼房號':'同機房號為五碼英數字');
+    const online=roomDraft.mode==='online',peer=roomDraft.mode==='peer',code=roomDraft.code.trim().toUpperCase();
+    if(!isHost&&!((online||peer)?/^[A-Z2-9]{6}$/:/^[A-Z0-9]{5}$/).test(code))throw new Error((online||peer)?'請輸入六碼房號':'同機房號為五碼英數字');
     const url=online?normalizeRoomServer(roomDraft.server):null;
     if(online&&location.protocol==='https:'&&url.startsWith('ws:'))throw new Error('目前網頁使用 HTTPS，請填入 wss:// 或 https:// 的連線服務');
     roomBusy=true;await state.room?.transport?.close();
-    const controller=online?new RemoteRoomClient({url}):new RoomController({transport:new LocalRoomTransport(),isHost,playerId:crypto.randomUUID()});
-    controller.mode=online?'online':'local';setRoomController(controller);await renderModal();
+    const controller=peer?new PeerRoomClient({catalog:state.content}):online?new RemoteRoomClient({url}):new RoomController({transport:new LocalRoomTransport(),isHost,playerId:crypto.randomUUID()});
+    controller.mode=peer?'peer':online?'online':'local';setRoomController(controller);await renderModal();
     const profile={name:roomDraft.name.trim()||state.character?.name||(isHost?'房主':'訪客'),characterId:state.character?.id??null};
     if(isHost)await controller.create({worldId:state.world?.id??'new_world',worldName:state.world?.name??'連線江湖',country:state.world?.startingCountry??'dasheng',chapter:state.world?.chapter??1,profile});
-    else{await controller.join(code,profile);if(!online&&!controller.state)await waitForLocalRoom(controller);}
+    else{await controller.join(code,profile);if(!online&&!peer&&!controller.state)await waitForLocalRoom(controller);}
     if(online)try{localStorage.setItem('zhaoye:room-server:v2',url);}catch{}
   }catch(error){if(attempt===roomAttempt){roomError=error.message;await state.room?.transport?.close();}}
   finally{if(attempt===roomAttempt){roomBusy=false;if(state.modal==='room')await refreshRoomView();}}
 }
 function waitForLocalRoom(controller){return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{unsubscribe();reject(new Error('未找到同機房間，請確認房主分頁仍開啟及房號是否正確'));},8000);const unsubscribe=controller.subscribe(()=>{if(controller.state?.players[controller.playerId]){clearTimeout(timer);unsubscribe();resolve();}});});}
 async function resumeRoom(){
-  if(roomBusy)return;const saved=RemoteRoomClient.savedSession();if(!saved)return;
+  if(roomBusy)return;const peerSaved=roomDraft.mode==='peer'?PeerRoomClient.savedSession():null,saved=peerSaved??RemoteRoomClient.savedSession();if(!saved)return;
   roomBusy=true;roomError='';const attempt=++roomAttempt;
-  try{await state.room?.transport?.close();const controller=new RemoteRoomClient({url:saved.serverUrl});setRoomController(controller);await controller.resume(saved);}
+  try{await state.room?.transport?.close();const controller=peerSaved?new PeerRoomClient({catalog:state.content}):new RemoteRoomClient({url:saved.serverUrl});setRoomController(controller);await controller.resume(saved);}
   catch(error){if(attempt===roomAttempt)roomError=error.message;}finally{if(attempt===roomAttempt){roomBusy=false;if(state.modal==='room')await refreshRoomView();}}
 }
 async function leaveRoom(){
   roomAttempt++;const controller=state.room;state.roomUnsubscribe?.();state.roomUnsubscribe=null;state.room=null;roomBusy=false;roomError='';
-  try{if(controller?.mode==='online')await controller.leave();else if(controller?.state){await controller.command('leave');await controller.transport.close();}else await controller?.transport?.close();}
+  try{if(controller?.mode==='online'||controller?.mode==='peer')await controller.leave();else if(controller?.state){await controller.command('leave');await controller.transport.close();}else await controller?.transport?.close();}
   catch(error){roomError=error.message;}finally{if(state.modal==='room')await refreshRoomView();}
 }
-async function copyRoomInvite(){try{const link=roomInvitation(location.href,state.room.transport.url,state.room.state.roomId);if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(link);toast('邀請連結已複製，朋友開啟後輸入名字即可加入。');}else{roomError='無法使用剪貼簿；請把服務網址與房號告訴朋友。';await refreshRoomView();}}catch(error){roomError=error.message;await refreshRoomView();}}
+async function copyRoomInvite(){try{const link=roomInvitation(location.href,state.room.transport.url,state.room.state.roomId,state.room.mode);if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(link);toast('邀請連結已複製，朋友開啟後輸入名字即可加入。');}else{roomError=state.room.mode==='peer'?'無法使用剪貼簿；請把六碼房號告訴朋友。':'無法使用剪貼簿；請把服務網址與房號告訴朋友。';await refreshRoomView();}}catch(error){roomError=error.message;await refreshRoomView();}}
 function setRoomController(controller){roomDirector.cancel();roomCursor.reset(null);roomViewInstance=null;state.roomUnsubscribe?.();state.room=controller;state.roomUnsubscribe=controller.subscribe(()=>{if(state.modal==="room")refreshRoomView();});}
 async function toggleRoomReady(){const me=state.room.state.players[state.room.playerId];await roomCommand('ready',{ready:!me.ready});}
 async function startRoom(){await roomCommand('start');}

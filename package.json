@@ -1,6 +1,6 @@
 {
   "name": "jianghu-rpg",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,12 +15,14 @@
     "manuscript": "node scripts/export-narrative.mjs",
     "serve": "node scripts/serve.mjs",
     "start": "node server/main.mjs",
-    "test:network": "node --test --test-isolation=none tests/network-room.test.mjs"
+    "test:network": "node --test --test-isolation=none tests/network-room.test.mjs",
+    "test:peer": "node --test --test-isolation=none tests/peer-room.test.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
+    "peerjs": "1.5.5",
     "ws": "8.23.0"
   }
 }

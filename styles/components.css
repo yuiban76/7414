@@ -7,6 +7,7 @@
 .scene h2 { margin-top: 0; font-size: clamp(1.6rem, 4vw, 2.5rem); }
 .scene-copy { max-width: 66ch; font-size: clamp(1rem, 2vw, 1.12rem); line-height: 1.9; white-space: pre-line; }
 .choices { display: grid; gap: .65rem; margin-top: 2rem; }
+.field[hidden] { display: none; }
 .btn { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: .5rem; padding: .65rem 1rem; border: 1px solid var(--ink-700); border-radius: var(--radius-sm); color: var(--paper-100); background: var(--ink-800); transition: transform .15s ease, background .15s ease, border-color .15s ease; }
 .btn:hover { border-color: var(--jade); background: #26362f; transform: translateY(-1px); }
 .btn-primary { border-color: #d16a53; background: var(--cinnabar-dark); }

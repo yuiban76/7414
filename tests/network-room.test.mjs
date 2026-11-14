@@ -167,7 +167,7 @@ test('connection setup and invitations validate URLs, preserve names and never i
   assert.equal(normalizeRoomServer('http://localhost:8787'),'ws://localhost:8787/rooms');
   for(const url of ['javascript:alert(1)','http://public.example','https://name:password@example.com','wss://example.com/rooms?token=secret'])assert.throws(()=>normalizeRoomServer(url));
   const link=roomInvitation('https://yuiban76.github.io/7414/?old=1#x','https://rooms.example.com','ABC234');
-  assert.deepEqual(invitationSettings(link),{code:'ABC234',server:'wss://rooms.example.com/rooms'});assert.ok(!link.includes('token'));
+  assert.deepEqual(invitationSettings(link),{code:'ABC234',server:'wss://rooms.example.com/rooms',mode:'online'});assert.ok(!link.includes('token'));
   const html=roomSetupView({draft:{mode:'online',server:'',name:'<script>',code:''},busy:true,error:'連線失敗',canResume:false});
   assert.match(html,/role="alert"/);assert.match(html,/disabled/);assert.ok(!html.includes('value="<script>"'));
 });

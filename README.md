@@ -2,7 +2,7 @@
 
 純 HTML、CSS 與 JavaScript ES Modules 製作的原創高武俠文字 RPG，可直接部署至 GitHub Pages。單人核心不依賴伺服器、資料庫、付費 API 或建置工具。
 
-0.6.0 新增可部署的跨裝置連線服務（部署說明見下方）。單人部分已接入故事修訂 2：八章主線重寫與十二條完整支線（四條跨章），包含救援交鋒、人物永久命運與後續回應。存檔格式為 4，必須重新創角開局；舊本機資料與備份保留，但無法繼續或沿用角色。作者稿見 [新版作者稿](docs/照夜行_新版主線與十二支線作者稿.md)，本次驗收見 [主線與支線驗收](docs/narrative-revision-2-status.md)。既有拳譜奇遇仍可遊玩，葉停舟永久缺席時由鏢路教習程野接手。
+0.6.1 預設使用 PeerJS／WebRTC 跨裝置連線，透過免費 PeerServer Cloud 接應，無須自架常駐主機；另保留可部署的 WebSocket 服務。單人部分已接入故事修訂 2：八章主線重寫與十二條完整支線（四條跨章），包含救援交鋒、人物永久命運與後續回應。存檔格式為 4，必須重新創角開局；舊本機資料與備份保留，但無法繼續或沿用角色。作者稿見 [新版作者稿](docs/照夜行_新版主線與十二支線作者稿.md)，本次驗收見 [主線與支線驗收](docs/narrative-revision-2-status.md)。既有拳譜奇遇仍可遊玩，葉停舟永久缺席時由鏢路教習程野接手。
 
 ## 本機執行
 
@@ -27,6 +27,7 @@ npm run balance:journey
 npm run balance:sidequests
 npm run manuscript
 npm run test:network
+npm run test:peer
 ```
 
 - `validate`：檢查資料數量、分布、ID、效果白名單、來源與跨檔引用。
@@ -45,9 +46,11 @@ npm run test:network
 
 ## 多人說明
 
-新增 WebSocket 連線服務，支援不同裝置的 1～4 人大廳、邀請連結、準備、聊天、投票、分隊與同步演武，由伺服器核對身分及結算。支援心跳、60 秒重連、重複指令去重，以及選配磁碟快照恢復。八章主線仍使用原本的單人存檔；連線活動獨立於單人進度。
+開啟 [遊戲網頁](https://yuiban76.github.io/7414/)，進入「多人房間」，預設選擇「WebRTC 直連（免自架主機）」。房主輸入名字建立房間，再把邀請連結或六碼房號交給朋友。全員準備後由房主出發，支援 1～4 人聊天、投票、分隊及同步演武。
 
-本機測試請在第二個終端執行：
+PeerJS 使用免費官方接應服務建立 WebRTC DataChannel，房主瀏覽器負責身分核對與結算；不需要 Render 帳號或付費主機。房主分頁須保持開啟，重整後可於一分鐘內按「重連上次房間」，訪客暫時斷線會自動重連。房主正式結束或無法恢復時需重新開房，未提供自動換房主。部分公司網路、NAT 或防火牆可能阻擋連線，需更換網路或另設 TURN；免費服務不保證可用性。八章主線仍使用原本的單人存檔，連線活動獨立於單人進度。
+
+另保留伺服器連線模式，由獨立 Node WebSocket 服務核對與結算，支援選配磁碟快照。本機測試時切換「伺服器連線（需服務網址）」，並在第二個終端執行：
 
 ```sh
 npm start
@@ -55,7 +58,7 @@ npm start
 
 遊戲入口使用 `http://127.0.0.1:4173`，連線服務預設 `ws://127.0.0.1:8787/rooms`。兩個不同瀏覽器或裝置只要能連到同一服務，即可輸入六碼房號加入。外網需要將服務部署到支援 WebSocket 的主機，提供 HTTPS／WSS；GitHub Pages 繼續負責遊戲網頁。
 
-提供 [部署與驗收說明](docs/multiplayer-connection.md)、`Dockerfile`、`render.yaml` 與 `server/.env.example`。尚未建立公開服務網址；部署後可在多人房間填入網址，或設定 `src/config/network.js` 的 `ROOM_SERVER_URL`。
+提供 [連線、部署與驗收說明](docs/multiplayer-connection.md)、`Dockerfile`、`render.yaml` 與 `server/.env.example`。未開設公開 WebSocket 主機；使用預設 WebRTC 模式無須部署這些服務。
 
 保留「同機多分頁測試」模式，使用既有 BroadcastChannel，無須啟動伺服器。
 

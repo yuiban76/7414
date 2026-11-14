@@ -1,6 +1,25 @@
-# 跨裝置連線服務
+# 跨裝置連線與驗收
 
-版本 0.6.0，協定 2；實作日期 2026-11-14。此版本完成可部署的服務及前端接入，尚未開設公開常駐主機。
+版本 0.6.1；實作日期 2026-11-14。預設使用 PeerJS／WebRTC（協定 3），保留 Node WebSocket 服務（協定 2）及同機測試模式。單人存檔維持格式 4／故事修訂 2。
+
+## 預設：PeerJS／WebRTC
+
+直接開啟 [遊戲](https://yuiban76.github.io/7414/)，不必申請帳號、填伺服器網址或另架常駐主機：
+
+1. 選「多人房間」→「WebRTC 直連（免自架主機）」，輸入名字並建立房間。
+2. 將邀請連結或六碼房號交給朋友。朋友輸入名字後加入，最多四人。
+3. 全員準備，房主開始，即可聊天、分隊、投票與同步演武。
+4. 保持房主分頁開啟。關閉房間視窗仍維持連線，按「結束房間」才通知全員離房。
+
+PeerServer Cloud 免費提供接應，遊戲指令及狀態經 WebRTC DataChannel 傳輸，不經自架遊戲伺服器。網站隨附 PeerJS 1.5.5 及 MIT 授權，不依賴外部 CDN。沒有建立 Render 服務、購買主機或啟用付費方案。官方共享服務可能受限或中斷，沒有可用性保證；部分 NAT／防火牆可能需要更換網路或額外 TURN。SDK 使用官方預設 ICE 設定，若需自有服務，可由 `PeerRoomClient` 的 `peerOptions` 設定；本次未提供 TURN 帳號管理介面。
+
+房主是此模式的權威節點，核對玩家身分與命令，產生固定戰鬥與投票內容，並向其他人廣播狀態。這可防止訪客偽造他人操作或自行改寫戰果，但不能防止房主修改自己的程式。接應 ID 及房號只負責尋房；重連另用隨機憑證核對。房主快照只存訪客憑證雜湊，憑證不放邀請連結或房間廣播。
+
+訪客暫時失聯會自動退避重連，最長一分鐘。房主或訪客重整後可按「重連上次房間」續接同一回合；房主快照存於該分頁 sessionStorage，整個分頁關閉後不保證能恢復。房主不在時訪客不能繼續結算，沒有自動換房主，逾時需重開房間。離房與關閉房間清除本分頁重連資料，單人正式存檔不受影響。
+
+## 備用：Node WebSocket 服務
+
+下列步驟只適用「伺服器連線（需服務網址）」。預設 WebRTC 模式無須執行 `npm start`、部署 Docker 或 Render。尚未開設公開常駐 WebSocket 主機。
 
 ## 本機啟動
 
@@ -19,7 +38,7 @@ npm start
 
 遊戲：`http://127.0.0.1:4173`；服務：`ws://127.0.0.1:8787/rooms`；健康檢查：`http://127.0.0.1:8787/healthz`。
 
-1. 在「多人房間」選不同裝置連線，填入服務網址與名字，建立房間。
+1. 在「多人房間」選「伺服器連線（需服務網址）」，填入服務網址與名字，建立房間。
 2. 朋友開啟邀請連結，或在自己的遊戲輸入相同服務與六碼房號。
 3. 全員準備後由房主開始，可聊天、分隊、發起本章投票及同步演武。
 4. 每位玩家提交本回合行動後，房主請求伺服器結算；客戶端無法自行提交戰果、敵人氣血或他人的行動。
@@ -71,17 +90,24 @@ docker run --rm -p 8787:8787 -v zhaoye-rooms:/data -e ALLOWED_ORIGINS=https://yu
 
 ## 範圍
 
-已支援連線大廳、聊天、分隊標記、房間投票及共同演武；投票與演武由伺服器的固定章節資料產生，結果留在房間。八章主線／十二支線的合作推進、角色成長與跨裝置永久世界存檔尚未接入，避免用尚未實作的流程冒充完整合作戰役。
+兩種跨裝置模式均支援連線大廳、聊天、分隊標記、房間投票及共同演武；投票與演武採固定章節資料，結果留在房間。WebRTC 由房主結算，WebSocket 由服務結算。八章主線／十二支線的合作推進、角色成長與跨裝置永久世界存檔尚未接入。
 
 ## 驗證
 
 ```sh
 npm test
 npm run test:network
+npm run test:peer
 npm run validate
 ```
 
-最終完整測試 **196 項通過**，其中新增 13 項真實網路／設定測試及一項既有同機模式離房回歸。內容驗證與語法檢查亦通過。
+最終完整測試 **203 項通過**，包含 13 項真實 WebSocket 網路／設定測試、一項既有同機模式離房回歸與七項 PeerJS 協定測試。內容驗證與語法檢查亦通過。
+
+PeerJS 自動測試使用模擬 DataChannel，覆蓋四人同步、固定戰鬥與投票、滿房、偽造身分、過期回合、重複操作、憑證雜湊、訪客自動重連、房主快照恢復、遺失回覆重送及離房通知。這些測試不模擬真實 ICE／NAT 穿透。
+
+另以兩個真實瀏覽器頁面，分別從 `127.0.0.1` 與 `localhost` 連接官方 PeerServer Cloud，成功建立 WebRTC 房間；測試雙人準備、聊天、三回合同步演武至勝利、雙人投票結算、房主重整後訪客自動重連、訪客重整後原身分續接及房主結束通知。過程只啟動靜態網頁預覽，未啟動 Node WebSocket 服務。本機雙來源測試確認實際 PeerJS 路徑，尚未實測兩支手機跨行動網路或所有 NAT 組合。
+
+![WebRTC 聊天、戰果與投票驗收](connection-qa/peer-room.png)
 
 整合測試使用真正 HTTP／WebSocket 服務及四個獨立客戶端，覆蓋四人同步、滿房／出發拒絕、身分偽造、錯誤協定、來源限制、原型污染、重複指令、過期回合、遺失回覆後重送、原身分重連、重連截止、房主暫停／離房、訪客斷線防卡及磁碟重啟恢復。測試會啟動 loopback 服務，在限制網路的工作環境需允許本機測試連線。
 
@@ -91,4 +117,4 @@ npm run validate
 ![跨來源連線大廳驗收](connection-qa/desktop-room.png)
 
 
-部署參考：[ws 官方說明](https://github.com/websockets/ws)、[Render WebSocket 文件](https://render.com/docs/websocket)、[Render 免費方案限制](https://render.com/docs/free)、[Blueprint 欄位規格](https://render.com/docs/blueprint-spec)。
+部署參考：[PeerJS 快速入門](https://peerjs.com/client/getting-started)、[PeerServer Cloud](https://peerjs.com/server/cloud)、[PeerJS 免費服務及 NAT 說明](https://peerjs.com/client/faq)、[ws 官方說明](https://github.com/websockets/ws)、[Render WebSocket 文件](https://render.com/docs/websocket)、[Render 免費方案限制](https://render.com/docs/free)、[Blueprint 欄位規格](https://render.com/docs/blueprint-spec)。
