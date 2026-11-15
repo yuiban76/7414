@@ -1,7 +1,7 @@
 const STORAGE_KEY = "jianghu:localAI";
 
 const DEFAULT_CONFIG = Object.freeze({
-  baseUrl: "http://localhost:11434/v1",
+  baseUrl: "http://127.0.0.1:8686/v1",
   model: "",
   apiKey: "",
 });

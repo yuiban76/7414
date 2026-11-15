@@ -1,35 +1,34 @@
-# 本機 AI 劇情版本
+# 本機 AI 自由故事
 
-十章主線每個一般閱讀頁都可按「生成 AI 版」，請本機模型改寫當頁正文。頁面上可切換「原作版／AI 版」；原作正文、選項、戰鬥、旗標和結局仍由靜態遊戲內容控制。只有玩家按下生成按鈕時才會呼叫 AI。
+AI 自由故事是首頁獨立的遊戲模式。它讀取自己的故事大綱，玩家以對話框描述角色想做的事，再由本機模型接著寫故事。原作十章不會呼叫 AI，也不會讀取或改動這份 AI 故事；兩邊的進度各自保存。
 
-## 設定連線
+## 設定本機 API
 
-1. 啟動你的本機模型服務，確認已載入模型。
-2. 在遊戲設定填入 API Base URL、模型名稱；API Key 視服務需要選填。
-3. 按「測試連線」確認模型有回覆，再按「儲存 AI 設定」。
-4. 回到十章主線的一般正文頁，按「生成 AI 版」；生成後可在原作與 AI 正文間切換。
+1. 啟動本機模型服務，確認模型已載入並提供 OpenAI 相容的 Chat Completions API。
+2. 在首頁或 AI 自由故事頁按「設定本機 AI」。API Base URL 預設為 `http://127.0.0.1:8686/v1`，也可依你的服務修改。
+3. 填入 API 提供的模型名稱。若服務要求驗證，再填 API Key；不需要 Key 時留白。
+4. 按「測試連線」，看到模型回覆後按「儲存 AI 設定」。
+5. 回到首頁選「開始 AI 自由故事」，設定角色姓名、可選背景和第一個行動。
 
-Ollama 的常見 Base URL 為 `http://localhost:11434/v1`。模型名稱請填本機已安裝的名稱，例如 `qwen2.5:7b`。Ollama 的 OpenAI 相容介面使用 Chat Completions 格式，文件見 [Ollama OpenAI 相容說明](https://ollama.com/blog/openai-compatibility)。
+如果瀏覽器之前保存過其他 API 網址，設定欄會沿用已保存的網址；請改成 `http://127.0.0.1:8686/v1` 後再測試。`127.0.0.1` 指使用瀏覽器的那台電腦。若遊戲由 GitHub Pages 開啟，瀏覽器可能要求允許本機網路存取；本機 AI 服務也要允許遊戲網站的 CORS 來源。
 
-如果遊戲是從 GitHub Pages 開啟，本機 AI 服務必須允許 `https://yuiban76.github.io` 的瀏覽器來源；若在本機執行遊戲，則要允許 `http://127.0.0.1:4173` 或 `http://localhost:4173`。瀏覽器收到 CORS 錯誤時，請在模型服務端開啟對應來源的 CORS 支援。從公開網站存取本機或區域網路 AI 時，瀏覽器可能另行詢問是否允許本機網路存取；按「測試連線」後請允許該權限。
+## 遊玩與存檔
 
-API Key 與模型設定存在目前瀏覽器的 `localStorage`，不會隨存檔匯出。連線由瀏覽器直接送往你填入的 API 網址。AI 改寫結果只保留在目前頁面的記憶體中，不會寫入遊戲存檔；重新整理後仍可讀原作正文，再按一次生成 AI 版。
+AI 大綱放在 [`ai-story-outline.md`](ai-story-outline.md)，只供 AI 自由故事模式使用。玩家每回合輸入角色想做的事，AI 依照大綱、角色背景和最近十二回合對話接續故事。提示詞要求使用清楚、自然的繁體中文白話文，不用文言文或固定選項。
 
-## 改寫範圍
+AI 故事存於瀏覽器 `localStorage` 的 `jianghu:aiStory:v1`，本機 API 設定存於 `jianghu:localAI`。它們不會寫進原作存檔或匯出檔。API Key 也只保存在目前瀏覽器；遊戲會直接由瀏覽器連到設定的 API，不經過遊戲伺服器。清除瀏覽器網站資料會移除這些本機資料。
 
-AI 只改寫目前頁面已顯示的短正文，並收到玩家已讀的近期故事、章節、地點與已選路線作為連續性背景。提示詞要求模型維持第二人稱、繁體中文與原有事件，不新增人物、線索或結果。AI 不改標題、選項、戰鬥、進度、旗標或存檔；原作全文仍可照常展開閱讀。
+修改大綱可直接編輯 `docs/ai-story-outline.md`。部署網站時，這份 Markdown 會和遊戲程式一起提供，並納入 Service Worker 離線快取。
 
 ## 程式呼叫
 
-`src/ai/local-ai.js` 匯出 `callLocalAi(messages)`。它會讀取設定中的網址、模型與 API Key，回傳 `{ content, model, usage }`；傳入 `config` 可覆寫設定。劇情頁使用 `src/ai/story-rewrite.js` 組合已讀內容與當頁正文：
+`src/ai/local-ai.js` 匯出 `callLocalAi(messages)`，使用設定中的網址、模型與 API Key，回傳 `{ content, model, usage }`。`src/ai/interactive-story.js` 匯出獨立存檔函式和 `buildAiStoryMessages()`：
 
 ```js
 import { callLocalAi } from "./ai/local-ai.js";
+import { buildAiStoryMessages } from "./ai/interactive-story.js";
 
-const answer = await callLocalAi([
-  { role: "system", content: "你是江湖說書人。" },
-  { role: "user", content: "用一句話描述雨夜客棧。" },
-]);
-
+const messages = buildAiStoryMessages({ outline, story, action });
+const answer = await callLocalAi(messages);
 console.log(answer.content);
 ```
