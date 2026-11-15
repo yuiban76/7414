@@ -10,7 +10,7 @@ export function initSidequests(world) {
 function progress(world, id) { return world.zhaoye?.sidequests?.[id]; }
 function canAct(world) { const s = world.zhaoye; return !!s && !world.flags.game_complete && !s.activeBattle && !s.aftermath && !s.supplement && !s.events?.[world.currentSceneId]?.operation; }
 export function availableSidequests(world, place = world.currentLocationId) {
-  if (!canAct(world)) return [];
+  if (world.zhaoye?.storyRevision===3 || !canAct(world)) return [];
   return SIDEQUESTS.filter(q => {
     const p = progress(world, q.id);
     if (p?.status === 'completed' || p?.status === 'closed') return false;

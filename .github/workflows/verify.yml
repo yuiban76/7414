@@ -17,7 +17,11 @@ jobs:
           node-version: 24
       - run: npm ci --ignore-scripts
       - run: npm run validate
+      - run: npm run manuscript:v3:release-check
+      - run: npm run story:export
+      - run: git diff --exit-code -- src/data/revenge-story.json
       - run: npm test
+      - run: npm run balance:revenge
       - run: npm run balance
       - run: npm run balance:campaign
       - run: npm run balance:zhaoye

@@ -1,6 +1,6 @@
 {
   "name": "jianghu-rpg",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,12 @@
     "serve": "node scripts/serve.mjs",
     "start": "node server/main.mjs",
     "test:network": "node --test --test-isolation=none tests/network-room.test.mjs",
-    "test:peer": "node --test --test-isolation=none tests/peer-room.test.mjs"
+    "test:peer": "node --test --test-isolation=none tests/peer-room.test.mjs",
+    "manuscript:v3:check": "node scripts/validate-manuscript-v3.mjs --require-volume",
+    "manuscript:v3:report": "node scripts/validate-manuscript-v3.mjs --report",
+    "manuscript:v3:release-check": "node scripts/validate-manuscript-v3.mjs --release",
+    "story:export": "node scripts/export-revenge-runtime.mjs",
+    "balance:revenge": "node scripts/revenge-balance-audit.mjs"
   },
   "engines": {
     "node": ">=20"

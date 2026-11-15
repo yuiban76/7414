@@ -1,3 +1,4 @@
+import { applyRevengeCatalog } from '../src/core/revenge-catalog.js';
 import http from 'node:http';
 import { randomBytes, randomInt, createHash, timingSafeEqual } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -7,7 +8,10 @@ import { ROOM_PROTOCOL_VERSION } from '../src/config/network.js';
 import { RoomStore } from './room-store.mjs';
 import { safeId,text,assertPacket,cleanProfile,normalizeRoomCommand } from '../src/multiplayer/room-protocol.js';
 
-const chapters = JSON.parse(readFileSync(new URL('../src/data/chapters.json',import.meta.url),'utf8')).data;
+const roomCatalog={revengeStory:JSON.parse(readFileSync(new URL('../src/data/revenge-story.json',import.meta.url),'utf8'))};
+for(const key of ['chapters','locations','npcs','factions'])roomCatalog[key]=JSON.parse(readFileSync(new URL(`../src/data/${key}.json`,import.meta.url),'utf8')).data;
+applyRevengeCatalog(roomCatalog);
+const chapters=roomCatalog.chapters;
 const enemies = JSON.parse(readFileSync(new URL('../src/data/enemies.json',import.meta.url),'utf8')).data;
 const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const hash = token => createHash('sha256').update(token).digest('hex');
@@ -64,7 +68,7 @@ export function createRoomServer({origins=['http://localhost:4173','http://127.0
         let code;do{code=Array.from({length:6},()=>alphabet[randomInt(alphabet.length)]).join('');}while(rooms.has(code));
         playerId='p_'+randomBytes(12).toString('hex');token=randomBytes(32).toString('base64url');
         room=roomObject(code);room.controller.playerId=playerId;
-        const chapter=message.chapter??1;if(!Number.isInteger(chapter)||chapter<1||chapter>8)throw new Error('章節無效');
+        const chapter=message.chapter??1;if(!Number.isInteger(chapter)||chapter<1||chapter>chapters.length)throw new Error('章節無效');
         const country=message.country??'dasheng';if(!['dasheng','beishuo','nanli'].includes(country))throw new Error('國別無效');
         room.controller.state={roomId:code,protocolVersion:2,hostPlayerId:playerId,status:'lobby',visibility:'private',players:{[playerId]:{id:playerId,...cleanProfile(message.profile),ready:false,connected:true,lastSeenAt:now(),reconnectDeadline:null}},worldSummary:{worldId:null,worldName:text(message.worldName,'連線江湖',40),country,chapter,sceneId:'room_lobby'},revision:0,pendingCommands:{},authoritativeState:{},vote:null,battle:null,chat:[],actionLines:{together:[playerId]},reconnectDeadline:null,history:[]};
         room.sessions.set(playerId,{tokenHash:hash(token),receipts:[]});save(room);rooms.set(code,room);

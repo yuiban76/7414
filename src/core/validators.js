@@ -2,12 +2,15 @@ import { EFFECT_HANDLERS } from "./effects.js";
 
 export const FORBIDDEN_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 
-export function assertSafeObject(value, path = "root") {
+export function assertSafeObject(value, path = "root", ancestors = new WeakSet(), depth = 0) {
   if (!value || typeof value !== "object") return;
+  if (depth > 80 || ancestors.has(value)) throw new Error("匯入資料包含循環或過深的結構。");
+  ancestors.add(value);
   for (const key of Object.keys(value)) {
     if (FORBIDDEN_KEYS.has(key)) throw new Error(`匯入資料含不安全欄位：${path}.${key}`);
-    assertSafeObject(value[key], `${path}.${key}`);
+    assertSafeObject(value[key], `${path}.${key}`, ancestors, depth + 1);
   }
+  ancestors.delete(value);
 }
 
 export function validateCharacter(character) {

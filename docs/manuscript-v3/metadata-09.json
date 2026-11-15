@@ -1,0 +1,369 @@
+[
+  {
+    "id": "09-01",
+    "intent": "觀察佩劍誘餌與關城",
+    "obstacle": "百姓受監視且正面不可衝",
+    "result": "由砍柴老人得知柴門",
+    "title": "誰都看得見那柄劍"
+  },
+  {
+    "id": "09-01a",
+    "intent": "查清柴門真正出入規矩",
+    "obstacle": "竹簽不能當軍牌且人會被留",
+    "result": "記實際回人差額不逼老人試門",
+    "title": "老人沒有說完的門"
+  },
+  {
+    "id": "09-01b",
+    "intent": "辨明斜牆如何配合刀勢",
+    "obstacle": "新牆壓縮側退空間",
+    "result": "找到待驗的半腳排水溝",
+    "title": "新砌的斜牆"
+  },
+  {
+    "id": "09-01c",
+    "intent": "追問被抓小販去處",
+    "obstacle": "空屋仍有暗探等待",
+    "result": "核實糧棚押人並列救援名",
+    "title": "誰抬頭誰被記下"
+  },
+  {
+    "id": "09-01d",
+    "intent": "把傷者退路實走成形",
+    "obstacle": "直線快卻受外柵控制",
+    "result": "改繞路加煞車且試認傷者",
+    "title": "接應沒有正門"
+  },
+  {
+    "id": "09-02",
+    "intent": "選擇先拆哪道關防",
+    "obstacle": "外柵落石長道互相掩護",
+    "result": "決定斷弩補給或奪左石槽",
+    "title": "先拆他的手",
+    "choice": {
+      "flag": "c9_attack",
+      "options": [
+        {
+          "value": "bolts",
+          "label": "斷弩機補給"
+        },
+        {
+          "value": "stones",
+          "label": "奪左側石槽"
+        }
+      ]
+    }
+  },
+  {
+    "id": "09-02a",
+    "intent": "等柴隊全部離開再動手",
+    "obstacle": "時刻延誤導致換哨",
+    "result": "救出最後車並依新守位啟動",
+    "title": "等最後一車出來"
+  },
+  {
+    "id": "09-02b",
+    "intent": "實施第一處防線破壞",
+    "obstacle": "弩繩或主索不能冒斷",
+    "result": "依選擇斷補弩或安全降左槽",
+    "title": "吊筐與左石槽",
+    "encounter": "gate-preparation"
+  },
+  {
+    "id": "09-02c",
+    "intent": "重畫敵人收縮後的布置",
+    "obstacle": "衛峻不追反向內集中",
+    "result": "明示仍在的另一道防線",
+    "title": "另一道還在"
+  },
+  {
+    "id": "09-02d",
+    "intent": "實測各位置能懂的訊號",
+    "obstacle": "風與門檐阻聲遮視",
+    "result": "重設分段訊號且允看不見時退",
+    "title": "沒有回聲的信號"
+  },
+  {
+    "id": "09-03",
+    "intent": "用軍牌接近柴門",
+    "obstacle": "程渡原計畫只容自己無傷退",
+    "result": "重訂並肩且有傷可走的側門",
+    "title": "留隊：別學我的壞習慣",
+    "when": {
+      "cheng": "stay"
+    },
+    "encounter": "gate-entry-stay"
+  },
+  {
+    "id": "09-03a",
+    "intent": "在被認出後仍照計畫開門",
+    "obstacle": "舊同伍動刀且程渡受傷",
+    "result": "互護退位撐開一車寬缺口",
+    "title": "留隊：認出來的人",
+    "when": {
+      "cheng": "stay"
+    },
+    "encounter": "gate-entry-stay"
+  },
+  {
+    "id": "09-03b",
+    "intent": "守住已開的柴門",
+    "obstacle": "軍牌已暴露而程渡欲赴死",
+    "result": "留他護撤人而非追赴決鬥",
+    "title": "留隊：軍牌放在門邊",
+    "when": {
+      "cheng": "stay"
+    },
+    "encounter": "gate-entry-stay"
+  },
+  {
+    "id": "09-04",
+    "intent": "以修輪車卡開柴門",
+    "obstacle": "閔石不會軍號且薄鑿被搜",
+    "result": "用輪軸缺口合作突破",
+    "title": "離隊：工匠走的門",
+    "when": {
+      "cheng": "leave"
+    },
+    "encounter": "gate-entry-leave"
+  },
+  {
+    "id": "09-04a",
+    "intent": "掩護工匠按約定退出",
+    "obstacle": "倒轅卡住閔石且斷指被認",
+    "result": "主角守刀陸見霜抬轅使其脫身",
+    "title": "離隊：卡住以後",
+    "when": {
+      "cheng": "leave"
+    },
+    "encounter": "gate-entry-leave"
+  },
+  {
+    "id": "09-04b",
+    "intent": "讓工匠在外坡修傷車",
+    "obstacle": "開過的門仍可能重新合",
+    "result": "補撐門並不等離隊者返回",
+    "title": "離隊：接應處的鑿聲",
+    "when": {
+      "cheng": "leave"
+    },
+    "encounter": "gate-entry-leave"
+  },
+  {
+    "id": "09-05a",
+    "intent": "拆掉第一選擇留下的機關",
+    "obstacle": "左槽或弩補給仍可運作",
+    "result": "從內側拆關鍵零件不可重啟",
+    "title": "還沒有拆掉的那一面",
+    "encounter": "gate-machines"
+  },
+  {
+    "id": "09-05b",
+    "intent": "先把推石民夫解鎖",
+    "obstacle": "短鏈牽人且盤軸承重",
+    "result": "報力限合壓長木使四人退開",
+    "title": "推石的人先下來",
+    "encounter": "gate-machines"
+  },
+  {
+    "id": "09-05",
+    "intent": "協作解除右側落石",
+    "obstacle": "衛峻連民夫也罩入攻擊",
+    "result": "走滑道切副索使石擋弩",
+    "title": "不要再送一個人去",
+    "encounter": "gate-machines"
+  },
+  {
+    "id": "09-05c",
+    "intent": "阻止第二層石槽再落",
+    "obstacle": "上槽仍能被扳且長木將斷",
+    "result": "以副索慢放石並棄追兵救眾",
+    "title": "第二塊沒有落下",
+    "encounter": "gate-machines"
+  },
+  {
+    "id": "09-05d",
+    "intent": "拆低牆後藏著的側弩",
+    "obstacle": "射線罩住傷車來路",
+    "result": "貼牆拔軸銷使弩口垂地",
+    "title": "側弩後面的兵",
+    "encounter": "gate-machines"
+  },
+  {
+    "id": "09-05e",
+    "intent": "開糧棚救被押的八人",
+    "obstacle": "人不敢答且名冊漏錯",
+    "result": "報姓名對交接並用車送傷者",
+    "title": "糧棚後的點名"
+  },
+  {
+    "id": "09-05f",
+    "intent": "實造能側踏半腳的空間",
+    "obstacle": "濕苔與鬆石讓計畫未可用",
+    "result": "清溝驗足且列不可踩處",
+    "title": "半隻腳的地方"
+  },
+  {
+    "id": "09-05g",
+    "intent": "在守位就緒後取回師父劍",
+    "obstacle": "衛峻以丟劍誘低頭",
+    "result": "先看腳位再取劍並檢柄刃",
+    "title": "劍鞘裂在今日"
+  },
+  {
+    "id": "09-06a",
+    "intent": "辨第一輪刀的實際方向",
+    "obstacle": "刀背與柄尾比記憶多變",
+    "result": "不硬接且自選退半步",
+    "title": "第一刀不接",
+    "encounter": "wei-final"
+  },
+  {
+    "id": "09-06b",
+    "intent": "在牆邊改變鎖步次序",
+    "obstacle": "衛峻也會封已清出的空",
+    "result": "不守固定點而迫其多付步",
+    "title": "牆邊那半步",
+    "encounter": "wei-final"
+  },
+  {
+    "id": "09-06c",
+    "intent": "在受傷後保住可戰身位",
+    "obstacle": "先見血不等於制勝",
+    "result": "整體換身並留開同伴戰圈",
+    "title": "血先落在誰身上",
+    "encounter": "wei-final"
+  },
+  {
+    "id": "09-06d",
+    "intent": "應對卸披風後的長刀",
+    "obstacle": "角度更廣且近身有甲刺",
+    "result": "以貼柄驗縫並清掉絆腳披風",
+    "title": "披風落地以後",
+    "encounter": "wei-final"
+  },
+  {
+    "id": "09-06e",
+    "intent": "減少力量懸殊的硬接",
+    "obstacle": "內力不增且左手受麻",
+    "result": "卸力令衛峻自行收重刀",
+    "title": "內力沒有忽然長出來",
+    "encounter": "wei-final"
+  },
+  {
+    "id": "09-06f",
+    "intent": "實探甲響與近身距離",
+    "obstacle": "進早受傷且敵人開始改步",
+    "result": "靠眼力重量與聲音共同判斷",
+    "title": "近到聽見甲響",
+    "encounter": "wei-final"
+  },
+  {
+    "id": "09-06g",
+    "intent": "在側兵加入時維持決鬥",
+    "obstacle": "背後仍有黑甲欲切入",
+    "result": "陸見霜攔右側阿硯阻落腳",
+    "title": "背後的人各守一處",
+    "encounter": "wei-final"
+  },
+  {
+    "id": "09-06h",
+    "intent": "迫衛峻重新鎖足沉肩",
+    "obstacle": "衛峻已開始縮步修正",
+    "result": "探步收勢使其再送出半寸",
+    "title": "逼他再鎖一次",
+    "encounter": "wei-final"
+  },
+  {
+    "id": "09-06",
+    "intent": "完成正面討血債的一劍",
+    "obstacle": "重甲與最後肩撞仍強",
+    "result": "實際推劍穿縫殺死衛峻",
+    "title": "斷岳",
+    "encounter": "wei-final"
+  },
+  {
+    "id": "09-07",
+    "intent": "面對報仇之後的空白",
+    "obstacle": "期待痛快卻只感疲憊",
+    "result": "同伴包傷且仍知最後仇人未除",
+    "title": "只剩風聲"
+  },
+  {
+    "id": "09-07a",
+    "intent": "檢傷並先移開危險長刀",
+    "obstacle": "勝後仍想忽略傷勢",
+    "result": "按真實走力停下接受包紮",
+    "title": "先把刀挪遠"
+  },
+  {
+    "id": "09-07b",
+    "intent": "處理糧棚歸還與飢餓",
+    "obstacle": "舊兵不放糧且村人爭認",
+    "result": "多方核帳先煮粥不立新軍令",
+    "title": "糧棚前沒有新軍令"
+  },
+  {
+    "id": "09-07c",
+    "intent": "確認死亡並安置屍身",
+    "obstacle": "示眾欲望與日後清算恐懼",
+    "result": "記實卸甲且不編衛峻悔悟",
+    "title": "甲裡的人怎麼收"
+  },
+  {
+    "id": "09-07d",
+    "intent": "讓取回之劍仍可實用",
+    "obstacle": "舊鞘濕裂且纏線已鬆",
+    "result": "暫纏裂鞘換線由主角收結",
+    "title": "鞘要慢慢修"
+  },
+  {
+    "id": "09-07e",
+    "intent": "找出被漏點的修灶少年",
+    "obstacle": "人數互相推給別隊",
+    "result": "逐名查水窖並改明確交接",
+    "title": "關門以前再數一遍"
+  },
+  {
+    "id": "09-08",
+    "intent": "回應謝欣達的京內清理令",
+    "obstacle": "接應戶將遭集中扣押",
+    "result": "段承許垣接應並寫師門名字",
+    "title": "把名字帶進去"
+  },
+  {
+    "id": "09-08a",
+    "intent": "判明急令的時序與效力",
+    "obstacle": "不能把敵人寫成遠方全知",
+    "result": "核信使路程並留傳信時間",
+    "title": "急令不是空紙"
+  },
+  {
+    "id": "09-08b",
+    "intent": "把京城街圖拆成實際任務",
+    "obstacle": "圖符不同且後門未都授權",
+    "result": "分高處旗與下方弩撤人安排",
+    "title": "街圖不是地圖"
+  },
+  {
+    "id": "09-08c",
+    "intent": "讓支援者回家而非全追入京",
+    "obstacle": "關外傷者與春耕仍需人",
+    "result": "分返程北上並有限點交軍械",
+    "title": "誰回去照應關外"
+  },
+  {
+    "id": "09-08d",
+    "intent": "排演入城車道與藏物",
+    "obstacle": "門檻盤查與後門變動",
+    "result": "換新路並逐人複述完成核驗",
+    "title": "入城前先試一遍"
+  },
+  {
+    "id": "09-08e",
+    "intent": "帶著已寫好的姓名休息",
+    "obstacle": "明日仍危險且師父已死",
+    "result": "收紙留劍並與活著同伴入京",
+    "title": "帶著名字睡一夜"
+  }
+]

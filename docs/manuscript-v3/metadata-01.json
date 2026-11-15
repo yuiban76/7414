@@ -1,0 +1,258 @@
+[
+  {
+    "id": "01-01",
+    "title": "多出來的一副筷子",
+    "intent": "認識師門生活",
+    "obstacle": "米糧不足與客人恐懼",
+    "result": "留下藍邊碗記憶"
+  },
+  {
+    "id": "01-01a",
+    "title": "沒鎖的柴房",
+    "intent": "安頓山門新客",
+    "obstacle": "新客怕被問出來歷",
+    "result": "主角理解照溪門收留人的方式"
+  },
+  {
+    "id": "01-01b",
+    "title": "屋頂上的風",
+    "intent": "修補漏水處",
+    "obstacle": "瓦片鬆動與修繕材料不足",
+    "result": "師兄弟共同完成生活差事"
+  },
+  {
+    "id": "01-01c",
+    "title": "客冊後面的一頁",
+    "intent": "整理師門雜務",
+    "obstacle": "主角對陌生住客不耐",
+    "result": "補足溫守拙保護普通人的具體理由"
+  },
+  {
+    "id": "01-01d",
+    "title": "破碗也能盛飯",
+    "intent": "處理缺口碗",
+    "obstacle": "修理費用與鋦匠眼疾",
+    "result": "師父選擇自己磨碗"
+  },
+  {
+    "id": "01-02",
+    "title": "接住，再走",
+    "intent": "練習接碗收步",
+    "obstacle": "急追導致失衡",
+    "result": "理解基本動作",
+    "encounter": "well-lesson"
+  },
+  {
+    "id": "01-02a",
+    "title": "不能踩的水圈",
+    "intent": "將收步用於對練",
+    "obstacle": "主角急著證明自己",
+    "result": "動作改善但在變招前仍會失衡",
+    "encounter": "well-lesson"
+  },
+  {
+    "id": "01-02b",
+    "title": "兩桶水的路",
+    "intent": "與阿硯共同運水",
+    "obstacle": "師弟不願只做零碎活",
+    "result": "主角承認阿硯擅長安排路線"
+  },
+  {
+    "id": "01-02c",
+    "title": "門上的新告示",
+    "intent": "應對前來收名冊的差役",
+    "obstacle": "官方要求交人與交械",
+    "result": "溫守拙拒絕讓客人被帶走"
+  },
+  {
+    "id": "01-02d",
+    "title": "出門前的刀鞘",
+    "intent": "整備下山",
+    "obstacle": "刀鞘卡刺與行囊太重",
+    "result": "師兄弟帶藥與火折出門"
+  },
+  {
+    "id": "01-03",
+    "title": "兩尺棉布",
+    "intent": "採買察覺收械",
+    "obstacle": "軍隊阻攔",
+    "result": "選擇警告或跟車"
+  },
+  {
+    "id": "01-03a",
+    "title": "橋邊的針攤",
+    "intent": "完成採買",
+    "obstacle": "商販收攤與錢物不足",
+    "result": "阿硯學會讓有限資源真正有用"
+  },
+  {
+    "id": "01-03b",
+    "title": "不賣的鋤頭",
+    "intent": "調查集市氣氛",
+    "obstacle": "收械軍與居民互不信任",
+    "result": "發現收械已殃及謀生工具"
+  },
+  {
+    "id": "01-03c",
+    "title": "留下還是跟上",
+    "intent": "實際演出第一次選擇",
+    "obstacle": "兩條需要立刻行動的路",
+    "result": "取得救人或偵察的不同成果"
+  },
+  {
+    "id": "01-03d",
+    "title": "沒裝回去的風車",
+    "intent": "離開市集",
+    "obstacle": "婦人不敢過車隊",
+    "result": "協助婦人通行並保留小物"
+  },
+  {
+    "id": "01-04",
+    "title": "路上的腳印",
+    "intent": "趕回山門",
+    "obstacle": "傷者與封山",
+    "result": "確認山門危機"
+  },
+  {
+    "id": "01-04a",
+    "title": "被買走的近路",
+    "intent": "將傷者移出軍道",
+    "obstacle": "老漢擔心失去柴與斧頭",
+    "result": "兩人安置傷者並得知封山範圍"
+  },
+  {
+    "id": "01-04b",
+    "title": "石橋下面",
+    "intent": "避過第一支封路隊",
+    "obstacle": "正路被巡兵看住",
+    "result": "棄物穿橋並保持兩人同行"
+  },
+  {
+    "id": "01-04c",
+    "title": "半張求援紙",
+    "intent": "確認遇襲前的痕跡",
+    "obstacle": "路上信物破損與時辰已晚",
+    "result": "主角知道同門曾試圖求助"
+  },
+  {
+    "id": "01-05",
+    "title": "回家",
+    "intent": "尋找同門",
+    "obstacle": "火與黑甲",
+    "result": "羅嫂死亡後向後廊撤離",
+    "encounter": "courtyard"
+  },
+  {
+    "id": "01-05a",
+    "title": "灶後的門",
+    "intent": "離開廚房並救出困者",
+    "obstacle": "火勢與持盾士兵堵路",
+    "result": "打通後廊並確認羅嫂死亡",
+    "encounter": "courtyard"
+  },
+  {
+    "id": "01-05b",
+    "title": "名字別喊了",
+    "intent": "穿過被佔領的後院",
+    "obstacle": "主角本能呼喊會暴露位置",
+    "result": "借熟悉院落移動至後廊",
+    "encounter": "courtyard"
+  },
+  {
+    "id": "01-05c",
+    "title": "第二道火",
+    "intent": "阻止火油流入避難處",
+    "obstacle": "士兵利用排水溝助火",
+    "result": "斷開火路讓撤離者有時間出門",
+    "encounter": "courtyard"
+  },
+  {
+    "id": "01-06",
+    "title": "門柱倒下的時候",
+    "intent": "放出庇護者",
+    "obstacle": "衛峻攻堂",
+    "result": "目睹師父及周讓死亡",
+    "encounter": "courtyard"
+  },
+  {
+    "id": "01-06a",
+    "title": "最後一扇門",
+    "intent": "將庇護者帶離山門",
+    "obstacle": "門閂變形與撤離者驚慌",
+    "result": "阿硯依序放人主角守住後路",
+    "encounter": "courtyard"
+  },
+  {
+    "id": "01-06b",
+    "title": "竹椅過窄坡",
+    "intent": "護送行動不便者下山",
+    "obstacle": "山道過窄且追兵開始搜後院",
+    "result": "分工搬運避免隊伍散開"
+  },
+  {
+    "id": "01-07",
+    "title": "偏了的箭",
+    "intent": "突破封山",
+    "obstacle": "鉤鐮和弓手",
+    "result": "偏箭後脫身",
+    "encounter": "hook-road"
+  },
+  {
+    "id": "01-07a",
+    "title": "箭後的空處",
+    "intent": "避過弓手回追",
+    "obstacle": "主角想確認偏箭者位置",
+    "result": "不因未知善意延誤撤離",
+    "encounter": "hook-road"
+  },
+  {
+    "id": "01-07b",
+    "title": "斷在手裡的刀",
+    "intent": "攔住一小隊追兵",
+    "obstacle": "主角兵器嵌石且體力衰落",
+    "result": "利用山道落木讓眾人先離開",
+    "encounter": "hook-road"
+  },
+  {
+    "id": "01-07c",
+    "title": "誰的腳印",
+    "intent": "避開山口搜查",
+    "obstacle": "難民隊伍的蹤跡過於明顯",
+    "result": "以分段渡溪掩去後路"
+  },
+  {
+    "id": "01-07d",
+    "title": "磨房裡的客人",
+    "intent": "找能暫時躲藏的落腳處",
+    "obstacle": "磨房主人害怕牽連",
+    "result": "以真實勞動與承擔換得半夜庇護"
+  },
+  {
+    "id": "01-07e",
+    "title": "拔不出的木刺",
+    "intent": "清理傷口",
+    "obstacle": "木刺深入肩傷",
+    "result": "薛姨包紮傷者"
+  },
+  {
+    "id": "01-07f",
+    "title": "離開前的爭執",
+    "intent": "分送難民",
+    "obstacle": "逃亡者去處不同",
+    "result": "眾人取得米糧後分散離開"
+  },
+  {
+    "id": "01-07g",
+    "title": "門外那條路",
+    "intent": "嘗試回山確認",
+    "obstacle": "河岸軍隊佔領",
+    "result": "遵守與阿硯約定返回磨房"
+  },
+  {
+    "id": "01-08",
+    "title": "等不到的人",
+    "intent": "等待同門",
+    "obstacle": "無人歸來",
+    "result": "追載鐘軍車至柳橋"
+  }
+]

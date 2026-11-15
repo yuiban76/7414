@@ -1,3 +1,4 @@
+import { revengeIntent, revengeObjective, revengeHit, revengeDamageReduction, resolveRevengeAction } from './revenge-battle.js';
 import { combatFrame } from '../core/combat-presentation.js';
 import { FLOW } from "./exploration-system.js";
 import { escortIntent, escortObjective, escortHit, resolveEscortAction } from "./zhaoye-escort-battle.js";
@@ -42,12 +43,12 @@ export function makeEnemy(definition, skillCatalog, partySize = 2) {
 }
 
 export class BattleSystem {
-  constructor({ party, enemies, rng, scenario=null }) { this.scenario=scenario; this.lastActionResults=[]; if(["8-4","6-4","7-3","8-3","5-4"].includes(scenario?.id))for(const enemy of enemies)enemy.phases=[]; this.party=party; this.enemies=enemies; this.rng=rng; this.round=1; this.log=["刀劍出鞘，戰鬥開始。"] ; this.finished=null; this.prepareIntents(); }
+  constructor({ party, enemies, rng, scenario=null }) { this.scenario=scenario; this.lastActionResults=[]; if(scenario?.kind==="revenge"||["8-4","6-4","7-3","8-3","5-4"].includes(scenario?.id))for(const enemy of enemies)enemy.phases=[]; this.party=party; this.enemies=enemies; this.rng=rng; this.round=1; this.log=["刀劍出鞘，戰鬥開始。"] ; this.finished=null; this.prepareIntents(); }
   get all() { return [...this.party, ...this.enemies]; }
   living(side) { return (side === "party" ? this.party : this.enemies).filter(c => c.hp > 0); }
   prepareIntents() { for (const enemy of this.living("enemy")) enemy.intent = this.chooseEnemyAction(enemy, true); }
   chooseEnemyAction(actor, includeTarget=true) {
-    const scripted=finalIntent(this,actor)??escortIntent(this,actor)??flagIntent(this,actor)??messengerIntent(this,actor)??scrollIntent(this,actor);if(scripted)return scripted;
+    const scripted=revengeIntent(this,actor)??finalIntent(this,actor)??escortIntent(this,actor)??flagIntent(this,actor)??messengerIntent(this,actor)??scrollIntent(this,actor);if(scripted)return scripted;
     const opponents = this.living("party");
     const low = opponents.toSorted((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];
     let type = actor.aiProfile!=='training' && actor.posture/actor.maxPosture < .25 ? "defend" : "attack";
@@ -104,8 +105,8 @@ export class BattleSystem {
     const actionResult={actorId:actor.id,requestedType:action.type,skillId:action.skillId??null,executed:true,usedSkill:false};
     this.lastActionResults.push(actionResult);
     actor.defended=false; actor.defenseHpReduction=0;actor.defensePostureReduction=0; actor.guard=null; actor.dodge=0;
-    if(resolveFinalAction(this,actor,action)||resolveEscortAction(this,actor,action)||resolveFlagAction(this,actor,action)||resolveMessengerAction(this,actor,action)||resolveScrollAction(this,actor,action))return;
-    if(action.type === "objective") { if(actor.side === "party" && this.onScenarioAction) { this.onScenarioAction(this.round); finalObjective(this); escortObjective(this); flagObjective(this); messengerObjective(this); scrollObjective(this); this.log.push(`${actor.name}完成一次場景操作，這回合不另攻擊或防禦。`); } return; }
+    if(resolveRevengeAction(this,actor,action)||resolveFinalAction(this,actor,action)||resolveEscortAction(this,actor,action)||resolveFlagAction(this,actor,action)||resolveMessengerAction(this,actor,action)||resolveScrollAction(this,actor,action))return;
+    if(action.type === "objective") { if(actor.side === "party" && revengeObjective(this))return; if(actor.side === "party" && this.onScenarioAction) { this.onScenarioAction(this.round); finalObjective(this); escortObjective(this); flagObjective(this); messengerObjective(this); scrollObjective(this); this.log.push(`${actor.name}完成一次場景操作，這回合不另攻擊或防禦。`); } return; }
     if (action.type === "defend") { actor.defended=true;actor.defenseHpReduction=BALANCE.defendHpReduction;actor.defensePostureReduction=BALANCE.defendPostureReduction; this.log.push(`${actor.name}沉身守勢。`); return; }
     if (action.type === "observe") { const target=this.find(action.targetId)??this.living("enemy")[0]; if(target){target.observationProgress=(target.observationProgress??target.observed)+1+(actor.observationPct??0);target.observed=Math.min(3,Math.floor(target.observationProgress)); this.log.push(`${actor.name}觀察${target.name}：${target.observeInfo?.[Math.max(0,target.observed-1)]??target.observeInfo?.[0]??"呼吸與步法露出些許端倪"}。`);} return; }
     if (action.type === "guard") { actionResult.executed=false;this.log.push("基本護衛指令已移除；仍可使用護衛型武功，或選擇防禦。");return; }
@@ -142,7 +143,7 @@ export class BattleSystem {
     let target=this.redirectGuard(originalTarget);
     if(target.dodge>0&&this.rng.next()<target.dodge){this.log.push(`${target.name}避開了${actor.name}的攻勢。`);target.dodge=0;this.recordPresentation({type:"dodge",actorId:actor.id,targetId:target.id});return;}
     let hpPower=skill?.power.hp??20, posturePower=skill?.power.posture??11;const postureBonus=skill?.effects?.find(effect=>effect.effectId==="posture_bonus_below_ratio");if(postureBonus&&target.posture/target.maxPosture<=(postureBonus.params.ratio??0)){posturePower*=1+(postureBonus.params.bonus??0);}const brokenBonus=skill?.effects?.find(effect=>effect.effectId==="damage_bonus_below_hp");if(brokenBonus&&target.vulnerableTurns>0)hpPower*=1+(brokenBonus.params.bonus??0);
-    const defenseEffect=target.defended?(target.defenseHpReduction??BALANCE.defendHpReduction)*(1+statusValue(target,"defense")):BALANCE.playerDefense;const defense=Math.min(.75,defenseEffect+(target.damageReduction??0)+buffValue(target,'defense')+(!skill?(target.normalAttackReductionPct??0):0)+(target.guardReductionOnce??0)+finalDamageReduction(this,target)+scrollDamageReduction(this,target));
+    const defenseEffect=target.defended?(target.defenseHpReduction??BALANCE.defendHpReduction)*(1+statusValue(target,"defense")):BALANCE.playerDefense;const defense=Math.min(.75,defenseEffect+(target.damageReduction??0)+buffValue(target,'defense')+(!skill?(target.normalAttackReductionPct??0):0)+(target.guardReductionOnce??0)+revengeDamageReduction(this,target)+finalDamageReduction(this,target)+scrollDamageReduction(this,target));
     const vulnerable=target.vulnerableTurns>0?BALANCE.postureBreakDamageMultiplier:1;
     const outgoing=(actor.damageMultiplier??1)*(1+statusValue(actor,"attackDamage"))*(actor.hp/actor.maxHp<.5?1+(actor.situationalDamagePct??0):1)*(actor.actedAfterEnemy?1+(actor.lateTurnDamagePct??0):1)*(1+(actor.nextAttackBonus??0));actor.nextAttackBonus=0;
     const hpDamage=Math.max(1,Math.round((hpPower+actor.stats.strength*.5+(actor.weaponDamageFlat??0))*(1-defense)*vulnerable*outgoing*(1+buffValue(actor,'damage'))*(.94+this.rng.next()*.12)));
@@ -157,6 +158,7 @@ export class BattleSystem {
     if(newBreak){target.vulnerableTurns=2;this.log.push(`${target.name}架勢崩解，下一回合將持續露出破綻！`);}
     this.events.push({type:'hit',actorId:actor.id,targetId:target.id,hpDamage,postureDamage,triggered});
     if(newBreak){this.events.push({type:'break',actorId:actor.id,targetId:target.id});this.recordPresentation({type:'break',actorId:actor.id,targetId:target.id});}
+    revengeHit(this,actor,target,skill,newBreak);
     if(target.hp===0)this.events.push({type:'kill',actorId:actor.id,targetId:target.id});
     finalHit(this,actor,target,skill,newBreak); escortHit(this,actor,target,skill,newBreak); flagHit(this,actor,target,skill,newBreak); messengerHit(this,actor,target,skill,newBreak); scrollHit(this,actor,target,skill,newBreak); this.triggerPhases(target);
     if(target.hp===0)this.recordPresentation({type:"kill",actorId:actor.id,targetId:target.id});

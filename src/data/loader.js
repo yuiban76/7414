@@ -16,6 +16,10 @@ export async function loadContent() {
   }));
   validateDistributions(content, errors);
   if (errors.length) throw new Error(`內容驗證失敗\n${errors.join("\n")}`);
+  const storyResponse=await fetch(new URL('./revenge-story.json',import.meta.url));
+  if(!storyResponse.ok)throw new Error('十章主線載入失敗');
+  content.revengeStory=await storyResponse.json();
+  if(content.revengeStory.revision!==3||content.revengeStory.chapters?.length!==10)throw new Error('十章主線版本無效');
   return content;
 }
 

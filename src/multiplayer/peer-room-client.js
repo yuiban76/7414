@@ -66,7 +66,7 @@ export class PeerRoomClient {
     this.isHost=true;const bytes=crypto.getRandomValues(new Uint8Array(6));this.code=Array.from(bytes,n=>alphabet[n%alphabet.length]).join('');
     try{
       await this.openPeer(brokerId(this.code));
-      const chapter=options.chapter??1,country=options.country??'dasheng';if(!Number.isInteger(chapter)||chapter<1||chapter>8||!['dasheng','beishuo','nanli'].includes(country))throw new Error('房間章節或國別無效');
+      const chapter=options.chapter??1,country=options.country??'dasheng';if(!Number.isInteger(chapter)||chapter<1||chapter>(this.catalog?.chapters?.length??10)||!['dasheng','beishuo','nanli'].includes(country))throw new Error('房間章節或國別無效');
       this.playerId='p_'+randomHex(12);this.authority=new RoomController({transport:{connect:async()=>{},send:async()=>{}},isHost:true,playerId:this.playerId,now:this.now});
       await this.authority.create({...options,worldName:text(options.worldName,'連線江湖',40),country,chapter,profile:cleanProfile(options.profile)});
       this.authority.state.roomId=this.code;this.authority.state.protocolVersion=3;this.sessions.set(this.playerId,{receipts:[]});
