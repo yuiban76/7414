@@ -61,7 +61,7 @@ const roomDraft={mode:roomInvite?.mode??'peer',server:roomInvite?.server??defaul
 
 boot();
 
-if ("serviceWorker" in navigator && location.protocol !== "file:") window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+if ("serviceWorker" in navigator && location.protocol !== "file:") window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=0.7.2",{updateViaCache:'none'}).catch(()=>{}));
 
 async function boot() {
   try { state.content=await loadContent();applyRevengeCatalog(state.content);applySettings(); state.screen="home"; render(); }

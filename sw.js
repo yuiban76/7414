@@ -1,5 +1,5 @@
 const PREFIX=`jianghu-rpg:${self.registration.scope}:`;
-const CACHE=PREFIX+'0.7.2-paced-story';
+const CACHE=PREFIX+'0.7.2-paced-story-release';
 const MODULES={
  config:['network','constants','balance','inner-refinement','skill-archetypes'],
  core:['revenge-engine','revenge-catalog','combat-presentation','effects','game-engine','migrations','rng','story','validators','zhaoye-catalog','zhaoye-engine','zhaoye-story','zhaoye-reactions','zhaoye-callbacks','zhaoye-supplements','zhaoye-fates'],
@@ -12,13 +12,14 @@ const MODULES={
 const LOCATION_ART=Array.from({length:18},(_,i)=>`./assets/locations/location_${String(i+1).padStart(3,'0')}.jpg`);
 const COMPANION_ART=['ye','shen','yin','ashina','su'].map(name=>`./assets/companions/${name}.png`);
 const SKILL_ART=['blade','sword','spear','staff','fist','needlecast','pressurepoint','grappling','defense','healing','rally','footwork','qi','posture'].map(name=>`./assets/skills/${name}.jpg`);
-const SHELL=['./src/data/revenge-story.json','./assets/vendor/peerjs-1.5.5.min.js','./','./index.html','./404.html','./manifest.webmanifest','./styles/tokens.css','./styles/base.css','./styles/layout.css','./styles/layout.css?v=map-20260924','./styles/components.css','./styles/combat.css','./src/app.js','./src/app.js?v=road-20260924','./src/systems/travel-system.js?v=road-20260924','./src/ui/journey-view.js?v=road-20260924',...Object.entries(MODULES).flatMap(([folder,names])=>names.map(name=>`./src/${folder}/${name}.js`)),...['skills','talents','inner-arts','equipment','items','npcs','enemies','factions','locations','quests','chapters'].map(name=>`./src/data/${name}.json`),...LOCATION_ART,...COMPANION_ART,...SKILL_ART];
+const RELEASE_ASSETS=['./src/app.js','./styles/components.css','./src/config/constants.js','./src/core/revenge-engine.js','./src/systems/revenge-battle.js','./src/data/loader.js','./src/data/revenge-story.json'].map(path=>path+'?v=0.7.2');
+const SHELL=[...RELEASE_ASSETS,'./src/data/revenge-story.json','./assets/vendor/peerjs-1.5.5.min.js','./','./index.html','./404.html','./manifest.webmanifest','./styles/tokens.css','./styles/base.css','./styles/layout.css','./styles/layout.css?v=map-20260924','./styles/components.css','./styles/combat.css','./src/app.js','./src/app.js?v=road-20260924','./src/systems/travel-system.js?v=road-20260924','./src/ui/journey-view.js?v=road-20260924',...Object.entries(MODULES).flatMap(([folder,names])=>names.map(name=>`./src/${folder}/${name}.js`)),...['skills','talents','inner-arts','equipment','items','npcs','enemies','factions','locations','quests','chapters'].map(name=>`./src/data/${name}.json`),...LOCATION_ART,...COMPANION_ART,...SKILL_ART];
 const IDENTITY_ART=['constable','escort','healer','hunter','beggar','wanderer'].map(name=>`./assets/identities/${name}.jpg`);
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll([...SHELL,...IDENTITY_ART].map(url=>new Request(url,{cache:'reload'})))).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith(PREFIX)&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
  if(event.request.method!=='GET'||new URL(event.request.url).origin!==self.location.origin)return;
- event.respondWith(fetch(event.request).then(response=>{
+ event.respondWith(fetch(event.request,{cache:'no-cache'}).then(response=>{
   if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{}));}
   return response;
  }).catch(async()=>await caches.match(event.request)||Response.error()));

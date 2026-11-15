@@ -1,5 +1,6 @@
 import { DATASETS } from "./manifest.js";
 import { validateDataset } from "../core/validators.js";
+import { GAME_VERSION } from '../config/constants.js';
 
 const EXPECTED_COUNTS = { skills: 100, talents: 50, "inner-arts": 17, equipment: 300, items: 50, npcs: 24, enemies: 70, factions: 12, locations: 18, quests: 8, chapters: 8 };
 
@@ -16,7 +17,9 @@ export async function loadContent() {
   }));
   validateDistributions(content, errors);
   if (errors.length) throw new Error(`內容驗證失敗\n${errors.join("\n")}`);
-  const storyResponse=await fetch(new URL('./revenge-story.json',import.meta.url));
+  const storyUrl=new URL('./revenge-story.json',import.meta.url);
+  storyUrl.searchParams.set('v',GAME_VERSION);
+  const storyResponse=await fetch(storyUrl,{cache:'no-cache'});
   if(!storyResponse.ok)throw new Error('十章主線載入失敗');
   content.revengeStory=await storyResponse.json();
   if(content.revengeStory.revision!==3||content.revengeStory.chapters?.length!==10)throw new Error('十章主線版本無效');
