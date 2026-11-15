@@ -7,6 +7,7 @@ const han=text=>(text.match(/\p{Script=Han}/gu)??[]).length;
 const invariant=(value,message)=>{if(!value)throw new Error(message);};
 
 export function readChapter(text){
+  text=text.replace(/\r\n?/g,'\n');
   const headings=[...text.matchAll(/^## (\d{2}-\d{2}[a-z]?)[ \t\u3000]+([^\r\n]+)$/gm)];
   return headings.map((m,i)=>({id:m[1],title:m[2].trim(),body:text.slice(m.index+m[0].length,headings[i+1]?.index??text.length).trim()}));
 }
