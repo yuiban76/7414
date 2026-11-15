@@ -6,6 +6,9 @@ import { REVENGE_ENCOUNTERS, createRevengeEncounter, revengeBattleGoal, validate
 import { BattleSystem, makeEnemy, makePlayerCombatant } from '../src/systems/battle-system.js';
 import { canRecruit } from '../src/systems/npc-system.js';
 import { SeededRng } from '../src/core/rng.js';
+import { renderScenarioAction } from '../src/ui/battle-objective-view.js';
+import { TenChapterEngine, createTenChapterState } from '../src/core/revenge-engine.js';
+import { packBattle, restoreBattle } from '../src/persistence/battle-snapshot.js';
 
 const read=name=>JSON.parse(fs.readFileSync(new URL(`../src/data/${name}.json`,import.meta.url),'utf8')).data;
 const content=Object.fromEntries(['skills','enemies','chapters','locations','npcs','factions'].map(n=>[n,read(n)]));
@@ -72,4 +75,50 @@ test('scenario validation is pure and rejects altered objectives, enemy identity
   }
   const forged=structuredClone(snapshot);forged.enemies[0].name='舊版反派';assert.equal(validateRevengeBattleScenario(forged.scenario,forged),false);
   assert.equal(JSON.stringify(snapshot),original);
+});
+
+test('rendered scene actions remain enabled without a deadline and honor finite deadlines',()=>{
+  for(const id of Object.keys(REVENGE_ENCOUNTERS)){
+    const goal=revengeBattleGoal(battleFor(id));
+    for(const round of [1,50,200]){
+      const html=renderScenarioAction(goal,round);
+      assert.match(html,/data-combat-action='\{"type":"objective"\}'/,id);
+      assert.doesNotMatch(html,/disabled|已超過期限/,id);
+    }
+  }
+  const goal={done:0,objectives:['接住茶碗'],limit:3};
+  assert.doesNotMatch(renderScenarioAction(goal,3),/disabled|已超過期限/);
+  assert.match(renderScenarioAction(goal,4),/ disabled/);
+  assert.match(renderScenarioAction(goal,4),/已超過期限/);
+  assert.equal(renderScenarioAction({...goal,done:1},4),'');
+  assert.equal(renderScenarioAction(null,1),'');
+});
+
+test('a first battle saved after subduing the teacher can use the rendered action and continue the story',()=>{
+  const story=content.revengeStory,character={id:'hero',moneyWen:0,cultivation:0};
+  const world={chapter:1,flags:{},quests:{},clock:{day:1,segment:'evening'},visitedLocations:[],party:{playerIds:['hero'],npcIds:[]},npcStates:{},zhaoye:createTenChapterState(story)};
+  const engine=new TenChapterEngine({world,character,content});
+  while(!engine.sceneView().choices[0].id.startsWith('battle:'))engine.choose(engine.sceneView().choices[0].id);
+  const choice=engine.choose(engine.sceneView().choices[0].id);
+  assert.equal(choice.revengeEncounter,'well-lesson');
+  let battle=battleFor(choice.revengeEncounter);
+  while(!battle.scenario.subdued&&!battle.finished&&battle.round<60)battle.submit({type:'attack',targetId:battle.enemies[0].id});
+  assert.equal(battle.finished,null);
+  assert.equal(battle.scenario.subdued,true);
+  assert.equal(battle.enemies[0].hp,1);
+  const restored=restoreBattle(JSON.parse(JSON.stringify(packBattle(battle,choice))));
+  battle=restored.battle;
+  const html=renderScenarioAction(revengeBattleGoal(battle),battle.round);
+  assert.doesNotMatch(html,/disabled|已超過期限/);
+  const action=JSON.parse(html.match(/data-combat-action='([^']+)'/)[1]);
+  battle.submit(action);
+  assert.equal(battle.finished,'victory');
+  assert.equal(validateRevengeBattleScenario(battle.scenario,battle.snapshot()),true);
+  engine.finishBattle(restored.choice,battle.finished,battle.scenario);
+  assert.equal(engine.needsBattle(),false);
+  assert.match(engine.sceneView().choices[0].id,/^continue:/);
+  const scene=world.currentSceneId;
+  engine.choose(engine.sceneView().choices[0].id);
+  assert.notEqual(world.currentSceneId,scene);
+  assert.deepEqual(world.zhaoye.completedEncounters,['well-lesson']);
 });

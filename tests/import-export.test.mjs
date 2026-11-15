@@ -40,7 +40,7 @@ test.beforeEach(async()=>clearAllSaves());
 test('schema five export round trip verifies checksum and ten-chapter references',async()=>{
  const run=fresh();seek(run,r=>r.world.chapter===10);
  const exported=await createExportBundle({worlds:[run.world],characters:[run.character],settings:{textSize:'standard'}});
- assert.equal(exported.schemaVersion,5);assert.equal(exported.gameVersion,'0.7.0');
+ assert.equal(exported.schemaVersion,5);assert.equal(exported.gameVersion,GAME_VERSION);
  const parsed=await parseImport(JSON.stringify(exported));assert.equal(parsed.summary.worlds,1);assert.equal(parsed.bundle.worlds[0].chapter,10);assert.deepEqual(parsed.bundle.worlds[0].zhaoye,run.world.zhaoye);
 });
 test('tampered export and unsafe keys are rejected before restoration',async()=>{

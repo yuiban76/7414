@@ -1,10 +1,10 @@
 const PREFIX=`jianghu-rpg:${self.registration.scope}:`;
-const CACHE=PREFIX+'0.7.0-ten-chapter-story';
+const CACHE=PREFIX+'0.7.1-battle-objective';
 const MODULES={
  config:['network','constants','balance','inner-refinement','skill-archetypes'],
  core:['revenge-engine','revenge-catalog','combat-presentation','effects','game-engine','migrations','rng','story','validators','zhaoye-catalog','zhaoye-engine','zhaoye-story','zhaoye-reactions','zhaoye-callbacks','zhaoye-supplements','zhaoye-fates'],
  data:['loader','manifest','zhaoye-script','zhaoye-narrative','zhaoye-sidequests'],
- ui:['revenge-view','room-view','sidequest-view','combat-director','journey-view','starting-skill-view','skill-display','skill-art','shop-labels','level-view'],
+ ui:['battle-objective-view','revenge-view','room-view','sidequest-view','combat-director','journey-view','starting-skill-view','skill-display','skill-art','shop-labels','level-view'],
  systems:['revenge-battle','exploration-system','battle-system','zhaoye-final-battle','zhaoye-escort-battle','zhaoye-flag-battle','zhaoye-messenger-battle','zhaoye-scroll-battle','economy-system','faction-system','identity-system','inventory-system','npc-system','office-system','progression-system','quest-system','realm-system','road-encounter','talent-system','training-system','travel-system','vote-system','sidequest-system'],
  persistence:['revenge-save-validation','checksum','import-export','indexeddb','save-service','battle-snapshot'],
  multiplayer:['local-transport','room-controller','room-transport','websocket-transport','remote-room-client','network-config','room-protocol','peer-room-client']

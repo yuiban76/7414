@@ -6,6 +6,8 @@
 
 ## 十章正文與作者資料
 
+目前修正版為 0.7.1：修正第一場與後續交鋒的場景按鈕誤鎖。0.7.0 的存檔可繼續使用，重整後點選「場景行動」完成接碗即可結束師父切磋，不必重新開局。
+
 [十章復仇主線完整作者稿](docs/manuscript-v3/README.md) 是目前遊戲正文來源，保留分場資料、選擇後果與兩套校稿閱讀版。`npm run story:export` 產生遊戲使用的 `src/data/revenge-story.json`；`npm run manuscript:v3:check` 檢查正文、分支與伏筆。實際份量見 [交付狀態](docs/manuscript-v3/status.md)。舊版八章、十二支線與拳譜奇遇保留在原始資料及舊作者稿，未混入本次十章人物與時間線；舊版 `npm run manuscript` 維持原用途。
 
 跨裝置連線沿用 PeerJS／WebRTC，透過 PeerServer Cloud 接應，無須自架常駐主機；另保留可部署的 WebSocket 服務。
