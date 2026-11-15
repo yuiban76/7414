@@ -1,4 +1,4 @@
-export const GAME_VERSION = "0.7.2";
+export const GAME_VERSION = "0.7.3";
 export const SCHEMA_VERSION = 5;
 export const CONTENT_VERSION = "3.0.0";
 export const DB_NAME = "jianghu-rpg";
