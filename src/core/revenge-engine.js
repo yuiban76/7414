@@ -133,6 +133,22 @@ export class TenChapterEngine {
     return (scene.encounter==='xie-final'?visible.at(-1):visible[0])?.id === scene.id;
   }
 
+  readingPage() {
+    const first=this.current, flags=this.state.choices;
+    if(!this.story.presentation || first.choice&&flags[first.choice.flag]==null || this.needsBattle(first))return [first];
+    const page=[],start=this.byId.get(first.id).index;
+    let size=0;
+    for(const row of this.rows.slice(start)){
+      if(row.chapter!==first.chapter)break;
+      if(!matches(row,flags))continue;
+      if(page.length&&(row.choice||this.needsBattle(row)||/^\d{2}-\d{2}$/.test(row.id)))break;
+      const length=(renderRevengeText(row.playText??row.text,flags).match(/\p{Script=Han}/gu)??[]).length;
+      if(page.length&&(page.length>=4||size+length>600))break;
+      page.push(row);size+=length;
+    }
+    return page;
+  }
+
   sceneView() {
     const w = this.world, s = this.state, scene = this.current;
     if (s.chapterSafe) {
@@ -155,8 +171,9 @@ export class TenChapterEngine {
     const choice = scene.choice;
     if (choice && s.choices[choice.flag] == null) {
       const text = this.needsBattle(scene) ? '眼前需要作出決定。選定路線後，再處理這一場交鋒。'
-        : renderRevengeText(scene.text, s.choices, { pendingFlag:choice.flag });
+        : renderRevengeText(scene.playText??scene.text, s.choices, { pendingFlag:choice.flag });
       return { id:scene.id, title:scene.title, chapter:scene.chapter, text:text || '先決定接下來的路線。',
+        fullText:this.needsBattle(scene)?null:renderRevengeText(scene.text,s.choices,{pendingFlag:choice.flag}),
         choices:choice.options.map(option => ({ id:`pick:${scene.id}:${choice.flag}:${option.value}`, label:option.label, major:true })) };
     }
     if (this.needsBattle(scene)) {
@@ -166,14 +183,17 @@ export class TenChapterEngine {
         id:scene.id, title:scene.title, chapter:scene.chapter, danger:true,
         text:battle?.status === 'defeated'
           ? '這次交鋒未能完成。進度停在原處，場景結果尚未發生；可整備後重試。'
-          : '前方的交鋒尚未解決。先應戰，完成後再讀這一段經過。',
+          : this.story.battleLeads?.[scene.encounter]??'前方的交鋒尚未解決。先應戰，完成後再讀這一段經過。',
         choices:[{ id:`battle:${scene.id}:${action}`, label:battle?.status === 'defeated' ? '重新應戰' : battle?.status === 'active' ? '繼續交鋒' : '開始交鋒' }],
       };
     }
     const phase = scene.encounter && s.completedEncounters.includes(scene.encounter) ? 'won' : choice ? 'chosen' : 'read';
+    const page=this.readingPage();
     return { id:scene.id, title:scene.title, chapter:scene.chapter,
-      text:renderRevengeText(scene.text, s.choices),
-      choices:[{ id:`continue:${scene.id}:${phase}`, label:'讀完這一頁，繼續' }],
+      text:page.map(row=>renderRevengeText(row.playText??row.text,s.choices)).join('\n\n'),
+      fullText:page.map(row=>renderRevengeText(row.text,s.choices)).join('\n\n'),
+      sceneIds:page.map(row=>row.id),
+      choices:[{ id:`continue:${scene.id}:${phase}`, label:'繼續' }],
     };
   }
 
@@ -224,13 +244,18 @@ export class TenChapterEngine {
 
   advance(id) {
     const w = this.world, s = this.state, scene = this.current;
-    s.events[scene.id] = { ...(s.events[scene.id] ?? {}), status:'completed' };
-    if (!s.readSceneIds.includes(scene.id)) s.readSceneIds.push(scene.id);
-    if (!s.history.includes(scene.id)) s.history.push(scene.id);
-    const index = this.byId.get(scene.id).index;
+    const page=this.readingPage();
+    for(const row of page){
+      s.events[row.id] = { ...(s.events[row.id] ?? {}), status:'completed' };
+      if (!s.readSceneIds.includes(row.id)) s.readSceneIds.push(row.id);
+      if (!s.history.includes(row.id)) s.history.push(row.id);
+    }
+    const index = this.byId.get(page.at(-1).id).index;
     const next = this.rows.slice(index + 1).find(row => matches(row, s.choices));
     let result = { id, eventId:scene.id };
     if (!next || next.chapter !== w.chapter) {
+      s.cursor=page.at(-1).id;
+      w.currentSceneId=s.cursor;
       s.chapterSafe = true;
       w.flags[`chapter_${w.chapter}_complete`] = true;
       w.quests[`quest_chapter_${w.chapter}`] = 'completed';

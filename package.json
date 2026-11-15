@@ -1,6 +1,6 @@
 {
   "name": "jianghu-rpg",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -21,7 +21,8 @@
     "manuscript:v3:report": "node scripts/validate-manuscript-v3.mjs --report",
     "manuscript:v3:release-check": "node scripts/validate-manuscript-v3.mjs --release",
     "story:export": "node scripts/export-revenge-runtime.mjs",
-    "balance:revenge": "node scripts/revenge-balance-audit.mjs"
+    "balance:revenge": "node scripts/revenge-balance-audit.mjs",
+    "story:pacing": "node scripts/audit-play-edition.mjs"
   },
   "engines": {
     "node": ">=20"

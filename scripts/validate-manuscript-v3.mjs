@@ -111,7 +111,7 @@ function report(r){
     '## 遊玩時長與本輪界線',
     '- 二十小時是十章主線的設計目標，掛機、刷怪、戰敗重試與支線不計。目前未取得主線實測時長。',
     '- 依使用者「二十小時實測先不用，先接入遊戲並推送」的指示，本輪完成遊戲接入並暫緩時長實測。playtestDeferred=true 不等同 playtimeVerified=true。',
-    '- 遊戲版本 0.7.0／故事修訂 3／存檔格式 5：十章正文、選擇、交鋒及結尾已接入；舊資料保留，但必須重新創角。測試與限制見 [整合驗收](../revenge-integration-status.md)。',
+    '- 故事修訂 3／存檔格式 5：十章正文、選擇、交鋒及結尾已接入。0.7.2 起預設使用 [精簡主線](../play-edition/README.md)，此表的完整版作者稿字數不等於玩家必讀量。測試與限制見 [整合驗收](../revenge-integration-status.md)。',
     '## 各章份量',
     '| 章 | 章名 | 單路徑漢字 | 目標分鐘（未實測） |\n|---|---|---:|---:|\n'+r.byChapter.map(c=>'| '+c.chapter+' | '+c.title+' | '+number(c.minHan)+'～'+number(c.maxHan)+' | '+c.targetMinutes+' |').join('\n'),
     '## 檢查指令',

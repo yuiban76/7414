@@ -1,0 +1,187 @@
+{
+  "edition": "paced",
+  "originalRouteScenes": 397,
+  "branchTextPaths": 1024,
+  "routeTextHan": [
+    32496,
+    32552
+  ],
+  "routes": [
+    {
+      "route": "first-options",
+      "pages": 144,
+      "han": 32547,
+      "fullHan": 147516,
+      "chapters": [
+        {
+          "chapter": 1,
+          "title": "山門血夜",
+          "pages": 12,
+          "han": 3001,
+          "fullHan": 14544,
+          "largestPage": 353
+        },
+        {
+          "chapter": 2,
+          "title": "雨巷追魂",
+          "pages": 13,
+          "han": 3130,
+          "fullHan": 14629,
+          "largestPage": 339
+        },
+        {
+          "chapter": 3,
+          "title": "血債山莊",
+          "pages": 15,
+          "han": 3252,
+          "fullHan": 14786,
+          "largestPage": 355
+        },
+        {
+          "chapter": 4,
+          "title": "義旗藏刃",
+          "pages": 15,
+          "han": 2907,
+          "fullHan": 14655,
+          "largestPage": 316
+        },
+        {
+          "chapter": 5,
+          "title": "權門赴宴",
+          "pages": 14,
+          "han": 3038,
+          "fullHan": 14588,
+          "largestPage": 330
+        },
+        {
+          "chapter": 6,
+          "title": "斷岳壓城",
+          "pages": 13,
+          "han": 3074,
+          "fullHan": 14643,
+          "largestPage": 382
+        },
+        {
+          "chapter": 7,
+          "title": "殘招再起",
+          "pages": 14,
+          "han": 3172,
+          "fullHan": 15374,
+          "largestPage": 316
+        },
+        {
+          "chapter": 8,
+          "title": "千里索命",
+          "pages": 16,
+          "han": 3343,
+          "fullHan": 14740,
+          "largestPage": 325
+        },
+        {
+          "chapter": 9,
+          "title": "黑甲終局",
+          "pages": 15,
+          "han": 3372,
+          "fullHan": 14651,
+          "largestPage": 342
+        },
+        {
+          "chapter": 10,
+          "title": "照夜而行",
+          "pages": 17,
+          "han": 4258,
+          "fullHan": 14906,
+          "largestPage": 379
+        }
+      ]
+    },
+    {
+      "route": "second-options",
+      "pages": 144,
+      "han": 32501,
+      "fullHan": 147407,
+      "chapters": [
+        {
+          "chapter": 1,
+          "title": "山門血夜",
+          "pages": 12,
+          "han": 2990,
+          "fullHan": 14523,
+          "largestPage": 353
+        },
+        {
+          "chapter": 2,
+          "title": "雨巷追魂",
+          "pages": 13,
+          "han": 3122,
+          "fullHan": 14601,
+          "largestPage": 339
+        },
+        {
+          "chapter": 3,
+          "title": "血債山莊",
+          "pages": 15,
+          "han": 3238,
+          "fullHan": 14783,
+          "largestPage": 355
+        },
+        {
+          "chapter": 4,
+          "title": "義旗藏刃",
+          "pages": 15,
+          "han": 2901,
+          "fullHan": 14605,
+          "largestPage": 315
+        },
+        {
+          "chapter": 5,
+          "title": "權門赴宴",
+          "pages": 14,
+          "han": 3032,
+          "fullHan": 14546,
+          "largestPage": 330
+        },
+        {
+          "chapter": 6,
+          "title": "斷岳壓城",
+          "pages": 13,
+          "han": 3076,
+          "fullHan": 14611,
+          "largestPage": 382
+        },
+        {
+          "chapter": 7,
+          "title": "殘招再起",
+          "pages": 14,
+          "han": 3173,
+          "fullHan": 15394,
+          "largestPage": 316
+        },
+        {
+          "chapter": 8,
+          "title": "千里索命",
+          "pages": 16,
+          "han": 3347,
+          "fullHan": 14772,
+          "largestPage": 325
+        },
+        {
+          "chapter": 9,
+          "title": "黑甲終局",
+          "pages": 15,
+          "han": 3373,
+          "fullHan": 14639,
+          "largestPage": 342
+        },
+        {
+          "chapter": 10,
+          "title": "照夜而行",
+          "pages": 17,
+          "han": 4249,
+          "fullHan": 14933,
+          "largestPage": 371
+        }
+      ]
+    }
+  ]
+}

@@ -63,6 +63,10 @@ test('both complete authored routes survive JSON reload at every action and reac
       const raw = rows.find(scene => scene.id === before);
       const view = run.engine.sceneView();
       assert.doesNotMatch(view.text, /^\s*>|^### /m);
+      if(story.presentation){
+        assert.ok((view.text.match(/\p{Script=Han}/gu)??[]).length<=600,`overlong page ${before}`);
+        assert.ok((view.sceneIds?.length??1)<=4);
+      }
       assert.ok(!run.world.party.npcIds.some(id => !['npc_001', 'npc_002', 'npc_003'].includes(id)));
       if (view.choices[0]?.id.startsWith('battle:')) {
         assert.doesNotMatch(view.text, /死亡|劍送進|跪下仍/);
@@ -71,7 +75,7 @@ test('both complete authored routes survive JSON reload at every action and reac
       const choice = view.choices[view.choices.length > 1 ? variant : 0];
       assert.ok(choice, before);
       const result = run.engine.choose(choice.id);
-      if (choice.id.startsWith('continue:')) seen.push(before);
+      if (choice.id.startsWith('continue:')) seen.push(...(view.sceneIds??[before]));
       if (result.complete) chapterRewards.push(result.completedChapter);
       if (result.battle) {
         const encounterScenes = rows.filter(scene => scene.encounter === result.revengeEncounter && match(scene, run.world.zhaoye.choices));
@@ -111,6 +115,61 @@ test('both complete authored routes survive JSON reload at every action and reac
       assert.ok(expected.includes('09-03') && !expected.includes('09-04'));
     }
   }
+});
+
+test('paced pages stop before choices and battles and preserve every experienced beat on reload',()=>{
+  const run=fresh();
+  if(!story.presentation)return;
+  const first=run.engine.sceneView();
+  assert.ok(first.sceneIds.length>1);
+  assert.ok(first.fullText.length>first.text.length*2);
+  const originalHistory=[...run.world.zhaoye.history];
+  assert.deepEqual(originalHistory,[],'opening optional prose cannot record progress');
+  run.engine.choose(first.choices[0].id);
+  assert.deepEqual(run.world.zhaoye.history,first.sceneIds);
+  reload(run);
+  let pages=1;
+  while(!run.world.flags.game_complete){
+    const view=run.engine.sceneView();
+    if(view.sceneIds){
+      pages++;
+      for(const id of view.sceneIds.slice(1)){
+        const row=rows.find(s=>s.id===id);
+        assert.ok(!row.choice,`${id} choice skipped by batching`);
+        assert.equal(run.engine.needsBattle(row),false,`${id} battle skipped by batching`);
+      }
+    }
+    enterNext(run);reload(run);
+  }
+  assert.ok(pages<170,`still too many mandatory reading pages: ${pages}`);
+});
+
+test('an existing save in the middle of a new reading batch continues from its own cursor',()=>{
+  const run=fresh();
+  if(!story.presentation)return;
+  const legacyContent=structuredClone(story);delete legacyContent.presentation;
+  const old=fresh(legacyContent);
+  enterNext(old);
+  assert.equal(old.world.currentSceneId,'01-01a');
+  reload(old);
+  const resumed=old.engine.sceneView();
+  assert.equal(resumed.sceneIds[0],'01-01a');
+  assert.ok(!resumed.sceneIds.includes('01-01'));
+  old.engine.choose(resumed.choices[0].id);
+  assert.equal(old.world.zhaoye.history[0],'01-01');
+  assert.deepEqual(old.world.zhaoye.history.slice(1),resumed.sceneIds);
+});
+
+test('both concise text and optional full prose hide unresolved and unselected choice results',()=>{
+  const chapter={chapter:1,title:'試章',place:'試場',locationId:'test-place',scenes:[{id:'01-01',title:'選路',text:'完整前言\n### [road=left]\n左路詳細經過\n### [road=right]\n右路詳細經過\n### 共通\n完整後果',playText:'簡短前言\n### [road=left]\n左路結果\n### [road=right]\n右路結果\n### 共通\n簡短後果',choice:{flag:'road',options:[{value:'left',label:'走左路'},{value:'right',label:'走右路'}]}}]};
+  const run=fresh({revision:3,presentation:{edition:'paced'},flags:{road:['left','right']},chapters:[chapter]});
+  const preview=run.engine.sceneView();
+  assert.equal(preview.text,'簡短前言');
+  assert.equal(preview.fullText,'完整前言');
+  run.engine.choose(preview.choices[0].id);
+  const chosen=run.engine.sceneView();
+  assert.match(chosen.text,/左路結果/);assert.match(chosen.fullText,/左路詳細經過/);
+  assert.doesNotMatch(chosen.text+chosen.fullText,/右路/);
 });
 
 test('choice stays on its scene, survives reload, exposes one result and rejects stale clicks', () => {

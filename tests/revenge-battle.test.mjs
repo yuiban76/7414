@@ -122,3 +122,15 @@ test('a first battle saved after subduing the teacher can use the rendered actio
   assert.notEqual(world.currentSceneId,scene);
   assert.deepEqual(world.zhaoye.completedEncounters,['well-lesson']);
 });
+
+test('renamed encounter descriptions keep revision-three active battles loadable',()=>{
+  for(const [id,name]of Object.entries({'yue-ash-guard':'岳家守旗弟子','terrace-practice':'松嶺試劍弟子','river-borrow-fire':'河道巡兵','wei-siege':'衛峻','capital-relay':'謝府傳令騎'})){
+    const battle=battleFor(id),saved=packBattle(battle,{revengeEncounter:id});
+    saved.enemies[0].name=name;
+    assert.equal(validateRevengeBattleScenario(saved.scenario,saved),true,id);
+    const restored=restoreBattle(JSON.parse(JSON.stringify(saved))).battle;
+    assert.equal(restored.round,battle.round);
+    restored.submit({type:'objective'});
+    assert.equal(restored.scenario.objectiveProgress,1);
+  }
+});

@@ -1,5 +1,5 @@
 const PREFIX=`jianghu-rpg:${self.registration.scope}:`;
-const CACHE=PREFIX+'0.7.1-battle-objective';
+const CACHE=PREFIX+'0.7.2-paced-story';
 const MODULES={
  config:['network','constants','balance','inner-refinement','skill-archetypes'],
  core:['revenge-engine','revenge-catalog','combat-presentation','effects','game-engine','migrations','rng','story','validators','zhaoye-catalog','zhaoye-engine','zhaoye-story','zhaoye-reactions','zhaoye-callbacks','zhaoye-supplements','zhaoye-fates'],
