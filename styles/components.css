@@ -49,6 +49,13 @@
 .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem; border-bottom: 1px solid var(--ink-700); }
 .modal-head h2 { margin: 0; }
 .modal-content { padding: 1rem; }
+.room-journal { border-top:1px solid var(--ink-700); margin-top:1.5rem; padding-top:1rem; }
+.room-journal textarea { display:block; width:100%; font:inherit; resize:vertical; }
+.room-journal summary { cursor:pointer; min-height:44px; padding-block:.55rem; }
+.room-journal-log,.room-journal-events { max-height:24rem; overflow:auto; overflow-wrap:anywhere; }
+.room-journal-log { display:grid; gap:.65rem; margin-block:1rem; }
+.room-journal-events { padding-inline-start:1.5rem; }
+.room-journal-events li:focus { outline:2px solid var(--gold); outline-offset:-2px; }
 .settings-section { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--ink-700); }
 .settings-section h3 { margin: 0 0 .5rem; }
 .settings-section > p { line-height: 1.6; }

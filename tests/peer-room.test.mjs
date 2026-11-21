@@ -5,6 +5,8 @@ import { setTimeout as sleep } from 'node:timers/promises';
 import fs from 'node:fs';
 import { PeerRoomClient, PEER_SESSION_KEY } from '../src/multiplayer/peer-room-client.js';
 import { commandContext,roomInvitation,invitationSettings } from '../src/multiplayer/network-config.js';
+import { RoomJournal } from '../src/ai/room-story.js';
+import { roomJournalView } from '../src/ui/room-view.js';
 
 const catalog=Object.fromEntries(['chapters','enemies'].map(name=>[name,JSON.parse(fs.readFileSync(new URL(`../src/data/${name}.json`,import.meta.url),'utf8')).data]));
 const storage=()=>{const values=new Map();return {getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,String(value)),removeItem:key=>values.delete(key)};};
@@ -85,4 +87,69 @@ test('guest departure frees a slot and host closure reaches all remaining peers'
 test('peer invitations contain only mode and room code, with no session token or paid server',()=>{
   const link=roomInvitation('https://yuiban76.github.io/7414/',null,'ABC234','peer');
   assert.deepEqual(invitationSettings(link),{code:'ABC234',mode:'peer'});assert.ok(!link.includes('token'));assert.ok(!link.includes('server'));
+});
+
+test('one shared journal records text, votes and original battle rounds without waiting for AI',async t=>{
+  const {client}=fixture(t), archiveStorage=storage(), calls=[];
+  let finishFirst;
+  const firstReply=new Promise(resolve=>{finishFirst=resolve;});
+  const host=client({journalStorage:archiveStorage,generateStory:async context=>{
+    calls.push(context);
+    if(calls.length===1)await firstReply;
+    const sourceIds=context.events.map(event=>event.id);
+    return JSON.stringify({story:'掌櫃放下水壺，請大家先坐。',notes:[{category:'待辦',text:'再問掌櫃一件事',sourceIds},{category:'線索',text:'沒有來源',sourceIds:[999]}]});
+  }}), guest=client();
+  await host.create({profile:{name:'房主'}});await guest.join(host.code,{name:'訪客'});await start(host,[guest]);
+  await assert.rejects(()=>guest.command('story-action',{action:'找掌櫃'}),/尚未開啟/);
+  assert.throws(()=>guest.enableStory(true),/只有在線房主/);
+  host.enableStory(true);
+  await guest.command('chat',{text:'private-team-chat'});
+  await guest.request('command',{type:'story-action',payload:{action:'我問掌櫃昨晚有誰來過。'}},'story-duplicate');
+  const duplicate=await guest.request('command',{type:'story-action',payload:{action:'替我重複'}},'story-duplicate');
+  assert.equal(duplicate.duplicate,true);
+  await waitFor(()=>guest.state.journal.writing);
+  await host.command('battle-open');await waitFor(()=>guest.state.battle);
+  await assert.rejects(()=>guest.command('story-action',{action:'用文字戰鬥'}),/戰鬥以外/);
+  for(let i=0;i<2;i++){
+    await guest.command('battle-action',{action:'skill'});await host.command('battle-action',{action:'skill'});
+    await host.command('battle-resolve');await waitFor(()=>guest.state.battle.presentationSequence===i+1);
+  }
+  assert.equal(host.state.battle.status,'victory');
+  await host.command('vote-start');await waitFor(()=>guest.state.vote);
+  const choiceId=host.state.vote.choices[0];
+  await guest.command('vote',{choiceId});await host.command('vote',{choiceId});await host.command('vote-resolve');
+  assert.equal(host.state.vote.result,choiceId);
+  assert.equal(calls.length,1,'model jobs should serialize and gameplay should continue');
+  finishFirst();await waitFor(()=>!guest.state.journal.pending);
+  const archive=await guest.exportJournal();
+  assert.deepEqual(archive.entries,(await host.exportJournal()).entries);
+  assert.equal(archive.entries.filter(event=>event.kind==='action').length,1);
+  assert.equal(archive.entries.filter(event=>event.kind==='battle-action').length,4);
+  assert.equal(archive.entries.filter(event=>event.kind==='battle-round').length,2);
+  assert.equal(archive.entries.filter(event=>event.kind==='vote-result').length,1);
+  assert.equal(calls.length,4);
+  assert.equal(calls[1].events.filter(event=>event.kind==='battle-action').length,2);
+  assert.doesNotMatch(JSON.stringify([calls,archive]),/private-team-chat|沒有來源|用文字戰鬥|替我重複/);
+  const html=roomJournalView({client:guest});
+  assert.match(html,/掌櫃放下水壺/);
+  assert.match(html,/data-journal-source="\d+"/);
+  assert.doesNotMatch(html,/data-action="room-story-toggle"/);
+  assert.deepEqual(RoomJournal.latest(archiveStorage).entries,archive.entries);
+});
+
+test('a model failure preserves inputs, survives host reload and retries in source order',async t=>{
+  const {client}=fixture(t), archiveStorage=storage();
+  const host=client({journalStorage:archiveStorage,generateStory:async()=>{throw Error('private-key-like-error');}}),guest=client();
+  await host.create();await guest.join(host.code);await start(host,[guest]);host.enableStory(true);
+  await guest.command('story-action',{action:'先等天亮'});await waitFor(()=>guest.state.journal.failed);
+  assert.doesNotMatch(JSON.stringify(guest.state),/private-key-like-error/);
+  await host.command('story-action',{action:'整理包裹'});
+  const saved=PeerRoomClient.savedSession(host.storage);host.suspend();
+  const generated=[];
+  const replacement=client({journalStorage:archiveStorage,generateStory:async context=>{generated.push(context.events.at(-1).text);return '{"story":"天色亮了。","notes":[]}';}});
+  await replacement.resume(saved);
+  await waitFor(()=>guest.connectionStatus==='connected'&&guest.state.journal.failed);
+  replacement.retryStory();await waitFor(()=>!guest.state.journal.pending);
+  assert.deepEqual(generated,['先等天亮','整理包裹']);
+  assert.equal((await guest.exportJournal()).entries.filter(entry=>entry.kind==='narration').length,2);
 });

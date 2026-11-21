@@ -1,6 +1,7 @@
 import { RoomController } from './room-controller.js';
 import { commandContext } from './network-config.js';
 import { safeId,text,assertPacket,cleanProfile,normalizeRoomCommand } from './room-protocol.js';
+import { RoomJournal, publicRoomEvent } from '../ai/room-story.js';
 
 export const PEER_SESSION_KEY='zhaoye:peer-room:v3';
 export const PEER_PROTOCOL=3;
@@ -22,8 +23,8 @@ export async function loadPeerSdk(){
 // The host browser is authoritative in this mode. The signalling service never
 // receives room state, player commands or session tokens.
 export class PeerRoomClient {
-  constructor({catalog,storage=globalThis.sessionStorage,Peer,peerOptions={},now=()=>Date.now(),timeoutMs=15000,retryBaseMs=500,reconnectWindowMs=60000,heartbeatMs=10000}={}){
-    Object.assign(this,{catalog,storage,Peer,peerOptions,now,timeoutMs,retryBaseMs,reconnectWindowMs,heartbeatMs});
+  constructor({catalog,storage=globalThis.sessionStorage,journalStorage=globalThis.localStorage,generateStory,Peer,peerOptions={},now=()=>Date.now(),timeoutMs=15000,retryBaseMs=500,reconnectWindowMs=60000,heartbeatMs=10000}={}){
+    Object.assign(this,{catalog,storage,journalStorage,generateStory,Peer,peerOptions,now,timeoutMs,retryBaseMs,reconnectWindowMs,heartbeatMs});
     this.mode='peer';this.state=null;this.playerId=null;this.isHost=false;this.connectionStatus='idle';this.connectionMessage='';
     this.subscribers=new Set();this.pending=new Map();this.sessions=new Map();this.channels=new Map();this.incoming=new Set();this.queue=Promise.resolve();this.closed=false;
     this.transport={close:()=>this.close()};this.hide=()=>this.suspend();globalThis.addEventListener?.('pagehide',this.hide);
@@ -36,7 +37,7 @@ export class PeerRoomClient {
   save(){
     if(!this.state||this.state.status==='closed')return;
     const value={protocolVersion:3,role:this.isHost?'host':'guest',roomId:this.state.roomId,playerId:this.playerId,savedAt:this.now()};
-    if(this.isHost){value.state=this.authority.state;value.sessions=[...this.sessions];}else value.token=this.token;
+    if(this.isHost){value.state=this.authority.state;value.sessions=[...this.sessions];value.archiveId=this.journal?.data.archiveId;}else value.token=this.token;
     try{this.storage?.setItem(PEER_SESSION_KEY,JSON.stringify(value));}catch{}
   }
   async openPeer(id){
@@ -70,6 +71,7 @@ export class PeerRoomClient {
       this.playerId='p_'+randomHex(12);this.authority=new RoomController({transport:{connect:async()=>{},send:async()=>{}},isHost:true,playerId:this.playerId,now:this.now});
       await this.authority.create({...options,worldName:text(options.worldName,'連線江湖',40),country,chapter,profile:cleanProfile(options.profile)});
       this.authority.state.roomId=this.code;this.authority.state.protocolVersion=3;this.sessions.set(this.playerId,{receipts:[]});
+      this.openJournal();
       this.publish();this.startTimers();this.notify('connected','WebRTC 已連線，房主分頁請保持開啟');return this.state;
     }catch(error){this.shutdown(error.message);throw error;}
   }
@@ -88,7 +90,8 @@ export class PeerRoomClient {
         const s=this.authority.state;if(s.status==='closed')throw new Error('房間已結束');
         if(s.status==='paused'){s.status=s.resumeStatus??'playing';s.reconnectDeadline=null;delete s.resumeStatus;}
         for(const player of Object.values(s.players))if(player.id!==this.playerId){player.connected=false;player.ready=false;player.reconnectDeadline=this.now()+Math.max(0,this.reconnectWindowMs-(this.now()-saved.savedAt));}
-        s.players[this.playerId].connected=true;s.players[this.playerId].reconnectDeadline=null;this.authority.bump('reconnect',this.playerId);this.publish();
+        s.players[this.playerId].connected=true;s.players[this.playerId].reconnectDeadline=null;this.authority.bump('reconnect',this.playerId);
+        this.openJournal(saved.archiveId);this.publish();void this.journal.pump();
       }else{
         this.playerId=saved.playerId;this.token=saved.token;await this.openPeer();await this.dial();this.acceptSession(await this.request('resume',{playerId:this.playerId,token:this.token}));
       }
@@ -97,10 +100,23 @@ export class PeerRoomClient {
   }
   acceptState(state){
     if(state?.protocolVersion!==3||state.roomId!==this.code||!Number.isInteger(state.revision)||!state.players)throw new Error('房間資料無效');
+    if(state.revision===this.state?.revision&&(state.journal?.sequence??0)<(this.state.journal?.sequence??0))return;
     if(!this.state||state.revision>=this.state.revision){this.state=structuredClone(state);this.emit();}
   }
   acceptSession({room,playerId,token}){this.playerId=playerId;this.token=token;this.acceptState(room);this.save();}
-  publish(){this.state=structuredClone(this.authority.state);this.save();for(const connection of this.channels.values())this.send(connection,{kind:'state',room:this.state});this.emit();}
+  openJournal(archiveId='j_'+randomHex(16)){
+    this.journal=new RoomJournal({roomId:this.code,archiveId,storage:this.journalStorage,now:this.now,generate:this.generateStory,changed:()=>this.publish()});
+  }
+  publish(){
+    this.state=structuredClone(this.authority.state);
+    if(this.journal){
+      this.journalSequence=(this.journalSequence??0)+1;
+      this.state.journal={...this.journal.view(),sequence:this.journalSequence};
+    }
+    this.save();
+    for(const connection of this.channels.values())this.send(connection,{kind:'state',room:this.state});
+    this.emit();
+  }
   send(connection,message){if(connection?.open){if((connection.bufferSize??0)>256){connection.close();return;}try{connection.send({...message,protocolVersion:3})?.catch?.(()=>connection.close());}catch{connection.close();}}}
   dial(){
     return new Promise((resolve,reject)=>{
@@ -176,6 +192,7 @@ export class PeerRoomClient {
     }
     if(!meta.playerId||!s.players[meta.playerId]||this.channels.get(meta.playerId)!==connection)throw new Error('請先加入房間');
     if(packet.kind==='ping')return {time:this.now()};
+    if(packet.kind==='journal-page')return this.journal.page(packet.after,packet.through);
     if(packet.kind==='leave'){
       this.authority.leave(meta.playerId);this.sessions.delete(meta.playerId);this.channels.delete(meta.playerId);meta.playerId=null;this.publish();return {left:true};
     }
@@ -187,14 +204,50 @@ export class PeerRoomClient {
     const prior=session.receipts.find(r=>r.id===packet.id);if(prior){if(prior.error)throw new Error(prior.error);return {duplicate:true,revision:prior.revision};}
     const before=structuredClone(this.authority.state);
     try{
-      const command=normalizeRoomCommand(this.authority.state,packet,this.catalog);this.authority.apply({...command,playerId});
-      session.receipts.push({id:packet.id,revision:this.authority.state.revision});session.receipts=session.receipts.slice(-128);this.publish();return {revision:this.state.revision};
+      const room=this.authority.state;
+      if(packet.type==='story-action'){
+        if(!room.players[playerId]?.connected||room.status!=='playing'||room.battle?.status==='active')throw new Error('自由行動可在隊伍出發後、戰鬥以外提交');
+        this.journal.action(room.players[playerId].name,packet.payload?.action);
+      }else{
+        const command={...normalizeRoomCommand(room,packet,this.catalog),playerId};
+        this.authority.apply(command);
+        this.journal.record(publicRoomEvent(command,before,room,this.catalog));
+      }
+      session.receipts.push({id:packet.id,revision:room.revision});session.receipts=session.receipts.slice(-128);
     }catch(error){this.authority.state=before;session.receipts.push({id:packet.id,error:error.message});session.receipts=session.receipts.slice(-128);this.save();throw error;}
+    this.publish();
+    void this.journal.pump();
+    return {revision:this.state.revision};
   }
   async command(type,payload={}){
     if(this.closed||this.connectionStatus!=='connected')throw new Error('正在重連，請等連線恢復後再操作');
     const packet={kind:'command',id:'r_'+randomHex(16),type,payload,context:commandContext(this.state,type)};
     if(this.isHost)return this.apply(this.playerId,packet);return this.request('command',packet,packet.id);
+  }
+  enableStory(enabled){
+    if(!this.isHost||this.closed||this.connectionStatus!=='connected')throw new Error('只有在線房主可以開關 AI 故事');
+    if(enabled&&!this.generateStory)throw new Error('請先設定 AI 模型');
+    this.journal.enable(enabled);
+    this.publish();
+    void this.journal.pump();
+  }
+  retryStory(){
+    if(!this.isHost||this.closed||this.connectionStatus!=='connected')throw new Error('只有在線房主可以重試 AI');
+    this.journal.retry();
+  }
+  async exportJournal(){
+    if(!this.state?.journal)throw new Error('這個房間沒有記事');
+    if(this.isHost){const {roomId,createdAt,entries}=this.journal.data;return {version:1,roomId,createdAt,entries:structuredClone(entries)};}
+    const through=this.state.journal.total;
+    const entries=[];
+    while(entries.length<through){
+      const page=await this.request('journal-page',{after:entries.length,through});
+      if(!Array.isArray(page)||!page.length||page.some((entry,index)=>entry.id!==entries.length+index+1)||entries.length+page.length>through)throw new Error('無法取得完整記事');
+      entries.push(...page);
+      // Stay below the same request-rate guard used for other peer commands.
+      if(entries.length<through)await new Promise(resolve=>setTimeout(resolve,80));
+    }
+    return {version:1,roomId:this.state.roomId,entries};
   }
   startTimers(){
     clearInterval(this.heartbeatTimer);this.heartbeatTimer=setInterval(()=>{
@@ -231,6 +284,7 @@ export class PeerRoomClient {
   }
   suspend(){this.save();this.shutdown('分頁已離開，可在一分鐘內重連');}
   shutdown(message){
+    this.journal?.close();
     this.closed=true;clearInterval(this.heartbeatTimer);clearTimeout(this.retryTimer);clearTimeout(this.signalTimer);clearTimeout(this.openTimer);this.retryTimer=null;
     this.openReject?.(new Error(message));this.openReject=null;this.dialReject?.(new Error(message));this.dialReject=null;
     for(const pending of this.pending.values()){clearTimeout(pending.timer);pending.reject(new Error(message));}this.pending.clear();
